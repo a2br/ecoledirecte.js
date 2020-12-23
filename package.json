@@ -1,5 +1,5 @@
 {
-	"name": "ed-api",
+	"name": "ecoledirecte.js",
 	"version": "0.0.1",
 	"description": "Good-looking client for EcoleDirecte's private API.",
 	"main": "dist/index.js",
