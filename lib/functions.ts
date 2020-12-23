@@ -11,7 +11,7 @@ import {
  * @returns EcoleDirecte `/v3/login.awp` response
  */
 export async function login(username: string, password: string) {
-	var urlencoded = new URLSearchParams();
+	let urlencoded = new URLSearchParams();
 	urlencoded.append(
 		"data",
 		JSON.stringify({
@@ -27,6 +27,16 @@ export async function login(username: string, password: string) {
 	});
 	let body: loginRes = await edRes.json();
 	return body;
+}
+
+export async function getTextBook(id: number, token: string, date?: string) {
+	let urlencoded = new URLSearchParams();
+	urlencoded.append(
+		"data",
+		JSON.stringify({
+			token,
+		})
+	);
 }
 
 /**
