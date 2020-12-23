@@ -2,6 +2,9 @@
 	"name": "ecoledirecte.js",
 	"version": "0.0.1",
 	"description": "Good-looking client for EcoleDirecte's private API.",
+	"repository": {
+		"url": "https://github.com/a2br/ecoledirecte.js"
+	},
 	"main": "dist/index.js",
 	"types": "dist/index.d.ts",
 	"keywords": [
