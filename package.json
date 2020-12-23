@@ -1,0 +1,28 @@
+{
+	"name": "ed-api",
+	"version": "0.0.1",
+	"description": "Good-looking client for EcoleDirecte's private API.",
+	"main": "dist/index.js",
+	"types": "dist/index.d.ts",
+	"keywords": [
+		"ecoledirecte"
+	],
+	"scripts": {
+		"prepublish": "npm run build",
+		"start": "tsc && node dist/index.js",
+		"build": "tsc",
+		"test": "echo \"Error: no test specified\" && exit 1"
+	},
+	"author": "a2br",
+	"license": "ISC",
+	"devDependencies": {
+		"@types/node-fetch": "^2.5.7",
+		"@typescript-eslint/eslint-plugin": "^4.11.0",
+		"@typescript-eslint/parser": "^4.11.0",
+		"eslint": "^7.16.0",
+		"typescript": "^4.1.3"
+	},
+	"dependencies": {
+		"node-fetch": "^2.6.1"
+	}
+}
