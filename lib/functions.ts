@@ -1,3 +1,4 @@
+import { default as fetch } from "node-fetch";
 import {
 	account,
 	studentAccount,
@@ -22,7 +23,7 @@ export async function login(username: string, password: string) {
 
 	let edRes = await fetch("https://api.ecoledirecte.com/v3/login.awp", {
 		method: "POST",
-		body: urlencoded as BodyInit,
+		body: urlencoded,
 	});
 	let body: loginRes = await edRes.json();
 	return body;
