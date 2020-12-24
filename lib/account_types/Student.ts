@@ -1,28 +1,33 @@
 import { htmlToText } from "html-to-text";
 
-import { Session } from "./Session";
-import { studentAccount } from "./types";
+import { Account } from "./Account";
+import { Session } from "../Session";
+
+import { _loginResSuccess, studentAccount } from "../types";
 import {
 	getMainAccount,
 	isStudentAccount,
-	loginFailed,
 	getTextbookPage,
 	textbookDateFailed,
-} from "./functions";
+} from "../functions";
 
-export class Student {
+export class Student extends Account {
+	public type: "student" = "student";
 	private account: studentAccount;
 	private token: string;
+
 	constructor(private session: Session) {
+		super(session);
 		const { username, password } = session.credentials;
 
-		// Necessary checks
-		if (!session.loginRes || loginFailed(session.loginRes))
-			throw Error("Student class must have valid connection");
-		const mainAccount = getMainAccount(session.loginRes.data.accounts);
+		const mainAccount = getMainAccount(
+			(session.loginRes as _loginResSuccess).data.accounts
+		);
+
 		if (!isStudentAccount(mainAccount))
-			throw Error("Student class's main account MUST be of type 'E'");
-		if (!session.token) throw Error("Student class MUST have token");
+			throw Error("Family class's main account is wrong");
+
+		if (!session.token) throw Error("Account class MUST have token");
 
 		this.account = mainAccount;
 		this.token = session.token;

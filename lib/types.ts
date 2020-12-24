@@ -17,7 +17,11 @@ export type _loginResFailure = {
 	message: string;
 };
 
-export type account = studentAccount | teacherAccount | staffAccount;
+export type account =
+	| studentAccount
+	| teacherAccount
+	| familyAccount
+	| staffAccount;
 
 export type studentAccount = {
 	/** Changes frequently. */
@@ -89,6 +93,63 @@ export type studentAccount = {
 		};
 	};
 };
+
+export type familyAccount = {
+	idLogin: number;
+	id: number;
+	uid: string;
+	identifiant: string;
+	typeCompte: "1";
+	codeOgec: string;
+	main: boolean;
+	lastConnexion: string;
+	civilite: string;
+	prenom: string;
+	particule: string;
+	nom: string;
+	email: string;
+	anneeScolaireCourante: string;
+	nomEtablissement: string;
+	logoEtablissement: string;
+	couleurAgendaEtablissement: string;
+	accessToken: string;
+	socketToken: string;
+	modules: Array<accountModule>;
+	parametresIndividuels: {
+		lsuPoilDansLaMainBorne1: string;
+		lsuPoilDansLaMainBorne2: string;
+		lsuPoilDansLaMainBorne3: string;
+		modeCalculLSU: string;
+		isQrcode: boolean;
+		modeAccessibiliteVisuelle: boolean;
+		typeSaisieNotesDefaut: string;
+		nbJoursMaxRenduDevoirCDT: string;
+		typeViewCDTDefaut: string;
+	};
+	profile: {
+		email: string;
+		telPortable: string;
+		telPortableConjoint: string;
+		eleves: Array<{
+			id: number;
+			prenom: string;
+			nom: string;
+			sexe: string;
+			infoEDT: string;
+			photo: string;
+			nomEtablissement: string;
+			idEtablissement: string;
+			idReelEtab: string;
+			modules: Array<accountModule>;
+			classe: {
+				id: number;
+				code: string;
+				libelle: string;
+			};
+		}>;
+	};
+};
+
 export type teacherAccount = {
 	idLogin: number;
 	id: number;

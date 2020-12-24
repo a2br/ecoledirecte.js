@@ -1,12 +1,15 @@
 import { _loginRes, account } from "./types";
 import {
 	getMainAccount,
+	isFamilyAccount,
+	isStaffAccount,
 	isStudentAccount,
+	isTeacherAccount,
 	login,
 	loginFailed,
 	loginSucceeded,
 } from "./functions";
-import { Student } from "./Student";
+import { Family, Staff, Student, Teacher } from "./account_types";
 
 export class Session {
 	private _username: string;
@@ -31,12 +34,20 @@ export class Session {
 		this.loginRes = loginRes;
 		if (loginFailed(loginRes))
 			throw Error(`API ERR: ${loginRes.code} | ${loginRes.message}`);
+
 		// Login succeeded
+
 		const account = getMainAccount(loginRes.data.accounts);
 		if (isStudentAccount(account)) {
 			return new Student(this);
+		} else if (isFamilyAccount(account)) {
+			return new Family(this);
+		} else if (isTeacherAccount(account)) {
+			return new Teacher(this);
+		} else if (isStaffAccount(account)) {
+			return new Staff(this);
 		} else {
-			throw Error(`ACCOUNTS OF TYPE '${account.typeCompte}' ARE NOT SUPPORTED`);
+			throw Error(`UNKNOWN ACCOUNT TYPE: '${(account as any).typeCompte}'`);
 		}
 	}
 
@@ -52,6 +63,6 @@ export class Session {
 	 * @returns EcoleDirecte auth token
 	 */
 	get token() {
-		return this.loginRes?.token || null;
+		return this.loginRes?.token;
 	}
 }

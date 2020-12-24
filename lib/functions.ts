@@ -2,6 +2,8 @@ import { default as fetch } from "node-fetch";
 import {
 	account,
 	studentAccount,
+	teacherAccount,
+	familyAccount,
 	_loginRes,
 	_loginResSuccess,
 	_loginResFailure,
@@ -9,6 +11,7 @@ import {
 	_textbookDateResSuccess,
 	_textbookDateResFailure,
 	_textbookRes,
+	staffAccount,
 } from "./types";
 
 /**
@@ -34,9 +37,16 @@ export async function login(username: string, password: string) {
 }
 
 /**
+ * @returns The main account of the array
+ */
+export function getMainAccount(accounts: Array<account>) {
+	const mainAccount = accounts.find((acc) => acc.main) || accounts[0] || null;
+	return mainAccount;
+}
+
+/**
  * @param id Account id
  * @param token Auth token
- * @param date Date of the textbook page (YYYY-MM-DD)
  */
 export async function getTextbook(id: number, token: string) {
 	let urlencoded = new URLSearchParams();
@@ -58,6 +68,11 @@ export async function getTextbook(id: number, token: string) {
 	return body;
 }
 
+/**
+ * @param id Account id
+ * @param token Auth token
+ * @param date Date of the textbook page (YYYY-MM-DD)
+ */
 export async function getTextbookPage(id: number, token: string, date: string) {
 	let urlencoded = new URLSearchParams();
 	urlencoded.append(
@@ -75,14 +90,6 @@ export async function getTextbookPage(id: number, token: string, date: string) {
 	);
 	let body: _textbookDateRes = await edRes.json();
 	return body;
-}
-
-/**
- * @returns The main account of the array
- */
-export function getMainAccount(accounts: Array<account>) {
-	const mainAccount = accounts.find((acc) => acc.main) || accounts[0] || null;
-	return mainAccount;
 }
 
 //! TYPE GUARDS
@@ -110,6 +117,27 @@ export function loginFailed(loginRes: _loginRes): loginRes is _loginResFailure {
  */
 export function isStudentAccount(account: account): account is studentAccount {
 	return account.typeCompte === "E";
+}
+
+/**
+ * @returns Whether `account` is `teacherAccount`
+ */
+export function isTeacherAccount(account: account): account is teacherAccount {
+	return account.typeCompte === "P";
+}
+
+/**
+ * @returns Whether `account` is `familyAccount`
+ */
+export function isFamilyAccount(account: account): account is familyAccount {
+	return account.typeCompte === "1";
+}
+
+/**
+ * @returns Whether `account` is `staffAccount`
+ */
+export function isStaffAccount(account: account): account is staffAccount {
+	return account.typeCompte === "A";
 }
 
 //? TEXTBOOK DATE
