@@ -10,7 +10,7 @@ Here's a quick example on how to get the homework of a day.
 
 ```javascript
 // Import 'Session' class from ed.js
-import { Session } from "ecoledirecte.js";
+import { Session, accounts } from "ecoledirecte.js";
 
 async function getHomework(username, password, date) {
 	// Create a new Session. As long as it doesn't
