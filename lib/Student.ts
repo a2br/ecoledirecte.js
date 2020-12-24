@@ -1,3 +1,5 @@
+import { htmlToText } from "html-to-text";
+
 import { Session } from "./Session";
 import { studentAccount } from "./types";
 import {
@@ -40,7 +42,13 @@ export class Student {
 			prof: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
 			contenuDeSeance: {
 				idDevoir: v.contenuDeSeance.idDevoir,
-				contenu: Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
+				contenu: {
+					original: v.contenuDeSeance.contenu,
+					html: Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
+					text: htmlToText(
+						Buffer.from(v.contenuDeSeance.contenu, "base64").toString()
+					),
+				},
 				documents: v.contenuDeSeance.documents,
 			},
 			_raw: v,
