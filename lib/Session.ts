@@ -10,7 +10,7 @@ export class Session {
 	 * @async
 	 * @returns EcoleDirecte login response
 	 */
-	public loginRes: Promise<loginRes>;
+	public loginRes: Promise<_loginRes>;
 
 	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);
