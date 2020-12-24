@@ -1,24 +1,43 @@
-import { _loginRes } from "./types";
-import { login } from "./functions";
+import { _loginRes, account } from "./types";
+import {
+	getMainAccount,
+	isStudentAccount,
+	login,
+	loginFailed,
+	loginSucceeded,
+} from "./functions";
+import { Student } from "./Student";
 
 export class Session {
 	private _username: string;
 	private _password: string;
-	private _token: Promise<string>;
-
+	private _loggedIn: boolean = false;
 	/**
 	 * @async
 	 * @returns EcoleDirecte login response
 	 */
-	public loginRes: Promise<_loginRes>;
+	public loginRes: _loginRes | null = null;
 
 	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);
-		let loginRes = login(username, password);
+	}
+
+	async login() {
+		this._loggedIn = true;
+
+		const { _username: username, _password: password } = this;
+		let loginRes = await login(username, password);
+
 		this.loginRes = loginRes;
-		this._token = new Promise(async (resolve) => {
-			resolve((await loginRes).token);
-		});
+		if (loginFailed(loginRes))
+			throw Error(`API ERR: ${loginRes.code} | ${loginRes.message}`);
+		// Login succeeded
+		const account = getMainAccount(loginRes.data.accounts);
+		if (isStudentAccount(account)) {
+			return new Student(this);
+		} else {
+			throw Error(`ACCOUNTS OF TYPE '${account.typeCompte}' ARE NOT SUPPORTED`);
+		}
 	}
 
 	/**
@@ -33,6 +52,6 @@ export class Session {
 	 * @returns EcoleDirecte auth token
 	 */
 	get token() {
-		return this._token;
+		return this.loginRes?.token || null;
 	}
 }

@@ -185,7 +185,9 @@ export type accountModule = {
 
 //? WITH DATE
 
-export type _textbookDateRes = _textbookDateResSuccess | _textbookDateResFailure;
+export type _textbookDateRes =
+	| _textbookDateResSuccess
+	| _textbookDateResFailure;
 
 export type _textbookDateResSuccess = {
 	code: 200;
@@ -247,12 +249,7 @@ export type _textbookResFailure = {
 	code: number;
 	token: "";
 	host: string;
-
-	/**
-	 * UNPREDICTABLE KEYS
-	 * @example data["2020-01-14"]; data["2021-01-04"]
-	 */
-	data: any;
+	data: {};
 };
 
 export type _textbookAssignement = {
