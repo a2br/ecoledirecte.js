@@ -134,17 +134,6 @@ export function isFailure(data: any): data is _failureRes {
 	}
 }
 
-//? LOGIN
-
-/**
- * @returns Whether the given response is successful
- */
-export function loginSucceeded(
-	loginRes: _loginRes
-): loginRes is _loginResSuccess {
-	return "data" in loginRes && loginRes.code == 200;
-}
-
 /**
  * @returns Whether `account` is `studentAccount`
  */
@@ -171,15 +160,4 @@ export function isFamilyAccount(account: account): account is familyAccount {
  */
 export function isStaffAccount(account: account): account is staffAccount {
 	return account.typeCompte === "A";
-}
-
-//? TEXTBOOK DATE
-
-/**
- * @returns Whether the given response is a success
- */
-export function textbookDateSucceeded(
-	textbookDateRes: _textbookDateRes
-): textbookDateRes is _textbookDateResSuccess {
-	return textbookDateRes.code === 200 && !!textbookDateRes.token;
 }
