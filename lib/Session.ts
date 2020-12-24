@@ -1,4 +1,4 @@
-import { loginRes } from "./types";
+import { _loginRes } from "./types";
 import { login } from "./functions";
 
 export class Session {
