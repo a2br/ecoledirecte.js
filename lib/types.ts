@@ -1,6 +1,8 @@
-export type loginRes = successLoginRes | failLoginRes;
+//! LOGIN REQ
 
-export type successLoginRes = {
+export type loginRes = loginResSuccess | loginResFail;
+
+export type loginResSuccess = {
 	code: 200;
 	token: string;
 	message: "";
@@ -8,7 +10,7 @@ export type successLoginRes = {
 		accounts: Array<account>;
 	};
 };
-export type failLoginRes = {
+export type loginResFail = {
 	code: number;
 	token: "";
 	host?: string;
@@ -178,3 +180,19 @@ export type accountModule = {
 	badge: number;
 	params: object;
 };
+
+//! TEXTBOOK REQ
+
+//? WITH DATE
+
+export type textbookResDate = {
+	code: 200;
+	token: string;
+	host: string;
+	data: {
+		date: string;
+		matieres: Array<textbookDateAssignement>;
+	};
+};
+
+export type textbookDateAssignement = {};

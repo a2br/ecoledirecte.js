@@ -28,10 +28,11 @@ export async function login(username: string, password: string) {
 	let body: loginRes = await edRes.json();
 	return body;
 }
+
 /**
  * @param id Account id
  * @param token Auth token
- * @param date Date of the textbook page
+ * @param date Date of the textbook page (YYYY-MM-DD)
  */
 export async function getTextbook(id: number, token: string, date?: string) {
 	let urlencoded = new URLSearchParams();
@@ -41,6 +42,17 @@ export async function getTextbook(id: number, token: string, date?: string) {
 			token,
 		})
 	);
+
+	if (date) {
+		let edRes = fetch(
+			`https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte/${date}.awp?verbe=get&`,
+			{
+				method: "POST",
+				body: urlencoded,
+			}
+		);
+	} else {
+	}
 }
 
 /**
