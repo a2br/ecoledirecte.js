@@ -124,13 +124,10 @@ export async function getMessages(
 
 //! TYPE GUARDS
 
-export function isFailure(edRes: any): edRes is _failureRes {
+export function isFailure(data: any): data is _failureRes {
 	try {
 		return (
-			edRes.token === "" ||
-			edRes.code !== 200 ||
-			!edRes.data ||
-			!edRes.data.accounts
+			!data.token && data.code !== 200 && (!data.data || !data.data.accounts)
 		);
 	} catch {
 		return true;
