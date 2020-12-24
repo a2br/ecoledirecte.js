@@ -1,8 +1,8 @@
 //! LOGIN REQ
 
-export type loginRes = loginResSuccess | loginResFail;
+export type _loginRes = _loginResSuccess | _loginResFailure;
 
-export type loginResSuccess = {
+export type _loginResSuccess = {
 	code: 200;
 	token: string;
 	message: "";
@@ -10,7 +10,7 @@ export type loginResSuccess = {
 		accounts: Array<account>;
 	};
 };
-export type loginResFail = {
+export type _loginResFailure = {
 	code: number;
 	token: "";
 	host?: string;
@@ -185,14 +185,84 @@ export type accountModule = {
 
 //? WITH DATE
 
-export type textbookResDate = {
+export type _textbookDateRes = _textbookDateResSuccess | _textbookDateResFailure;
+
+export type _textbookDateResSuccess = {
 	code: 200;
 	token: string;
 	host: string;
 	data: {
 		date: string;
-		matieres: Array<textbookDateAssignement>;
+		matieres: Array<_textbookDateAssignement>;
 	};
 };
 
-export type textbookDateAssignement = {};
+export type _textbookDateResFailure = {
+	code: number;
+	token: "";
+	message: string;
+	data: {
+		accounts: [];
+	};
+};
+
+type _textbookDateAssignement = {
+	entityCode: string;
+	entityLibelle: string;
+	entityType: string;
+	matiere: string;
+	codeMatiere: string;
+	nomProf: string;
+	id: number;
+	interrogation: boolean;
+	blogActif: boolean;
+	nbJourMaxRenduDevoir: number;
+	contenuDeSeance: {
+		idDevoir: number;
+		/** BASE64 */
+		contenu: string;
+		documents: Array<unknown>;
+		elementsProg: Array<unknown>;
+		liensManuel: Array<unknown>;
+	};
+};
+
+//? WITHOUT DATE
+
+export type _textbookRes = _textbookResSuccess | _textbookResFailure;
+
+export type _textbookResSuccess = {
+	code: 200;
+	token: string;
+	host: string;
+
+	/**
+	 * UNPREDICTABLE KEYS
+	 * @example data["2020-01-14"]: Arrray<_textbookAssignement>
+	 */
+	data: any;
+};
+
+export type _textbookResFailure = {
+	code: number;
+	token: "";
+	host: string;
+
+	/**
+	 * UNPREDICTABLE KEYS
+	 * @example data["2020-01-14"]; data["2021-01-04"]
+	 */
+	data: any;
+};
+
+export type _textbookAssignement = {
+	matiere: string;
+	codeMatiere: string;
+	aFaire: boolean;
+	idDevoir: number;
+	documentsAFaire: boolean;
+	donneLe: string;
+	effectue: boolean;
+	interrogation: boolean;
+	rendreEnLigne: boolean;
+};

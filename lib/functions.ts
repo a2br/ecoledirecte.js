@@ -2,9 +2,13 @@ import { default as fetch } from "node-fetch";
 import {
 	account,
 	studentAccount,
-	loginRes,
-	successLoginRes,
-	failLoginRes,
+	_loginRes,
+	_loginResSuccess,
+	_loginResFailure,
+	_textbookDateRes,
+	_textbookDateResSuccess,
+	_textbookDateResFailure,
+	_textbookRes,
 } from "./types";
 
 /**
@@ -25,7 +29,7 @@ export async function login(username: string, password: string) {
 		method: "POST",
 		body: urlencoded,
 	});
-	let body: loginRes = await edRes.json();
+	let body: _loginRes = await edRes.json();
 	return body;
 }
 
@@ -44,14 +48,25 @@ export async function getTextbook(id: number, token: string, date?: string) {
 	);
 
 	if (date) {
-		let edRes = fetch(
-			`https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte/${date}.awp?verbe=get&`,
+		let edRes = await fetch(
+			`https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte/${date}.awp?verbe=get`,
 			{
 				method: "POST",
 				body: urlencoded,
 			}
 		);
+		let body: _textbookDateRes = await edRes.json();
+		return body;
 	} else {
+		let edRes = await fetch(
+			`https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=get`,
+			{
+				method: "POST",
+				body: urlencoded,
+			}
+		);
+		let body: _textbookRes = await edRes.json();
+		return body;
 	}
 }
 
@@ -65,19 +80,21 @@ export function getMainAccount(accounts: Array<account>) {
 
 //! TYPE GUARDS
 
+//? LOGIN
+
 /**
  * @returns Whether the given response is successful
  */
 export function loginSucceeded(
-	loginRes: loginRes
-): loginRes is successLoginRes {
+	loginRes: _loginRes
+): loginRes is _loginResSuccess {
 	return "data" in loginRes && loginRes.code == 200;
 }
 
 /**
  * @returns Whether the given response is a failure
  */
-export function loginFailed(loginRes: loginRes): loginRes is failLoginRes {
+export function loginFailed(loginRes: _loginRes): loginRes is _loginResFailure {
 	return !loginSucceeded(loginRes);
 }
 
@@ -86,4 +103,24 @@ export function loginFailed(loginRes: loginRes): loginRes is failLoginRes {
  */
 export function isStudentAccount(account: account): account is studentAccount {
 	return account.typeCompte === "E";
+}
+
+//? TEXTBOOK DATE
+
+/**
+ * @returns Whether the given response is a success
+ */
+export function textbookDateSucceeded(
+	textbookDateRes: _textbookDateRes
+): textbookDateRes is _textbookDateResSuccess {
+	return textbookDateRes.code === 200 && !!textbookDateRes.token;
+}
+
+/**
+ * @returns Whether the given response is a failure
+ */
+export function textbookDateFailed(
+	textbookDateRes: _textbookDateRes
+): textbookDateRes is _textbookDateResFailure {
+	return textbookDateRes.code !== 200 && !textbookDateRes.token;
 }
