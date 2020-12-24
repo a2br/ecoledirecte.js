@@ -1,6 +1,18 @@
+//! GENERAL
+
+export type _failureRes = {
+	code: number;
+	token: "";
+	host?: string;
+	message: string;
+	data?: {
+		accounts?: [];
+	};
+};
+
 //! LOGIN REQ
 
-export type _loginRes = _loginResSuccess | _loginResFailure;
+export type _loginRes = _loginResSuccess | _failureRes;
 
 export type _loginResSuccess = {
 	code: 200;
@@ -9,12 +21,6 @@ export type _loginResSuccess = {
 	data: {
 		accounts: Array<account>;
 	};
-};
-export type _loginResFailure = {
-	code: number;
-	token: "";
-	host?: string;
-	message: string;
 };
 
 export type account =
@@ -246,9 +252,7 @@ export type accountModule = {
 
 //? WITH DATE
 
-export type _textbookDateRes =
-	| _textbookDateResSuccess
-	| _textbookDateResFailure;
+export type _textbookDateRes = _textbookDateResSuccess | _failureRes;
 
 export type _textbookDateResSuccess = {
 	code: 200;
@@ -257,15 +261,6 @@ export type _textbookDateResSuccess = {
 	data: {
 		date: string;
 		matieres: Array<_textbookDateAssignement>;
-	};
-};
-
-export type _textbookDateResFailure = {
-	code: number;
-	token: "";
-	message: string;
-	data: {
-		accounts: [];
 	};
 };
 
@@ -292,7 +287,7 @@ type _textbookDateAssignement = {
 
 //? WITHOUT DATE
 
-export type _textbookRes = _textbookResSuccess | _textbookResFailure;
+export type _textbookRes = _textbookResSuccess | _failureRes;
 
 export type _textbookResSuccess = {
 	code: 200;
@@ -306,13 +301,6 @@ export type _textbookResSuccess = {
 	data: any;
 };
 
-export type _textbookResFailure = {
-	code: number;
-	token: "";
-	host: string;
-	data: {};
-};
-
 export type _textbookAssignement = {
 	matiere: string;
 	codeMatiere: string;
@@ -323,4 +311,76 @@ export type _textbookAssignement = {
 	effectue: boolean;
 	interrogation: boolean;
 	rendreEnLigne: boolean;
+};
+
+//! MAILBOX
+
+export type _mailboxRes = _mailboxResSuccess | _failureRes;
+
+export type _mailboxResSuccess = {
+	code: 200;
+	token: string;
+	host: string;
+	data: {
+		classeurs: Array<unknown>;
+		messages: {
+			received: Array<any>;
+			sent: Array<any>;
+			archived: Array<any>;
+		};
+		parametrage: {
+			isActif: boolean;
+			canParentsLireMessagesEnfants: boolean;
+			destAdmin: boolean;
+			destEleve: boolean;
+			destFamille: boolean;
+			destProf: boolean;
+			destEspTravail: boolean;
+			disabledNotification: boolean;
+			notificationEmailEtablissement: boolean;
+			choixMailNotification: number;
+			autreMailNotification: string;
+			mailPro: string;
+			mailPerso: string;
+			messagerieApiVersion: string;
+			blackListProfActive: boolean;
+			estEnBlackList: boolean;
+			afficherToutesLesClasses: boolean;
+		};
+	};
+};
+
+type _mailboxResMessage = {
+	id: number;
+	mtype: "received" | "sent";
+	read: boolean;
+	idDossier: number;
+	idClasseur: number;
+	transferred: boolean;
+	answered: boolean;
+	to_cc_cci: "to" | "cc" | "cci";
+	subject: string;
+	content: string;
+	date: string;
+	to: Array<unknown>;
+	files: Array<{
+		id: number;
+		libelle: string;
+		date: string;
+		type: string;
+		signatureDemandee: boolean;
+		signature: unknown; // {}
+	}>;
+	from: {
+		name: string;
+		nom: string;
+		prenom: string;
+		particule: string;
+		civilite: string;
+		role: string; // Probably E, P, A...
+		listeRoute: boolean;
+		id: number;
+		read: boolean;
+		fonctionPersonnel: string;
+	};
 };

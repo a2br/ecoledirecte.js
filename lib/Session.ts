@@ -1,13 +1,12 @@
 import { _loginRes, account } from "./types";
 import {
 	getMainAccount,
+	isFailure,
 	isFamilyAccount,
 	isStaffAccount,
 	isStudentAccount,
 	isTeacherAccount,
 	login,
-	loginFailed,
-	loginSucceeded,
 } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
 
@@ -32,7 +31,7 @@ export class Session {
 		let loginRes = await login(username, password);
 
 		this.loginRes = loginRes;
-		if (loginFailed(loginRes))
+		if (isFailure(loginRes))
 			throw Error(`API ERR: ${loginRes.code} | ${loginRes.message}`);
 
 		// Login succeeded

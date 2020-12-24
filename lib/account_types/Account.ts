@@ -1,6 +1,6 @@
 import { Session } from "../Session";
 import { account } from "../types";
-import { getMainAccount, loginFailed } from "../functions";
+import { getMainAccount, isFailure } from "../functions";
 
 export class Account {
 	private __account: account;
@@ -9,8 +9,9 @@ export class Account {
 		const { username, password } = session.credentials;
 
 		// Necessary checks
-		if (!session.loginRes || loginFailed(session.loginRes))
+		if (!session.loginRes || isFailure(session.loginRes))
 			throw Error("Account class must have valid connection");
+
 		const mainAccount = getMainAccount(session.loginRes.data.accounts);
 
 		if (!session.token) throw Error("Account class MUST have token");

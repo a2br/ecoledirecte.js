@@ -8,7 +8,7 @@ import {
 	getMainAccount,
 	isStudentAccount,
 	getTextbookPage,
-	textbookDateFailed,
+	isFailure,
 } from "../functions";
 
 export class Student extends Account {
@@ -35,7 +35,7 @@ export class Student extends Account {
 
 	async getHomework(date: string) {
 		const textbook = await getTextbookPage(this.account.id, this.token, date);
-		if (textbookDateFailed(textbook)) throw Error("API ERR; " + textbook);
+		if (isFailure(textbook)) throw Error("API ERR; " + textbook);
 		const homework = textbook.data.matieres;
 		return homework.map((v) => ({
 			id: v.id,
@@ -51,7 +51,10 @@ export class Student extends Account {
 					original: v.contenuDeSeance.contenu,
 					html: Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
 					text: htmlToText(
-						Buffer.from(v.contenuDeSeance.contenu, "base64").toString()
+						Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
+						{
+							wordwrap: false,
+						}
 					),
 				},
 				documents: v.contenuDeSeance.documents,
@@ -59,4 +62,6 @@ export class Student extends Account {
 			_raw: v,
 		}));
 	}
+
+	async getMessages(direction: "received" | "sent" = "received") {}
 }

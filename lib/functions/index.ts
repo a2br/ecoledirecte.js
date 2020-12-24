@@ -4,16 +4,19 @@ import {
 	studentAccount,
 	teacherAccount,
 	familyAccount,
+	_failureRes,
 	_loginRes,
 	_loginResSuccess,
-	_loginResFailure,
 	_textbookDateRes,
 	_textbookDateResSuccess,
-	_textbookDateResFailure,
 	_textbookRes,
 	staffAccount,
-} from "./types";
+	_mailboxRes,
+} from "../types";
 
+//! FUNCTIONS
+
+//? LOGIN
 /**
  * @returns EcoleDirecte `/v3/login.awp` response
  */
@@ -43,6 +46,8 @@ export function getMainAccount(accounts: Array<account>) {
 	const mainAccount = accounts.find((acc) => acc.main) || accounts[0] || null;
 	return mainAccount;
 }
+
+//? TEXTBOOK
 
 /**
  * @param id Account id
@@ -92,7 +97,45 @@ export async function getTextbookPage(id: number, token: string, date: string) {
 	return body;
 }
 
+//? MAILBOX
+
+export async function getMessages(
+	id: number,
+	token: string,
+	direction: "received" | "sent" = "received"
+) {
+	let urlencoded = new URLSearchParams();
+	urlencoded.append(
+		"data",
+		JSON.stringify({
+			token: token,
+		})
+	);
+	let edRes = await fetch(
+		`https://api.ecoledirecte.com/v3/eleves/${id}/messages.awp?verbe=getall&typeRecuperation=${direction}&orderBy=date&order=desc&page=0&itemsPerPage=100&onlyRead=&query=&idClasseur=0`,
+		{
+			method: "POST",
+			body: urlencoded,
+		}
+	);
+	let body: _mailboxRes = await edRes.json();
+	return body;
+}
+
 //! TYPE GUARDS
+
+export function isFailure(edRes: any): edRes is _failureRes {
+	try {
+		return (
+			edRes.token === "" ||
+			edRes.code !== 200 ||
+			!edRes.data ||
+			!edRes.data.accounts
+		);
+	} catch {
+		return true;
+	}
+}
 
 //? LOGIN
 
@@ -103,13 +146,6 @@ export function loginSucceeded(
 	loginRes: _loginRes
 ): loginRes is _loginResSuccess {
 	return "data" in loginRes && loginRes.code == 200;
-}
-
-/**
- * @returns Whether the given response is a failure
- */
-export function loginFailed(loginRes: _loginRes): loginRes is _loginResFailure {
-	return !loginSucceeded(loginRes);
 }
 
 /**
@@ -149,13 +185,4 @@ export function textbookDateSucceeded(
 	textbookDateRes: _textbookDateRes
 ): textbookDateRes is _textbookDateResSuccess {
 	return textbookDateRes.code === 200 && !!textbookDateRes.token;
-}
-
-/**
- * @returns Whether the given response is a failure
- */
-export function textbookDateFailed(
-	textbookDateRes: _textbookDateRes
-): textbookDateRes is _textbookDateResFailure {
-	return textbookDateRes.code !== 200 && !textbookDateRes.token;
 }
