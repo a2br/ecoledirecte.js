@@ -1,4 +1,4 @@
-import { Session } from "../lib/index";
+import { Session } from "../lib";
 
 const session = new Session("EDELEVE", "0");
 const account = session.login();
