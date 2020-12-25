@@ -19,7 +19,13 @@ export class Account {
 		this.__account = mainAccount;
 	}
 
-	get doc() {
+	get _raw() {
 		return this.__account;
+	}
+	/**
+	 * @deprecated In favor of `_raw`
+	 */
+	get doc() {
+		return this._raw;
 	}
 }
