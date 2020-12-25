@@ -126,9 +126,7 @@ export async function getMessages(
 
 export function isFailure(data: any): data is _failureRes {
 	try {
-		return (
-			!data.token && data.code !== 200 && (!data.data || !data.data.accounts)
-		);
+		return !data.token && data.code !== 200;
 	} catch {
 		return true;
 	}
