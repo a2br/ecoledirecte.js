@@ -3,13 +3,13 @@ import { htmlToText } from "html-to-text";
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, studentAccount } from "../types";
 import {
-	getMainAccount,
+	_loginResSuccess,
+	studentAccount,
 	isStudentAccount,
-	getTextbookPage,
 	isFailure,
-} from "../functions";
+} from "../types";
+import { getMainAccount, getTextbookPage } from "../functions";
 
 export class Student extends Account {
 	public type: "student" = "student";

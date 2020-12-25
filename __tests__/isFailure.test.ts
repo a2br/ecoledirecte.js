@@ -1,9 +1,7 @@
 import * as fs from "fs";
 import * as path from "path";
 
-import { isFailure } from "../lib/functions";
-
-import { _loginRes } from "../lib/types";
+import { _loginRes, isFailure } from "../lib/types";
 
 const getDirectories = (srcPath: string) =>
 	fs

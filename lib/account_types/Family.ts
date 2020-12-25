@@ -1,8 +1,8 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, familyAccount } from "../types";
-import { getMainAccount, isFamilyAccount } from "../functions";
+import { _loginResSuccess, familyAccount, isFamilyAccount } from "../types";
+import { getMainAccount } from "../functions";
 
 export class Family extends Account {
 	public type: "family" = "family";

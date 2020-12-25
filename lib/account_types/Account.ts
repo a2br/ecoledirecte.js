@@ -1,6 +1,6 @@
 import { Session } from "../Session";
-import { account } from "../types";
-import { getMainAccount, isFailure } from "../functions";
+import { account, isFailure } from "../types";
+import { getMainAccount } from "../functions";
 
 export class Account {
 	private __account: account;

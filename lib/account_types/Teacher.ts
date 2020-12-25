@@ -1,8 +1,8 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, teacherAccount } from "../types";
-import { getMainAccount, isTeacherAccount } from "../functions";
+import { _loginResSuccess, teacherAccount, isTeacherAccount } from "../types";
+import { getMainAccount } from "../functions";
 
 export class Teacher extends Account {
 	public type: "teacher" = "teacher";

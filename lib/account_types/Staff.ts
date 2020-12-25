@@ -1,8 +1,8 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, staffAccount } from "../types";
-import { getMainAccount, isStaffAccount } from "../functions";
+import { _loginResSuccess, staffAccount, isStaffAccount } from "../types";
+import { getMainAccount } from "../functions";
 
 export class Staff extends Account {
 	public type: "staff" = "staff";

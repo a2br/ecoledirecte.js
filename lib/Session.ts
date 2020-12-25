@@ -1,13 +1,13 @@
-import { _loginRes, account } from "./types";
 import {
-	getMainAccount,
+	_loginRes,
+	account,
 	isFailure,
 	isFamilyAccount,
 	isStaffAccount,
 	isStudentAccount,
 	isTeacherAccount,
-	login,
-} from "./functions";
+} from "./types";
+import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
 
 export class Session {
