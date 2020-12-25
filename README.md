@@ -1,4 +1,4 @@
-# ecoledirecte.js
+# ecoledirecte.js &middot; ![GitHub](https://img.shields.io/github/license/a2br/ecoledirecte.js) ![npm](https://img.shields.io/npm/v/ecoledirecte.js) ![npm](https://img.shields.io/npm/dw/ecoledirecte.js) 
 
 Browse EcoleDirecte's private API with the module of your dreams. But first, [read the docs](https://edjs.gitbook.io/).
 
