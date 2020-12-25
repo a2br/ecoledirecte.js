@@ -1,4 +1,4 @@
-import { default as fetch } from "node-fetch";
+import fetch from "node-fetch";
 
 import { _textbookRes, _textbookDateRes } from "../../types";
 
