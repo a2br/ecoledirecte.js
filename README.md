@@ -1,6 +1,6 @@
 # ecoledirecte.js
 
-Browse EcoleDirecte's private API with the module of your dreams.
+Browse EcoleDirecte's private API with the module of your dreams. But first, [read the docs](https://edjs.gitbook.io/).
 
 `ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added.
 
