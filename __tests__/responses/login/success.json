@@ -1,0 +1,307 @@
+[
+	{
+		"code": 200,
+		"token": "5244513564326b7a4d45396c63566c685256427854584d79654852345445464f54556c59515656505a576f30546d4630596c4a584e6c684e53486c6d567a64564d3274695356464d61325a42576a42710d0a556b397655564234526d7731565459765a32316a57553030576e494e436b4932516b687a516b523063475257563278796347526d4d6b5176635746514e6b704e515464575a584675597a523552554e730d0a4b3073334e5752304b7a6872535735595347396c525646705a3239445645644c64446c5254573148626a6c545757465055334272537a426d445170455431467962566c774e453175556e4e545a6a64690d0a51306c725a7a4e6159576c444d444e475231466b63484a4763484e705a5652564e6d3931646a55354e43394a5579395356476c7355335a54575752775645526d4e564d33596a64336431517a59566c520d0a616a49795977304b4e3251765a6c4a3055324e3553564e6f53304572656b7450526d706c64584e724d6b394d54484654624442796544467a4f5752434e484931656b565461566c794d6e4e4759586f770d0a61314e6c5757357856555a4d4e545a31636b6473656b396e65485273565667314d58494e436c46534d7a4e59546b7076636e6c4f57546c7554307735596e567a596c4e6d62576444596c6b79523156460d0a6158466b625774554f48706c4e6a466e556b70324d47354c4e444a6a4d6c4a6b5532644264584a5056793955576d78744d566c6c4d464642576e497756454636445170476455744a643268594d6a4a550d0a4d7a517a53464232536b5a4c64306c505648684b625842484d4338775a6b6b78626d314e51553432556d6c4f4b33417a534670524d5374496445465861336474567a513161303146576d5a6e63485a7a0d0a4d455a75536e526e57466f325541304b644539325669745a65544270615373794e33704252304a71536b4a73636c52554c316835526b6c346432783464455a4f517a426a5458684f4e5664556147354c0d0a6231645152476c485658647654465a61576b35545446424d4d544657525568705930566c656b39425455594e436b5252636d3957616b6c3353314e434e6974446155357756544131516a465354586c4c0d0a55584d34557a5a4a536c68594f4535774f474a4b54464e6d616d6846567a5a586156673052555261636b5a435a453032516b467a57476830596c637761307777624339795a46425144516f7954586c760d0a62445678617939456154673153474e3455575a315969387a51315a564f45566a6357307a534549314e556c364e44453464693945595664715a3278344f4664755a545236596939514e6a4e54655755310d0a536c5a795547685863455a4654326834527a6b325151304b6130787863437432556a6472617a4a3365567050636d567353445a444e586861646d4e50574578474e6b4e7956566b335457567757445a440d0a596b6873526d646a54444e305357314d4d7a4e7359315a59624463765633426854476432527a56324e6d4e594e5764794d30594e436b31434e797449556b5a476230347762565a74546a4e5a524763330d0a4f584a59576c6c52556c4972616b5a715a6e517a536e51354d6c4a6e613235784d315a784d444a506448683052444d31633259785645646a4d48647963484a6c56476f315a30644564335234626d4e610d0a44516f325a54466863324a57536c686e63486c6c6143395a5354525a575656796132466f4c324e71574339444f584275533152305658427959585a785a455a7863456b7865575a454c33425064454a550d0a5551",
+		"message": "",
+		"data": {
+			"accounts": [
+				{
+					"idLogin": 1876668,
+					"id": 4179,
+					"uid": "f37b499204ae480baf234fd927fef2b4",
+					"identifiant": "EDELEVE",
+					"typeCompte": "E",
+					"codeOgec": "073TEST2",
+					"main": true,
+					"lastConnexion": "2020-12-25 11:43",
+					"civilite": "",
+					"prenom": "Harry",
+					"particule": "",
+					"nom": "POTTER",
+					"email": "demo@demo.fr",
+					"anneeScolaireCourante": "2020-2021",
+					"nomEtablissement": "Ensemble Scolaire POUDLARD",
+					"logoEtablissement": "\\\\FTP01\\import\\073TEST3\\logo poudlard.gif",
+					"couleurAgendaEtablissement": "#00bfff",
+					"accessToken": "",
+					"socketToken": "+csbdGb06vGZ3Hx6+6yXsjuqd+SIh+gkDce0tuW47ORjfRdCY4Q2sFQkBlkDcXgwnIo9601MmCpVqYmcyrH2PwTMQw/YKFHkcav6EsS28F0k7M/WMmq49ilLMcONiEnr",
+					"modules": [
+						{
+							"code": "CANTINE_BARCODE",
+							"enable": true,
+							"ordre": 1,
+							"badge": 0,
+							"params": {
+								"numeroBadge": "eleve||4179||237629"
+							}
+						},
+						{
+							"code": "VIE_SCOLAIRE",
+							"enable": true,
+							"ordre": 10,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "VIE_DE_LA_CLASSE",
+							"enable": true,
+							"ordre": 20,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "NOTES",
+							"enable": true,
+							"ordre": 30,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "CLOUD",
+							"enable": true,
+							"ordre": 90,
+							"badge": 0,
+							"params": {
+								"prolexisEnable": "1",
+								"padsActif": "1"
+							}
+						},
+						{
+							"code": "MESSAGERIE",
+							"enable": true,
+							"ordre": 40,
+							"badge": 3,
+							"params": {
+								"isActif": "1",
+								"canParentsLireMessagesEnfants": "1",
+								"destAdmin": "1",
+								"destEleve": "0",
+								"destFamille": "0",
+								"destProf": "1",
+								"destEspTravail": "1",
+								"disabledNotification": "0",
+								"notificationEmailEtablissement": "1",
+								"choixMailNotification": "0",
+								"autreMailNotification": "",
+								"mailPro": "",
+								"mailPerso": "harry.potter@statim.fr",
+								"messagerieApiVersion": "v3",
+								"blackListProfActive": "0",
+								"estEnBlackList": "0",
+								"afficherToutesLesClasses": "0"
+							}
+						},
+						{
+							"code": "EDT",
+							"enable": true,
+							"ordre": 50,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "DOCUMENTS_ELEVE",
+							"enable": true,
+							"ordre": 71,
+							"badge": 0,
+							"params": {
+								"DocumentsNotesActif": "1",
+								"DocumentsVSActif": "1",
+								"DocumentsAdministratifActif": "1",
+								"AnneeArchive": "2016-2017,2017-2018,2018-2019,2019-2020,2020-2021"
+							}
+						},
+						{
+							"code": "CAHIER_DE_TEXTES",
+							"enable": true,
+							"ordre": 60,
+							"badge": 0,
+							"params": {
+								"compteRenduSeance": "1",
+								"isCDTPrimaire": "0"
+							}
+						},
+						{
+							"code": "QCM",
+							"enable": true,
+							"ordre": 65,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "RESERVATIONS",
+							"enable": true,
+							"ordre": 80,
+							"badge": 0,
+							"params": {
+								"regime": "Demi-Pensionnaire",
+								"repasmidi_1": "1",
+								"repassoir_1": "0",
+								"repasmidi_2": "1",
+								"repassoir_2": "0",
+								"repasmidi_3": "0",
+								"repassoir_3": "0",
+								"repasmidi_4": "1",
+								"repassoir_4": "0",
+								"repasmidi_5": "1",
+								"repassoir_5": "0",
+								"repasmidi_6": "0",
+								"repassoir_6": "0",
+								"repasmidi_7": "0",
+								"repassoir_7": "0"
+							}
+						},
+						{
+							"code": "CARNET_CORRESPONDANCE",
+							"enable": true,
+							"ordre": 70,
+							"badge": 3,
+							"params": {}
+						},
+						{
+							"code": "ESIDOC",
+							"enable": true,
+							"ordre": 110,
+							"badge": 0,
+							"params": {
+								"tabParams": [
+									{
+										"libelle": "Esidoc",
+										"url": "https://0783549J.esidoc.fr/"
+									}
+								]
+							}
+						},
+						{
+							"code": "EDUNAO",
+							"enable": true,
+							"ordre": 100,
+							"badge": 0,
+							"params": {
+								"urlEdunao": "https://stanislas-test.edunao.com/statim/sync_statim_feed.php/?k=E04179&token=03716fa509e2374547deda020af29605&t=20201225115424928"
+							}
+						},
+						{
+							"code": "CATER",
+							"enable": false,
+							"ordre": 90,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "ARD",
+							"enable": true,
+							"ordre": 120,
+							"badge": 0,
+							"params": {
+								"urlARD": "https://services.ard.fr/fr/espaces-clients/etablissements/ecole_directe.html?uai=073TEST2&k=E_4179&token=3d5c3004516e86b91224c9d0c25466d7"
+							}
+						},
+						{
+							"code": "PEARLTREES",
+							"enable": true,
+							"ordre": 170,
+							"badge": 0,
+							"params": {
+								"urlPearlTrees": "https://www.pearltrees.com/s/edu/auth/0061060V&ogec=0061060V"
+							}
+						},
+						{
+							"code": "EDUMALIN",
+							"enable": true,
+							"ordre": 171,
+							"badge": 0,
+							"params": {
+								"urlEduMalin": "https://api.ecoledirecte.com/v3/cas/goToService.awp?service=https://ecole-directe.edumalin.fr/"
+							}
+						},
+						{
+							"code": "SUIVI_STAGE",
+							"enable": true,
+							"ordre": 43,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "CLICKNPLAY",
+							"enable": true,
+							"ordre": 171,
+							"badge": 0,
+							"params": {
+								"urlClickNPlay": "https://api.ecoledirecte.com/v3/cas/goToService.awp?service=https://games.cliknplay.com/connector/ecoledirecte"
+							}
+						},
+						{
+							"code": "VOLTAIRE",
+							"enable": false,
+							"ordre": 175,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "AVENRIA",
+							"enable": false,
+							"ordre": 173,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "ONISEPSERVICES",
+							"enable": true,
+							"ordre": 172,
+							"badge": 0,
+							"params": {
+								"rneONISEPServices": "0595390N"
+							}
+						},
+						{
+							"code": "SACOCHE",
+							"enable": false,
+							"ordre": 174,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "ETUDIANT",
+							"enable": false,
+							"ordre": 176,
+							"badge": 0,
+							"params": {}
+						},
+						{
+							"code": "SITUATION_FINANCIERE",
+							"enable": true,
+							"ordre": 92,
+							"badge": 0,
+							"params": {}
+						}
+					],
+					"parametresIndividuels": {
+						"lsuPoilDansLaMainBorne1": "",
+						"lsuPoilDansLaMainBorne2": "",
+						"lsuPoilDansLaMainBorne3": "",
+						"modeCalculLSU": "",
+						"isQrcode": true,
+						"modeAccessibiliteVisuelle": false,
+						"typeSaisieNotesDefaut": "",
+						"nbJoursMaxRenduDevoirCDT": "",
+						"typeViewCDTDefaut": ""
+					},
+					"profile": {
+						"sexe": "M",
+						"infoEDT": "",
+						"nomEtablissement": "Ensemble Scolaire POUDLARD",
+						"idEtablissement": "0",
+						"rneEtablissement": "0595390N",
+						"idReelEtab": "2",
+						"photo": "//doc1.ecoledirecte.com/PhotoEleves/073TEST2_714d424d764c7533325151/65766a305651.jpg",
+						"classe": {
+							"id": 14,
+							"code": "3A",
+							"libelle": "3ème A"
+						}
+					}
+				}
+			]
+		}
+	}
+]

@@ -1,0 +1,10 @@
+[
+	{
+		"code": 505,
+		"token": "",
+		"message": "Mot de passe invalide !",
+		"data": {
+			"accounts": []
+		}
+	}
+]
