@@ -5,6 +5,7 @@ import { _loginResSuccess, studentAccount, isStudentAccount } from "../types";
 import {
 	cleanAssignements,
 	getMainAccount,
+	getMessages,
 	getTextbookPage,
 	toISODate,
 } from "../functions";
@@ -32,7 +33,6 @@ export class Student extends Account {
 	async getHomework(
 		dates: Array<Date | string | number> | (Date | string | number)
 	) {
-		// If no date, get range of upcoming dates from EDAPI
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
 				this.account.id,
@@ -69,5 +69,8 @@ export class Student extends Account {
 		return resultsArray;
 	}
 
-	// async getMessages(direction: "received" | "sent" = "received") {}
+	async getMessages(direction: "received" | "sent" = "received") {
+		const messages = await getMessages(this.account.id, this.token, "received");
+		return messages;
+	}
 }

@@ -1,4 +1,5 @@
 import { _failureRes } from "../failureRes";
+import { role } from "../util";
 
 export type _mailboxRes = _mailboxResSuccess | _failureRes;
 
@@ -9,9 +10,9 @@ export type _mailboxResSuccess = {
 	data: {
 		classeurs: Array<unknown>;
 		messages: {
-			received: Array<any>;
-			sent: Array<any>;
-			archived: Array<any>;
+			received: Array<_mailboxResMessage>;
+			sent: Array<_mailboxResMessage>;
+			archived: Array<_mailboxResMessage>;
 		};
 		parametrage: {
 			isActif: boolean;
@@ -27,10 +28,16 @@ export type _mailboxResSuccess = {
 			autreMailNotification: string;
 			mailPro: string;
 			mailPerso: string;
-			messagerieApiVersion: string;
+			messagerieApiVersion: "v3" | string;
 			blackListProfActive: boolean;
 			estEnBlackList: boolean;
 			afficherToutesLesClasses: boolean;
+		};
+		pagination: {
+			messagesRecusCount: number;
+			messagesEnvoyesCount: number;
+			messagesArchivesCount: number;
+			messagesRecusNotReadCount: number;
 		};
 	};
 };
@@ -62,10 +69,15 @@ type _mailboxResMessage = {
 		prenom: string;
 		particule: string;
 		civilite: string;
-		role: string; // Probably E, P, A...
+		role: role;
 		listeRoute: boolean;
 		id: number;
 		read: boolean;
 		fonctionPersonnel: string;
 	};
+};
+
+export type message = {
+	id: number;
+	direction: "received" | "sent";
 };
