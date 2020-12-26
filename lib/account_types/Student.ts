@@ -71,5 +71,5 @@ export class Student extends Account {
 		return resultsArray;
 	}
 
-	async getMessages(direction: "received" | "sent" = "received") {}
+	// async getMessages(direction: "received" | "sent" = "received") {}
 }
