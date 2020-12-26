@@ -27,10 +27,12 @@ const responses = getDirectories("__tests__/responses").map((dirName) => {
 	return map;
 });
 
-responses.forEach((resType) => {
-	test(resType.name, () => {
-		resType.success.forEach((res) => expect(isFailure(res)).toBe(false));
-		resType.failure.forEach((res) => expect(isFailure(res)).toBe(true));
+describe("isFailure function", () => {
+	responses.forEach((resType) => {
+		test(resType.name, () => {
+			resType.success.forEach((res) => expect(isFailure(res)).toBe(false));
+			resType.failure.forEach((res) => expect(isFailure(res)).toBe(true));
+		});
 	});
 });
 
