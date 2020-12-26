@@ -36,7 +36,7 @@ export type _textbookDateResSuccess = {
 	};
 };
 
-type _textbookDateAssignement = {
+export type _textbookDateAssignement = {
 	entityCode: string;
 	entityLibelle: string;
 	entityType: string;
