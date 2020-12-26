@@ -76,5 +76,5 @@ export function cleanMessages(
 		};
 	});
 
-	return all;
+	return messages;
 }
