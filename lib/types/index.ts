@@ -17,7 +17,9 @@ export { teacherAccount, isTeacherAccount };
 //! TEXTBOOK
 
 import { _textbookRes, _textbookDateRes } from "./student/textbook";
-export { _textbookRes, _textbookDateRes };
+import { assignement } from "./student/textbook";
+
+export { _textbookRes, _textbookDateRes, assignement };
 
 //! MAILBOX
 

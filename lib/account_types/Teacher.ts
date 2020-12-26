@@ -18,9 +18,9 @@ export class Teacher extends Account {
 		);
 
 		if (!isTeacherAccount(mainAccount))
-			throw Error("Teacher class's main account is wrong");
+			throw new Error("Teacher class's main account is wrong");
 
-		if (!session.token) throw Error("Account class MUST have token");
+		if (!session.token) throw new Error("Account class MUST have token");
 
 		this.account = mainAccount;
 		this.token = session.token;
