@@ -1,6 +1,26 @@
 import { _failureRes } from "../failureRes";
 
-//! TEXTBOOK REQ
+export type assignement = {
+	id: number;
+	interro: boolean;
+	matiere: {
+		nom: string;
+		code: string;
+	};
+	prof: string;
+	contenuDeSeance: {
+		idDevoir: number;
+		contenu: {
+			original: string;
+			html: string;
+			text: string;
+		};
+		documents: unknown[];
+	};
+	_raw: _textbookDateAssignement;
+};
+
+//! RESPONSES
 
 //? WITH DATE
 
