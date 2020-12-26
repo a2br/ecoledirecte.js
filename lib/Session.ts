@@ -9,6 +9,7 @@ import {
 } from "./types";
 import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
+import { APIError } from "./errors";
 
 export class Session {
 	private _username: string;
@@ -32,7 +33,7 @@ export class Session {
 
 		this.loginRes = loginRes;
 		if (isFailure(loginRes))
-			throw Error(`API ERR: ${loginRes.code} | ${loginRes.message}`);
+			throw new APIError(`${loginRes.code} | ${loginRes.message}`);
 
 		// Login succeeded
 
@@ -46,7 +47,7 @@ export class Session {
 		} else if (isStaffAccount(account)) {
 			return new Staff(this);
 		} else {
-			throw Error(`UNKNOWN ACCOUNT TYPE: '${(account as any).typeCompte}'`);
+			throw new Error(`UNKNOWN ACCOUNT TYPE: '${(account as any).typeCompte}'`);
 		}
 	}
 

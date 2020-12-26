@@ -9,7 +9,8 @@ import {
 	isStudentAccount,
 	isFailure,
 } from "../types";
-import { getMainAccount, getTextbookPage } from "../functions";
+import { getMainAccount, getTextbookPage, toISODate } from "../functions";
+import { APIError } from "../errors";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -25,17 +26,20 @@ export class Student extends Account {
 		);
 
 		if (!isStudentAccount(mainAccount))
-			throw Error("Family class's main account is wrong");
+			throw new Error("Family class's main account is wrong");
 
-		if (!session.token) throw Error("Account class MUST have token");
+		if (!session.token) throw new Error("Account class MUST have token");
 
 		this.account = mainAccount;
 		this.token = session.token;
 	}
 
-	async getHomework(date: string) {
-		const textbook = await getTextbookPage(this.account.id, this.token, date);
-		if (isFailure(textbook)) throw Error("API ERR; " + textbook);
+	async getHomework(date: Date | string | string) {
+		const d = toISODate(date);
+
+		const textbook = await getTextbookPage(this.account.id, this.token, d);
+		if (isFailure(textbook))
+			throw new APIError(`${textbook.code} | ${textbook.message}`);
 		const homework = textbook.data.matieres;
 		return homework.map((v) => ({
 			id: v.id,

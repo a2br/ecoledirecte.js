@@ -10,11 +10,11 @@ export class Account {
 
 		// Necessary checks
 		if (!session.loginRes || isFailure(session.loginRes))
-			throw Error("Account class must have valid connection");
+			throw new Error("Account class must have valid connection");
 
 		const mainAccount = getMainAccount(session.loginRes.data.accounts);
 
-		if (!session.token) throw Error("Account class MUST have token");
+		if (!session.token) throw new Error("Account class MUST have token");
 
 		this.__account = mainAccount;
 	}

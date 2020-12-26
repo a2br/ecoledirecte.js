@@ -18,9 +18,9 @@ export class Family extends Account {
 		);
 
 		if (!isFamilyAccount(mainAccount))
-			throw Error("Family class's main account is wrong");
+			throw new Error("Family class's main account is wrong");
 
-		if (!session.token) throw Error("Account class MUST have token");
+		if (!session.token) throw new Error("Account class MUST have token");
 
 		this.account = mainAccount;
 		this.token = session.token;
