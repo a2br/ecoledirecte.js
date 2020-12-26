@@ -34,5 +34,5 @@ export { _textbookDateAssignement, assignement };
 
 //! MAILBOX
 
-import { _mailboxRes } from "./student/mailbox";
-export { _mailboxRes };
+import { _mailboxRes, message, _mailboxResSuccess } from "./student/mailbox";
+export { _mailboxRes, message, _mailboxResSuccess };

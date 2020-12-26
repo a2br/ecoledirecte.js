@@ -10,6 +10,7 @@ import {
 	toISODate,
 } from "../functions";
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
+import { cleanMessages } from "../functions/student/mailbox";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -69,8 +70,14 @@ export class Student extends Account {
 		return resultsArray;
 	}
 
-	async getMessages(direction: "received" | "sent" = "received") {
-		const messages = await getMessages(this.account.id, this.token, "received");
-		return messages;
+	async getMessages() {
+		const received = await getMessages(this.account.id, this.token, "received");
+		const sent = await getMessages(this.account.id, this.token, "sent");
+
+		const messages = received;
+		messages.data.messages.sent = sent.data.messages.sent;
+		const cleaned = cleanMessages(messages, this);
+
+		return cleaned;
 	}
 }
