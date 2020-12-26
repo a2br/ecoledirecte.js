@@ -7,9 +7,9 @@ export { toISODate, expandBase64 };
 //! TEXTBOOK
 
 import { getTextbookPage } from "./student/textbook";
-import { cleanAssignements } from "./student/textbook";
+import { cleanAssignements, tickAssignement } from "./student/textbook";
 
-export { getTextbookPage, cleanAssignements };
+export { getTextbookPage, cleanAssignements, tickAssignement };
 
 //! MAILBOX
 

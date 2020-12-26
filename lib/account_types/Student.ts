@@ -3,30 +3,21 @@ import { htmlToText } from "html-to-text";
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import {
-	_loginResSuccess,
-	studentAccount,
-	isStudentAccount,
-	isFailure,
-} from "../types";
+import { _loginResSuccess, studentAccount, isStudentAccount } from "../types";
 import {
 	cleanAssignements,
 	getMainAccount,
 	getTextbookPage,
 	toISODate,
 } from "../functions";
-import { APIError } from "../errors";
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 
 export class Student extends Account {
 	public type: "student" = "student";
 	private account: studentAccount;
-	private token: string;
 
 	constructor(private session: Session) {
 		super(session);
-		const { username, password } = session.credentials;
-
 		const mainAccount = getMainAccount(
 			(session.loginRes as _loginResSuccess).data.accounts
 		);
@@ -45,7 +36,12 @@ export class Student extends Account {
 	) {
 		// If no date, get range of upcoming dates from EDAPI
 		if (!dates) {
-			dates = await getUpcomingAssignementDates(this.account.id, this.token);
+			const upcomingAssignementDates = await getUpcomingAssignementDates(
+				this.account.id,
+				this.token
+			);
+			dates = upcomingAssignementDates.dates;
+			this.token = upcomingAssignementDates.token;
 		}
 
 		if (!Array.isArray(dates)) dates = [dates];
@@ -59,11 +55,12 @@ export class Student extends Account {
 						this.token,
 						d
 					);
-					if (isFailure(textbook))
-						throw new APIError(`${textbook.code} | ${textbook.message}`);
+					this.token = textbook.token;
 
 					const homework = textbook.data;
-					const cleaned = cleanAssignements(homework);
+					const cleanedAndToken = cleanAssignements(homework, this.token);
+					const { cleaned } = cleanedAndToken;
+					this.token = cleanedAndToken.token;
 					const withWork = cleaned.filter((v) => !!("aFaire" in v));
 					return withWork;
 				})

@@ -11,7 +11,6 @@ export type assignement = {
 	};
 	prof: string;
 	aFaire?: {
-		id: number;
 		contenu: expandedBase64;
 		donneLe: Date;
 		rendreEnLigne: boolean;
@@ -20,6 +19,8 @@ export type assignement = {
 			contenu: expandedBase64;
 			documents: unknown[];
 		};
+		/** Experimental */
+		cocher: (newState: boolean) => Promise<boolean>;
 	};
 	contenuDeSeance: {
 		idDevoir: number;

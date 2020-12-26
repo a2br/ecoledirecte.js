@@ -4,10 +4,17 @@ import { getMainAccount } from "../functions";
 
 export class Account {
 	private __account: account;
+	private __token: string = "";
+
+	get token() {
+		return this.__token;
+	}
+
+	set token(value) {
+		this.__token = value;
+	}
 
 	constructor(session: Session) {
-		const { username, password } = session.credentials;
-
 		// Necessary checks
 		if (!session.loginRes || isFailure(session.loginRes))
 			throw new Error("Account class must have valid connection");
@@ -21,11 +28,5 @@ export class Account {
 
 	get _raw() {
 		return this.__account;
-	}
-	/**
-	 * @deprecated In favor of `_raw`
-	 */
-	get doc() {
-		return this._raw;
 	}
 }

@@ -32,8 +32,7 @@ export class Session {
 		let loginRes = await login(username, password);
 
 		this.loginRes = loginRes;
-		if (isFailure(loginRes))
-			throw new APIError(`${loginRes.code} | ${loginRes.message}`);
+		if (isFailure(loginRes)) throw new APIError(loginRes);
 
 		// Login succeeded
 
@@ -64,5 +63,10 @@ export class Session {
 	 */
 	get token() {
 		return this.loginRes?.token;
+	}
+
+	set token(value) {
+		if (!value || !this.loginRes) return;
+		(this.loginRes.token as string) = value;
 	}
 }

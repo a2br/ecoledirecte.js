@@ -1,26 +1,20 @@
-import fetch from "node-fetch";
-
-import { _loginRes, account } from "../types";
+import { makeRequest } from "./util";
+import { _loginResSuccess, account } from "../types";
 
 /**
  * @returns EcoleDirecte `/v3/login.awp` response
  */
 export async function login(username: string, password: string) {
-	let urlencoded = new URLSearchParams();
-	urlencoded.append(
-		"data",
-		JSON.stringify({
+	const body: _loginResSuccess = await makeRequest({
+		method: "POST",
+		url: "https://api.ecoledirecte.com/v3/login.awp",
+		body: {
 			identifiant: username,
 			motdepasse: password,
 			acceptationCharte: true,
-		})
-	);
-
-	let edRes = await fetch("https://api.ecoledirecte.com/v3/login.awp", {
-		method: "POST",
-		body: urlencoded,
+		},
 	});
-	let body: _loginRes = await edRes.json();
+
 	return body;
 }
 

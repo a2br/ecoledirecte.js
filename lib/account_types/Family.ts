@@ -7,7 +7,6 @@ import { getMainAccount } from "../functions";
 export class Family extends Account {
 	public type: "family" = "family";
 	private account: familyAccount;
-	private token: string;
 
 	constructor(private session: Session) {
 		super(session);

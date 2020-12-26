@@ -1,4 +1,8 @@
+import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
+
+import { APIError } from "../errors";
+import { isFailure } from "../types/";
 
 export function toISODate(date: Date | string | number) {
 	const d = new Date(date);
@@ -19,4 +23,50 @@ export function expandBase64(htmlBase64: string) {
 			wordwrap: false,
 		}),
 	};
+}
+
+type parameters = {
+	method: string;
+	url: string;
+	body: object;
+};
+
+export async function makeRequest(
+	options: {
+		method: "GET" | "POST";
+		url: string;
+		body?: object;
+		guard?: boolean;
+	} = { method: "GET", url: "", guard: false }
+) {
+	const { method, url, body, guard } = options;
+	const params: RequestInit = {
+		method: method,
+		headers: {
+			authority: "api.ecoledirecte.com",
+			accept: "application/json, text/plain, */*",
+			"user-agent":
+				"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+			"content-type": "application/x-www-form-urlencoded",
+			origin: "https://www.ecoledirecte.com",
+			"sec-fetch-site": "same-site",
+			"sec-fetch-mode": "cors",
+			"sec-fetch-dest": "empty",
+			referer: "https://www.ecoledirecte.com/",
+			"accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+		},
+	};
+
+	if (method === "POST") {
+		const urlencoded = new URLSearchParams();
+		urlencoded.append("data", JSON.stringify(body));
+		params.body = urlencoded;
+	}
+
+	const response = await fetch(url, params);
+	const resBody = await response.json();
+
+	if (guard && isFailure(resBody)) throw new APIError(resBody);
+
+	return resBody;
 }

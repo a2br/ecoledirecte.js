@@ -7,7 +7,6 @@ import { getMainAccount } from "../functions";
 export class Staff extends Account {
 	public type: "staff" = "staff";
 	private account: staffAccount;
-	private token: string;
 
 	constructor(private session: Session) {
 		super(session);
