@@ -1,5 +1,3 @@
-import { htmlToText } from "html-to-text";
-
 import { Account } from "./Account";
 import { Session } from "../Session";
 
