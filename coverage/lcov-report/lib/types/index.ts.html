@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for lib/account_types/Teacher.ts</title>
+    <title>Code coverage report for lib/types/index.ts</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,34 +19,34 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">lib/account_types</a> Teacher.ts</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">lib/types</a> index.ts</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.67% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">40% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>2/5</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/14</span>
+                <span class='fraction'>10/10</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -85,62 +85,62 @@
 <a name='L26'></a><a href='#L26'>26</a>
 <a name='L27'></a><a href='#L27'>27</a>
 <a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">7x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Account } from "./Account";
-import { Session } from "../Session";
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { _failureRes, isFailure } from "./failureRes";
+export { isFailure };
 &nbsp;
-import { _loginResSuccess, teacherAccount, isTeacherAccount } from "../types";
-import { getMainAccount } from "../functions";
+//! LOGIN REQ
+import { _loginRes, _loginResSuccess, account } from "./login";
+import { familyAccount, isFamilyAccount } from "./login";
+import { staffAccount, isStaffAccount } from "./login";
+import { studentAccount, isStudentAccount } from "./login";
+import { teacherAccount, isTeacherAccount } from "./login";
 &nbsp;
-export class Teacher extends Account {
-	public <span class="cstat-no" title="statement not covered" >type: "teacher" = "teacher";</span>
-	private account: teacherAccount;
-	private token: string;
+export { _loginRes, _loginResSuccess, account };
+export { familyAccount, <span class="fstat-no" title="function not covered" >isFamilyAccount </span>};
+export { staffAccount, <span class="fstat-no" title="function not covered" >isStaffAccount </span>};
+export { studentAccount, isStudentAccount };
+export { teacherAccount, <span class="fstat-no" title="function not covered" >isTeacherAccount </span>};
 &nbsp;
-<span class="fstat-no" title="function not covered" >	constructor(private <span class="cstat-no" title="statement not covered" >s</span>ession: Session)</span> {
-<span class="cstat-no" title="statement not covered" >		super(session);</span>
-		const { username, password } = <span class="cstat-no" title="statement not covered" >session.credentials;</span>
+//! TEXTBOOK
 &nbsp;
-		const mainAccount = <span class="cstat-no" title="statement not covered" >getMainAccount(</span>
-			(session.loginRes as _loginResSuccess).data.accounts
-		);
+import { _textbookRes, _textbookDateRes } from "./student/textbook";
+import { _textbookDateAssignement, assignement } from "./student/textbook";
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		if (!isTeacherAccount(mainAccount))</span>
-<span class="cstat-no" title="statement not covered" >			throw new Error("Teacher class's main account is wrong");</span>
+export { _textbookRes, _textbookDateRes };
+export { _textbookDateAssignement, assignement };
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		if (!session.token) <span class="cstat-no" title="statement not covered" >throw new Error("Account class MUST have token");</span></span>
+//! MAILBOX
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		this.account = mainAccount;</span>
-<span class="cstat-no" title="statement not covered" >		this.token = session.token;</span>
-	}
-}
+import { _mailboxRes } from "./student/mailbox";
+export { _mailboxRes };
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
