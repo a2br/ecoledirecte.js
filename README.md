@@ -1,4 +1,4 @@
-# ecoledirecte.js &middot; ![GitHub](https://img.shields.io/github/license/a2br/ecoledirecte.js) ![npm](https://img.shields.io/npm/v/ecoledirecte.js) ![npm](https://img.shields.io/npm/dw/ecoledirecte.js) 
+# ecoledirecte.js &middot; ![GitHub](https://img.shields.io/github/license/a2br/ecoledirecte.js) ![npm](https://img.shields.io/npm/v/ecoledirecte.js) ![npm](https://img.shields.io/npm/dw/ecoledirecte.js)
 
 Browse EcoleDirecte's private API with the module of your dreams. But first, [read the docs](https://edjs.gitbook.io/).
 
@@ -9,23 +9,22 @@ Browse EcoleDirecte's private API with the module of your dreams. But first, [re
 Here's a quick example on how to get the homework of a day.
 
 ```javascript
-// Import 'Session' class from ed.js
-import { Session, accounts } from "ecoledirecte.js";
+import { Session } from "ecoledirecte.js";
 
 async function getHomework(username, password, date) {
 	// Create a new Session. As long as it doesn't
 	// log in, it's inert.
 	const session = new Session(username, password);
 
-	// Bringing your session to life! Make sure to wrap this
-	// in try {} catch {} in your code.
-	const account = await session.login();
+	// Bringing your session to life!
+	const account = await session.login().catch((err) => {
+		console.error("The login did not go well.");
+	});
 
-	// We should check that the user is a student: otherwise,
-	// we wouldn't be able to get the homework.
-	if (!(account instanceof accounts.Student)) return;
-	// This works too:
-	if (account.type !== "student") return;
+	// We should check that the user exists (in case the login
+	// failed) and is a student: otherwise, we wouldn't be
+	// able to get the homework.
+	if (!account || account.type !== "student") return;
 
 	// Get the homework due for a specific date as a simplified
 	// array. If you need more, you can get the original
@@ -36,7 +35,6 @@ async function getHomework(username, password, date) {
 	// (base64), in HTML and as simple text.
 	console.log(homework[2].contenuDeSeance.contenu.text);
 
-	// Returning the array of homework!
 	return homework;
 }
 
