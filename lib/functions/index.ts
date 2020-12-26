@@ -1,15 +1,15 @@
 import { login, getMainAccount } from "./login";
-import { toISODate } from "./util";
+import { toISODate, expandBase64 } from "./util";
 
 export { login, getMainAccount };
-export { toISODate };
+export { toISODate, expandBase64 };
 
 //! TEXTBOOK
 
-import { getTextbook, getTextbookPage } from "./student/textbook";
+import { getTextbookPage } from "./student/textbook";
 import { cleanAssignements } from "./student/textbook";
 
-export { getTextbook, getTextbookPage, cleanAssignements };
+export { getTextbookPage, cleanAssignements };
 
 //! MAILBOX
 

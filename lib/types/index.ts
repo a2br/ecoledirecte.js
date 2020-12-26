@@ -1,3 +1,6 @@
+import { expandedBase64 } from "./util";
+export { expandedBase64 };
+
 import { _failureRes, isFailure } from "./failureRes";
 export { isFailure };
 

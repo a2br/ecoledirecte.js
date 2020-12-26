@@ -1,15 +1,16 @@
 import fetch from "node-fetch";
 import { htmlToText } from "html-to-text";
 
-import { _textbookRes, _textbookDateRes } from "../../types";
+import { _textbookRes, _textbookDateRes, isFailure } from "../../types";
 import { _textbookDateAssignement, assignement } from "../../types";
-import { toISODate } from "../util";
+import { APIError } from "../../errors";
+import { expandBase64 } from "../util";
 
 /**
  * @param id Account id
  * @param token Auth token
  */
-export async function getTextbook(id: number, token: string) {
+export async function getUpcomingAssignementDates(id: number, token: string) {
 	let urlencoded = new URLSearchParams();
 	urlencoded.append(
 		"data",
@@ -26,7 +27,11 @@ export async function getTextbook(id: number, token: string) {
 		}
 	);
 	let body: _textbookRes = await edRes.json();
-	return body;
+	if (isFailure(body)) throw new APIError(`${body.code} | ${body.message}`);
+
+	const dates = Object.keys(body.data); // .map((date) => new Date(date));
+
+	return dates;
 }
 
 /**
@@ -58,7 +63,7 @@ export function cleanAssignements(data: {
 	matieres: _textbookDateAssignement[];
 }) {
 	const assignements = data.matieres;
-	const date = toISODate(data.date); // Should not make any change
+	const date = new Date(data.date); // Should not make any change
 	const cleaned: assignement[] = assignements.map((v) => ({
 		id: v.id,
 		date: date,
@@ -68,18 +73,22 @@ export function cleanAssignements(data: {
 			code: v.codeMatiere,
 		},
 		prof: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
+		aFaire: v.aFaire
+			? {
+					id: v.aFaire.idDevoir,
+					contenu: expandBase64(v.aFaire.contenu),
+					donneLe: new Date(v.aFaire.donneLe),
+					rendreEnLigne: v.aFaire.rendreEnLigne,
+					effectue: v.aFaire.effectue,
+					dernierContenuDeSeance: {
+						contenu: expandBase64(v.aFaire.contenuDeSeance.contenu),
+						documents: v.aFaire.contenuDeSeance.documents,
+					},
+			  }
+			: undefined,
 		contenuDeSeance: {
 			idDevoir: v.contenuDeSeance.idDevoir,
-			contenu: {
-				original: v.contenuDeSeance.contenu,
-				html: Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
-				text: htmlToText(
-					Buffer.from(v.contenuDeSeance.contenu, "base64").toString(),
-					{
-						wordwrap: false,
-					}
-				),
-			},
+			contenu: expandBase64(v.contenuDeSeance.contenu),
 			documents: v.contenuDeSeance.documents,
 		},
 		_raw: v,

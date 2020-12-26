@@ -16,6 +16,7 @@ import {
 	toISODate,
 } from "../functions";
 import { APIError } from "../errors";
+import { getUpcomingAssignementDates } from "../functions/student/textbook";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -39,15 +40,38 @@ export class Student extends Account {
 		this.token = session.token;
 	}
 
-	async getHomework(date: Date | string | string) {
-		const d = toISODate(date);
-		const textbook = await getTextbookPage(this.account.id, this.token, d);
-		if (isFailure(textbook))
-			throw new APIError(`${textbook.code} | ${textbook.message}`);
+	async getHomework(
+		dates: Array<Date | string | number> | (Date | string | number)
+	) {
+		// If no date, get range of upcoming dates from EDAPI
+		if (!dates) {
+			dates = await getUpcomingAssignementDates(this.account.id, this.token);
+		}
 
-		const homework = textbook.data;
-		const cleaned = cleanAssignements(homework);
-		return cleaned;
+		if (!Array.isArray(dates)) dates = [dates];
+
+		const resultsArray = (
+			await Promise.all(
+				dates.map(async (date) => {
+					const d = toISODate(date);
+					const textbook = await getTextbookPage(
+						this.account.id,
+						this.token,
+						d
+					);
+					if (isFailure(textbook))
+						throw new APIError(`${textbook.code} | ${textbook.message}`);
+
+					const homework = textbook.data;
+					const cleaned = cleanAssignements(homework);
+					const withWork = cleaned.filter((v) => !!("aFaire" in v));
+					return withWork;
+				})
+			)
+		)
+			.flat()
+			.sort((a, b) => a.date.getTime() - b.date.getTime());
+		return resultsArray;
 	}
 
 	async getMessages(direction: "received" | "sent" = "received") {}

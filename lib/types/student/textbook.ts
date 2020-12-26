@@ -1,20 +1,29 @@
+import { expandedBase64 } from "..";
 import { _failureRes } from "../failureRes";
 
 export type assignement = {
 	id: number;
+	date: Date;
 	interro: boolean;
 	matiere: {
 		nom: string;
 		code: string;
 	};
 	prof: string;
+	aFaire?: {
+		id: number;
+		contenu: expandedBase64;
+		donneLe: Date;
+		rendreEnLigne: boolean;
+		effectue: boolean;
+		dernierContenuDeSeance: {
+			contenu: expandedBase64;
+			documents: unknown[];
+		};
+	};
 	contenuDeSeance: {
 		idDevoir: number;
-		contenu: {
-			original: string;
-			html: string;
-			text: string;
-		};
+		contenu: expandedBase64;
 		documents: unknown[];
 	};
 	_raw: _textbookDateAssignement;
@@ -47,6 +56,27 @@ export type _textbookDateAssignement = {
 	interrogation: boolean;
 	blogActif: boolean;
 	nbJourMaxRenduDevoir: number;
+	aFaire?: {
+		idDevoir: number;
+		/** BASE64 */
+		contenu: string;
+		rendreEnLigne: boolean;
+		donneLe: string;
+		effectue: boolean;
+		ressource: string;
+		ressourceDocuments: unknown[];
+		documents: unknown[];
+		elementsProg: unknown[];
+		liensManuel: unknown[];
+		documentsRendus: unknown[];
+		/** The last one */
+		contenuDeSeance: {
+			/** BASE64 */
+			contenu: string;
+			documents: unknown[];
+		};
+	};
+	/** The one of the day */
 	contenuDeSeance: {
 		idDevoir: number;
 		/** BASE64 */
