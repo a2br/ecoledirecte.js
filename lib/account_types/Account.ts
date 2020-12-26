@@ -3,18 +3,19 @@ import { account, isFailure } from "../types";
 import { getMainAccount } from "../functions";
 
 export class Account {
+	private __session: Session;
 	private __account: account;
-	private __token: string = "";
 
 	get token() {
-		return this.__token;
+		return this.__session.token;
 	}
 
 	set token(value) {
-		this.__token = value;
+		this.__session.token = value;
 	}
 
 	constructor(session: Session) {
+		this.__session = session;
 		// Necessary checks
 		if (!session.loginRes || isFailure(session.loginRes))
 			throw new Error("Account class must have valid connection");

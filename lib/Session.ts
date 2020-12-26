@@ -14,24 +14,23 @@ import { APIError } from "./errors";
 export class Session {
 	private _username: string;
 	private _password: string;
-	private _loggedIn: boolean = false;
 	/**
 	 * @async
 	 * @returns EcoleDirecte login response
 	 */
-	public loginRes: _loginRes | null = null;
+	public loginRes?: _loginRes;
+	public token: string = "";
 
 	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);
 	}
 
 	async login() {
-		this._loggedIn = true;
-
 		const { _username: username, _password: password } = this;
 		let loginRes = await login(username, password);
 
 		this.loginRes = loginRes;
+		this.token = loginRes.token;
 		if (isFailure(loginRes)) throw new APIError(loginRes);
 
 		// Login succeeded
@@ -55,18 +54,5 @@ export class Session {
 	 */
 	get credentials() {
 		return { username: this._username, password: this._password };
-	}
-
-	/**
-	 * @async
-	 * @returns EcoleDirecte auth token
-	 */
-	get token() {
-		return this.loginRes?.token;
-	}
-
-	set token(value) {
-		if (!value || !this.loginRes) return;
-		(this.loginRes.token as string) = value;
 	}
 }
