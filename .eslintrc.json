@@ -19,12 +19,12 @@
 		"no-mixed-spaces-and-tabs": "off", // Prettier conflict
 		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "double"],
-		"semi": ["error", "always"],
-		"prettier/prettier": [
-			"error",
-			{
-				"endOfLine": "unix"
-			}
-		]
+		"semi": ["error", "always"]
+		// "prettier/prettier": [
+		// 	"error",
+		// 	{
+		// 		"endOfLine": "lf"
+		// 	}
+		// ]
 	}
 }
