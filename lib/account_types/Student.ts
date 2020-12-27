@@ -36,6 +36,7 @@ export class Student extends Account {
 		this.account = mainAccount;
 		this.token = session.token;
 	}
+
 	/**
 	 * Fetches the homework
 	 * @param dates (Array of) variable(s) which can be converted into Date object(s)
@@ -82,6 +83,7 @@ export class Student extends Account {
 			.sort((a, b) => a.date.getTime() - b.date.getTime());
 		return resultsArray;
 	}
+
 	/**
 	 * @returns Every sent and received message, in ascending order by id
 	 */

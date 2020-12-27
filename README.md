@@ -28,9 +28,9 @@ if (!account || account.type !== "student") throw new Error("Not a student");
 // Get the homework due for a specific date as a simplified
 // array. If you need more, you can get the original
 // response from ED in the _raw prop of each elem.
-// Providing no arguments will automatically select all the
-// upcoming homework
-const homework = await account.getHomework("2021-01-14");
+// Providing no argument will automatically select all the
+// upcoming assignements
+const homework = await account.getHomework({ dates: "2021-01-14" });
 
 // Some large strings are available in their original shape
 // (base64), in HTML and as simple text.
