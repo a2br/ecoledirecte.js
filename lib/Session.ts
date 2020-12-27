@@ -7,7 +7,7 @@ import {
 } from "./types";
 import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
-import { APIError } from "./errors";
+import { EcoleDirecteAPIError } from "./errors";
 
 export class Session {
 	private _username: string;
@@ -29,7 +29,7 @@ export class Session {
 
 		this.loginRes = loginRes;
 		this.token = loginRes.token;
-		if (isFailure(loginRes)) throw new APIError(loginRes);
+		if (isFailure(loginRes)) throw new EcoleDirecteAPIError(loginRes);
 
 		// Login succeeded
 

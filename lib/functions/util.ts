@@ -1,7 +1,7 @@
 import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
 
-import { APIError } from "../errors";
+import { EcoleDirecteAPIError } from "../errors";
 import { expandedBase64, isFailure } from "../types/";
 
 export function toISODate(date: Date | string | number): string {
@@ -61,7 +61,7 @@ export async function makeRequest(
 	const response = await fetch(url, params);
 	const resBody = await response.json();
 
-	if (guard && isFailure(resBody)) throw new APIError(resBody);
+	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
 
 	return resBody;
 }
