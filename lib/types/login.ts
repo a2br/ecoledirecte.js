@@ -233,7 +233,7 @@ export type accountModule = {
 	enable: boolean;
 	ordre: number;
 	badge: number;
-	params: object;
+	params: Record<string, unknown>;
 };
 
 //! TYPE GUARDS

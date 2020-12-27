@@ -23,7 +23,7 @@ describe("Session class", () => {
 		let didThrowError = false;
 		await errSession
 			.login()
-			.catch((e) => {
+			.catch(() => {
 				didThrowError = true;
 			})
 			.then(() => {

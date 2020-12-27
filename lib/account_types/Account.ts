@@ -6,11 +6,11 @@ export class Account {
 	private __session: Session;
 	private __account: account;
 
-	get token() {
+	get token(): string {
 		return this.__session.token;
 	}
 
-	set token(value) {
+	set token(value: string) {
 		this.__session.token = value;
 	}
 
@@ -27,7 +27,7 @@ export class Account {
 		this.__account = mainAccount;
 	}
 
-	get _raw() {
+	get _raw(): account {
 		return this.__account;
 	}
 }

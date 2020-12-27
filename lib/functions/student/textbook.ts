@@ -1,20 +1,17 @@
 import { makeRequest } from "../util";
 
-import {
-	_textbookResSuccess,
-	_textbookDateResSuccess,
-	isFailure,
-} from "../../types";
+import { _textbookResSuccess, _textbookDateResSuccess } from "../../types";
 import { _textbookDateAssignement, assignement } from "../../types";
-import { APIError } from "../../errors";
 import { expandBase64 } from "../util";
-import { _failureRes } from "../../types/failureRes";
 
 /**
  * @param id Account id
  * @param token Auth token
  */
-export async function getUpcomingAssignementDates(id: number, token: string) {
+export async function getUpcomingAssignementDates(
+	id: number,
+	token: string
+): Promise<{ dates: string[]; token: string }> {
 	const body: _textbookResSuccess = await makeRequest({
 		method: "POST",
 		url: `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=get`,
@@ -24,7 +21,7 @@ export async function getUpcomingAssignementDates(id: number, token: string) {
 
 	const dates = Object.keys(body.data); // .map((date) => new Date(date));
 
-	return { dates, token: body.token };
+	return { dates, token: body.token || token };
 }
 
 /**
@@ -32,7 +29,11 @@ export async function getUpcomingAssignementDates(id: number, token: string) {
  * @param token Auth token
  * @param date Date of the textbook page (YYYY-MM-DD)
  */
-export async function getTextbookPage(id: number, token: string, date: string) {
+export async function getTextbookPage(
+	id: number,
+	token: string,
+	date: string
+): Promise<_textbookDateResSuccess> {
 	const body: _textbookDateResSuccess = await makeRequest({
 		method: "POST",
 		url: `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte/${date}.awp?verbe=get`,
@@ -48,11 +49,11 @@ export async function tickAssignement(
 	token: string,
 	assignement: _textbookDateAssignement,
 	state?: boolean
-) {
-	if (!("aFaire" in assignement)) return;
+): Promise<{ code: 200; token: string; host: string }> {
+	if (!("aFaire" in assignement)) throw Error("No work in this assignement.");
 	if (state === undefined) state = !assignement.aFaire?.effectue;
 
-	let data: {
+	const data: {
 		token: string;
 		idDevoirsEffectues?: number[];
 		idDevoirsNonEffectues?: number[];
@@ -79,7 +80,7 @@ export function cleanAssignements(
 		matieres: _textbookDateAssignement[];
 	},
 	token: string
-) {
+): { cleaned: assignement[]; token: string } {
 	const assignements = data.matieres;
 	const cleaned: assignement[] = assignements.map((v) => ({
 		id: v.id,

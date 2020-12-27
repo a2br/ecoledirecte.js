@@ -101,6 +101,7 @@ export type _textbookResSuccess = {
 	 * UNPREDICTABLE KEYS
 	 * @example data["2020-01-14"]: Arrray<_textbookAssignement>
 	 */
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	data: any;
 };
 

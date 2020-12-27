@@ -7,13 +7,16 @@ export type _failureRes = {
 		accounts?: [];
 	};
 };
-
-export function isFailure(data: any): data is _failureRes {
+export function isFailure(data: Record<string, unknown>): data is _failureRes {
 	try {
-		return (
-			(!data.token && data.code !== 200) ||
-			(data.code === 403 && data.message.includes("votre adresse IP"))
-		);
+		const usualError = !data.token && data.code !== 200;
+		const blockError =
+			typeof data.message === "string"
+				? data.code === 403 &&
+				  (data as { message: string }).message.includes("votre adresse IP")
+				: false;
+		const error = usualError || blockError;
+		return error;
 	} catch {
 		return true;
 	}

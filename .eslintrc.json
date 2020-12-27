@@ -11,7 +11,8 @@
 	},
 	"plugins": ["@typescript-eslint"],
 	"rules": {
-		"indent": ["error", "tab"],
+		// "indent": ["error", "tab"], | Prettier conflict
+		"no-mixed-spaces-and-tabs": "off", // Prettier conflict
 		"linebreak-style": ["error", "windows"],
 		"quotes": ["error", "double"],
 		"semi": ["error", "always"]

@@ -10,7 +10,6 @@ export class Staff extends Account {
 
 	constructor(private session: Session) {
 		super(session);
-		const { username, password } = session.credentials;
 
 		const mainAccount = getMainAccount(
 			(session.loginRes as _loginResSuccess).data.accounts

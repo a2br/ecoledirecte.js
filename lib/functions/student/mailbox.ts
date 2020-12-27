@@ -1,6 +1,6 @@
 import { expandBase64, makeRequest } from "../util";
 
-import { _mailboxRes, message } from "../../types";
+import { message } from "../../types";
 import {
 	_mailboxResSuccess,
 	_messageResSuccess,
@@ -11,7 +11,7 @@ export async function getMessages(
 	id: number,
 	token: string,
 	direction: "received" | "sent" = "received"
-) {
+): Promise<_mailboxResSuccess> {
 	const body: _mailboxResSuccess = await makeRequest({
 		method: "POST",
 		url: `https://api.ecoledirecte.com/v3/eleves/${id}/messages.awp?verbe=getall&typeRecuperation=${direction}&orderBy=date&order=desc&page=0&itemsPerPage=100&onlyRead=&query=&idClasseur=0`,
@@ -25,7 +25,7 @@ export async function getMessages(
 export function cleanMessages(
 	mailboxRes: _mailboxResSuccess,
 	student: Student
-) {
+): message[] {
 	const { received, sent } = mailboxRes.data.messages;
 	const all = [...received, ...sent];
 	const messages: message[] = all.map((v) => {

@@ -1,7 +1,13 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, studentAccount, isStudentAccount } from "../types";
+import {
+	_loginResSuccess,
+	studentAccount,
+	isStudentAccount,
+	assignement,
+	message,
+} from "../types";
 import {
 	cleanAssignements,
 	getMainAccount,
@@ -33,7 +39,7 @@ export class Student extends Account {
 
 	async getHomework(
 		dates: Array<Date | string | number> | (Date | string | number)
-	) {
+	): Promise<assignement[]> {
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
 				this.account.id,
@@ -70,7 +76,7 @@ export class Student extends Account {
 		return resultsArray;
 	}
 
-	async getMessages() {
+	async getMessages(): Promise<message[]> {
 		const received = await getMessages(this.account.id, this.token, "received");
 		const sent = await getMessages(this.account.id, this.token, "sent");
 

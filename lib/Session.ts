@@ -17,15 +17,15 @@ export class Session {
 	 * @returns EcoleDirecte login response
 	 */
 	public loginRes?: _loginRes;
-	public token: string = "";
+	public token = "";
 
 	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);
 	}
 
-	async login() {
+	async login(): Promise<Family | Staff | Student | Teacher> {
 		const { _username: username, _password: password } = this;
-		let loginRes = await login(username, password);
+		const loginRes = await login(username, password);
 
 		this.loginRes = loginRes;
 		this.token = loginRes.token;
@@ -43,14 +43,19 @@ export class Session {
 		} else if (isStaffAccount(account)) {
 			return new Staff(this);
 		} else {
-			throw new Error(`UNKNOWN ACCOUNT TYPE: '${(account as any).typeCompte}'`);
+			throw new Error(
+				`UNKNOWN ACCOUNT TYPE: '${
+					(account as { typeCompte: string }).typeCompte
+				}'`
+			);
 		}
 	}
 
 	/**
 	 * @returns Given credentials
 	 */
-	get credentials() {
-		return { username: this._username, password: this._password };
+	get credentials(): { username: string; password: string } {
+		const credentials = { username: this._username, password: this._password };
+		return credentials;
 	}
 }
