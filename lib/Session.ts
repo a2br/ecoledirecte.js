@@ -1,6 +1,5 @@
+import { _loginRes, isFailure } from "./types";
 import {
-	_loginRes,
-	isFailure,
 	isFamilyAccount,
 	isStaffAccount,
 	isStudentAccount,
