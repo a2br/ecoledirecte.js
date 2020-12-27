@@ -1,10 +1,4 @@
 import { _loginRes, isFailure } from "./types";
-import {
-	isFamilyAccount,
-	isStaffAccount,
-	isStudentAccount,
-	isTeacherAccount,
-} from "./types";
 import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
 import { EcoleDirecteAPIError } from "./errors";
@@ -34,20 +28,21 @@ export class Session {
 		// Login succeeded
 
 		const account = getMainAccount(loginRes.data.accounts);
-		if (isStudentAccount(account)) {
-			return new Student(this);
-		} else if (isFamilyAccount(account)) {
-			return new Family(this);
-		} else if (isTeacherAccount(account)) {
-			return new Teacher(this);
-		} else if (isStaffAccount(account)) {
-			return new Staff(this);
-		} else {
-			throw new Error(
-				`UNKNOWN ACCOUNT TYPE: '${
-					(account as { typeCompte: string }).typeCompte
-				}'`
-			);
+		switch (account.typeCompte) {
+			case "E":
+				return new Student(this);
+			case "1":
+				return new Family(this);
+			case "P":
+				return new Teacher(this);
+			case "A":
+				return new Staff(this);
+			default:
+				throw new Error(
+					`UNKNOWN ACCOUNT TYPE: '${
+						(account as { typeCompte: string }).typeCompte
+					}'`
+				);
 		}
 	}
 
