@@ -3,6 +3,7 @@
 	"version": "0.7.3",
 	"description": "Good-looking client for EcoleDirecte's private API.",
 	"repository": {
+		"type": "git",
 		"url": "https://github.com/a2br/ecoledirecte.js"
 	},
 	"main": "dist/index.js",
@@ -40,5 +41,8 @@
 	"dependencies": {
 		"html-to-text": "^6.0.0",
 		"node-fetch": "^2.6.1"
+	},
+	"publishConfig": {
+		"registry": "https://npm.pkg.github.com/"
 	}
 }
