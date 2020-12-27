@@ -14,8 +14,9 @@
 		"prepublish": "npm run build",
 		"start": "tsc && node dist/index.js",
 		"build": "tsc",
-		"lint": "eslint  --fix",
+		"lint": "eslint",
 		"pretty": "prettier -w .",
+		"check": "npm run pretty && npm run lint",
 		"test": "jest"
 	},
 	"author": "a2br",
