@@ -12,20 +12,27 @@ describe("Student class", () => {
 	test("it fetches homework from date", async () => {
 		const acc = await account;
 		if (acc.type !== "student") return;
-		const someHomework = await acc.getHomework("2021-01-14");
+
+		const someHomework = await acc.getHomework({ dates: "2021-01-14" });
 		expect(Array.isArray(someHomework)).toBe(true);
 	});
 
 	test("it fetches upcoming homework", async () => {
 		const acc = await account;
 		if (acc.type !== "student") return;
+
 		const someHomework = await acc.getHomework();
 		expect(Array.isArray(someHomework)).toBe(true);
+
+		const a = someHomework.find(e => !!e.job);
+		if (!a || !a.job) return;
+		a.job.tick(true);
 	});
 
 	test("it fetches messages", async () => {
 		const acc = await account;
 		if (acc.type !== "student") return;
+
 		const messages = await acc.getMessages();
 		expect(Array.isArray(messages)).toBe(true);
 
