@@ -23,9 +23,9 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -37,16 +37,16 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">25% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>1/4</span>
+                <span class='fraction'>4/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">62.5% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>5/8</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line medium'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -567,29 +567,29 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { _failureRes } from "./failureRes";
 &nbsp;
@@ -826,7 +826,7 @@ export type accountModule = {
 	enable: boolean;
 	ordre: number;
 	badge: number;
-	params: object;
+	params: Record&lt;string, unknown&gt;;
 };
 &nbsp;
 //! TYPE GUARDS
@@ -841,22 +841,22 @@ export function isStudentAccount(account: account): account is studentAccount {
 /**
  * @returns Whether `account` is `teacherAccount`
  */
-export function <span class="fstat-no" title="function not covered" >isTeacherAccount(</span>account: account): account is teacherAccount {
-<span class="cstat-no" title="statement not covered" >	return account.typeCompte === "P";</span>
+export function isTeacherAccount(account: account): account is teacherAccount {
+	return account.typeCompte === "P";
 }
 &nbsp;
 /**
  * @returns Whether `account` is `familyAccount`
  */
-export function <span class="fstat-no" title="function not covered" >isFamilyAccount(</span>account: account): account is familyAccount {
-<span class="cstat-no" title="statement not covered" >	return account.typeCompte === "1";</span>
+export function isFamilyAccount(account: account): account is familyAccount {
+	return account.typeCompte === "1";
 }
 &nbsp;
 /**
  * @returns Whether `account` is `staffAccount`
  */
-export function <span class="fstat-no" title="function not covered" >isStaffAccount(</span>account: account): account is staffAccount {
-<span class="cstat-no" title="statement not covered" >	return account.typeCompte === "A";</span>
+export function isStaffAccount(account: account): account is staffAccount {
+	return account.typeCompte === "A";
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -865,7 +865,7 @@ export function <span class="fstat-no" title="function not covered" >isStaffAcco
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 26 2020 09:05:53 GMT+0100 (GMT+01:00)
+                at Sun Dec 27 2020 14:09:10 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>

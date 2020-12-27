@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">26.67% </span>
+                <span class="strong">85.71% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>4/15</span>
+                <span class='fraction'>12/14</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/4</span>
+                <span class='fraction'>2/4</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>0/1</span>
+                <span class='fraction'>1/1</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">28.57% </span>
+                <span class="strong">92.31% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>4/14</span>
+                <span class='fraction'>12/13</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -83,34 +83,30 @@
 <a name='L24'></a><a href='#L24'>24</a>
 <a name='L25'></a><a href='#L25'>25</a>
 <a name='L26'></a><a href='#L26'>26</a>
-<a name='L27'></a><a href='#L27'>27</a>
-<a name='L28'></a><a href='#L28'>28</a>
-<a name='L29'></a><a href='#L29'>29</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">1x</span>
+<a name='L27'></a><a href='#L27'>27</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { Account } from "./Account";
@@ -120,25 +116,23 @@ import { _loginResSuccess, familyAccount, isFamilyAccount } from "../types";
 import { getMainAccount } from "../functions";
 &nbsp;
 export class Family extends Account {
-	public <span class="cstat-no" title="statement not covered" >type: "family" = "family";</span>
+	public type: "family" = "family";
 	private account: familyAccount;
-	private token: string;
 &nbsp;
-<span class="fstat-no" title="function not covered" >	constructor(private <span class="cstat-no" title="statement not covered" >s</span>ession: Session)</span> {
-<span class="cstat-no" title="statement not covered" >		super(session);</span>
-		const { username, password } = <span class="cstat-no" title="statement not covered" >session.credentials;</span>
+	constructor(private session: Session) {
+		super(session);
 &nbsp;
-		const mainAccount = <span class="cstat-no" title="statement not covered" >getMainAccount(</span>
+		const mainAccount = getMainAccount(
 			(session.loginRes as _loginResSuccess).data.accounts
 		);
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		if (!isFamilyAccount(mainAccount))</span>
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (!isFamilyAccount(mainAccount))
 <span class="cstat-no" title="statement not covered" >			throw new Error("Family class's main account is wrong");</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		if (!session.token) <span class="cstat-no" title="statement not covered" >throw new Error("Account class MUST have token");</span></span>
+		<span class="missing-if-branch" title="if path not taken" >I</span>if (!session.token) <span class="cstat-no" title="statement not covered" >throw new Error("Account class MUST have token");</span>
 &nbsp;
-<span class="cstat-no" title="statement not covered" >		this.account = mainAccount;</span>
-<span class="cstat-no" title="statement not covered" >		this.token = session.token;</span>
+		this.account = mainAccount;
+		this.token = session.token;
 	}
 }
 &nbsp;</pre></td></tr></table></pre>
@@ -148,7 +142,7 @@ export class Family extends Account {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sat Dec 26 2020 09:05:53 GMT+0100 (GMT+01:00)
+                at Sun Dec 27 2020 14:09:10 GMT+0100 (GMT+01:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>

@@ -30,11 +30,4 @@ describe("Session class", () => {
 				expect(didThrowError).toBe(true);
 			});
 	});
-
-	test("it fetches homework", async () => {
-		const acc = await account;
-		if (acc.type !== "student") return;
-		const someHomework = await acc.getHomework("2021-01-14");
-		expect(Array.isArray(someHomework)).toBe(true);
-	});
 });
