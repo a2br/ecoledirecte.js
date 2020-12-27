@@ -17,7 +17,7 @@ async function getHomework(username, password, date) {
 	const session = new Session(username, password);
 
 	// Bringing your session to life!
-	const account = await session.login().catch((err) => {
+	const account = await session.login().catch(err => {
 		console.error("The login did not go well.");
 	});
 

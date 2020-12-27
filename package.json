@@ -14,11 +14,14 @@
 		"prepublish": "npm run build",
 		"start": "tsc && node dist/index.js",
 		"build": "tsc",
+		"lint": "eslint  --fix",
+		"pretty": "prettier -w .",
 		"test": "jest"
 	},
 	"author": "a2br",
 	"license": "MIT",
 	"devDependencies": {
+		"@types/eslint": "^7.2.6",
 		"@types/html-to-text": "^6.0.0",
 		"@types/jest": "^26.0.19",
 		"@types/node": "^14.14.16",
@@ -26,7 +29,10 @@
 		"@typescript-eslint/eslint-plugin": "^4.11.0",
 		"@typescript-eslint/parser": "^4.11.0",
 		"eslint": "^7.16.0",
+		"eslint-config-prettier": "^7.1.0",
+		"eslint-plugin-prettier": "^3.3.0",
 		"jest": "^26.6.3",
+		"prettier": "^2.2.1",
 		"ts-jest": "^26.4.4",
 		"typescript": "^4.1.3"
 	},

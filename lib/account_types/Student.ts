@@ -53,7 +53,7 @@ export class Student extends Account {
 
 		const resultsArray = (
 			await Promise.all(
-				dates.map(async (date) => {
+				dates.map(async date => {
 					const d = toISODate(date);
 					const textbook = await getTextbookPage(
 						this.account.id,
@@ -66,7 +66,7 @@ export class Student extends Account {
 					const cleanedAndToken = cleanAssignements(homework, this.token);
 					const { cleaned } = cleanedAndToken;
 					this.token = cleanedAndToken.token;
-					const withWork = cleaned.filter((v) => !!("aFaire" in v));
+					const withWork = cleaned.filter(v => !!("aFaire" in v));
 					return withWork;
 				})
 			)

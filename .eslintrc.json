@@ -3,18 +3,28 @@
 		"es2021": true,
 		"node": true
 	},
-	"extends": ["eslint:recommended", "plugin:@typescript-eslint/recommended"],
+	"extends": [
+		"eslint:recommended",
+		"plugin:@typescript-eslint/recommended",
+		"prettier"
+	],
+	"plugins": ["@typescript-eslint", "prettier"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaVersion": 12,
 		"sourceType": "module"
 	},
-	"plugins": ["@typescript-eslint"],
 	"rules": {
-		// "indent": ["error", "tab"], | Prettier conflict
+		// "indent": ["error", "tab"],
 		"no-mixed-spaces-and-tabs": "off", // Prettier conflict
-		"linebreak-style": ["error", "windows"],
+		"linebreak-style": ["error", "unix"],
 		"quotes": ["error", "double"],
-		"semi": ["error", "always"]
+		"semi": ["error", "always"],
+		"prettier/prettier": [
+			"error",
+			{
+				"endOfLine": "auto"
+			}
+		]
 	}
 }

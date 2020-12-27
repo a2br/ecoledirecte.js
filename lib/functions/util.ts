@@ -2,9 +2,9 @@ import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
 
 import { APIError } from "../errors";
-import { isFailure } from "../types/";
+import { expandedBase64, isFailure } from "../types/";
 
-export function toISODate(date: Date | string | number) {
+export function toISODate(date: Date | string | number): string {
 	const d = new Date(date);
 	if (isNaN(d.getTime())) throw new Error("Invalid date");
 
@@ -15,7 +15,7 @@ export function toISODate(date: Date | string | number) {
 	].join("-");
 }
 
-export function expandBase64(htmlBase64: string) {
+export function expandBase64(htmlBase64: string): expandedBase64 {
 	return {
 		original: htmlBase64,
 		html: Buffer.from(htmlBase64, "base64").toString(),
@@ -25,20 +25,15 @@ export function expandBase64(htmlBase64: string) {
 	};
 }
 
-type parameters = {
-	method: string;
-	url: string;
-	body: object;
-};
-
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
 		url: string;
-		body?: object;
+		body?: Record<string, unknown>;
 		guard?: boolean;
 	} = { method: "GET", url: "", guard: false }
-) {
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+): Promise<any> {
 	const { method, url, body, guard } = options;
 	const params: RequestInit = {
 		method: method,

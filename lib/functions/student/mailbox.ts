@@ -28,7 +28,7 @@ export function cleanMessages(
 ): message[] {
 	const { received, sent } = mailboxRes.data.messages;
 	const all = [...received, ...sent];
-	const messages: message[] = all.map((v) => {
+	const messages: message[] = all.map(v => {
 		return {
 			id: v.id,
 			type: v.mtype,
@@ -51,7 +51,7 @@ export function cleanMessages(
 				return expandBase64(details.data.content);
 			},
 			date: new Date(v.date),
-			to: v.to.map((r) => ({
+			to: v.to.map(r => ({
 				id: r.id,
 				name: r.name,
 				nom: r.nom,

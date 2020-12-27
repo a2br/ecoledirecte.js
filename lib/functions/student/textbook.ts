@@ -82,7 +82,7 @@ export function cleanAssignements(
 	token: string
 ): { cleaned: assignement[]; token: string } {
 	const assignements = data.matieres;
-	const cleaned: assignement[] = assignements.map((v) => ({
+	const cleaned: assignement[] = assignements.map(v => ({
 		id: v.id,
 		date: new Date(data.date),
 		interro: v.interrogation,
