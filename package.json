@@ -1,5 +1,5 @@
 {
-	"name": "ecoledirecte.js",
+	"name": "@a2br/ecoledirecte.js",
 	"version": "0.7.3",
 	"description": "Good-looking client for EcoleDirecte's private API.",
 	"repository": {
