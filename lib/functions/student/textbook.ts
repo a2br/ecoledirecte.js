@@ -85,23 +85,23 @@ export function cleanAssignements(
 	const cleaned: assignement[] = assignements.map(v => ({
 		id: v.id,
 		date: new Date(data.date),
-		interro: v.interrogation,
-		matiere: {
-			nom: v.matiere,
+		test: v.interrogation,
+		subject: {
+			name: v.matiere,
 			code: v.codeMatiere,
 		},
-		prof: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
-		aFaire: v.aFaire
+		teacher: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
+		job: v.aFaire
 			? {
-					contenu: expandBase64(v.aFaire.contenu),
-					donneLe: new Date(v.aFaire.donneLe),
-					rendreEnLigne: v.aFaire.rendreEnLigne,
-					effectue: v.aFaire.effectue,
-					dernierContenuDeSeance: {
-						contenu: expandBase64(v.aFaire.contenuDeSeance.contenu),
+					content: expandBase64(v.aFaire.contenu),
+					givenAt: new Date(v.aFaire.donneLe),
+					toReturnOnline: v.aFaire.rendreEnLigne,
+					done: v.aFaire.effectue,
+					lastContenuDeSeance: {
+						content: expandBase64(v.aFaire.contenuDeSeance.contenu),
 						documents: v.aFaire.contenuDeSeance.documents,
 					},
-					cocher: async function (newState: boolean) {
+					tick: async function (newState: boolean) {
 						const res = await tickAssignement(
 							v.aFaire?.idDevoir as number,
 							token,
@@ -109,14 +109,14 @@ export function cleanAssignements(
 							newState
 						);
 						token = res?.token || token;
-						this.effectue = newState;
+						this.done = newState;
 						return newState;
 					},
 			  }
 			: undefined,
 		contenuDeSeance: {
-			idDevoir: v.contenuDeSeance.idDevoir,
-			contenu: expandBase64(v.contenuDeSeance.contenu),
+			homeworkId: v.contenuDeSeance.idDevoir,
+			content: expandBase64(v.contenuDeSeance.contenu),
 			documents: v.contenuDeSeance.documents,
 		},
 		_raw: v,

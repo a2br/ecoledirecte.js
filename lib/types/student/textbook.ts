@@ -4,27 +4,27 @@ import { _failureRes } from "../failureRes";
 export type assignement = {
 	id: number;
 	date: Date;
-	interro: boolean;
-	matiere: {
-		nom: string;
+	test: boolean;
+	subject: {
+		name: string;
 		code: string;
 	};
-	prof: string;
-	aFaire?: {
-		contenu: expandedBase64;
-		donneLe: Date;
-		rendreEnLigne: boolean;
-		effectue: boolean;
-		dernierContenuDeSeance: {
-			contenu: expandedBase64;
+	teacher: string;
+	job?: {
+		content: expandedBase64;
+		givenAt: Date;
+		toReturnOnline: boolean;
+		done: boolean;
+		lastContenuDeSeance: {
+			content: expandedBase64;
 			documents: unknown[];
 		};
 		/** Experimental */
-		cocher: (newState: boolean) => Promise<boolean>;
+		tick: (newState: boolean) => Promise<boolean>;
 	};
 	contenuDeSeance: {
-		idDevoir: number;
-		contenu: expandedBase64;
+		homeworkId: number;
+		content: expandedBase64;
 		documents: unknown[];
 	};
 	_raw: _textbookDateAssignement;
