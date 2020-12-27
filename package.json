@@ -1,5 +1,5 @@
 {
-	"name": "@a2br/ecoledirecte.js",
+	"name": "ecoledirecte.js",
 	"version": "0.7.3",
 	"description": "Good-looking client for EcoleDirecte's private API.",
 	"repository": {
@@ -41,8 +41,5 @@
 	"dependencies": {
 		"html-to-text": "^6.0.0",
 		"node-fetch": "^2.6.1"
-	},
-	"publishConfig": {
-		"registry": "https://npm.pkg.github.com/"
 	}
 }
