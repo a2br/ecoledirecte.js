@@ -35,6 +35,8 @@ export async function makeRequest(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
+	// Uncomment to log each request sent to ED
+	// console.log(method, url);
 	const params: RequestInit = {
 		method: method,
 		headers: {
