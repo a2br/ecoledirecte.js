@@ -1,4 +1,5 @@
 import { makeRequest } from "../util";
+import { Student } from "../../account_types";
 
 import { _textbookResSuccess, _textbookDateResSuccess } from "../../types";
 import { _textbookDateAssignement, assignement } from "../../types";
@@ -70,7 +71,6 @@ export async function tickAssignement(
 		guard: true,
 	});
 
-	console.log(body);
 	return body;
 }
 
@@ -79,8 +79,8 @@ export function cleanAssignements(
 		date: string;
 		matieres: _textbookDateAssignement[];
 	},
-	token: string
-): { cleaned: assignement[]; token: string } {
+	student: Student
+): assignement[] {
 	const assignements = data.matieres;
 	const cleaned: assignement[] = assignements.map(v => ({
 		id: v.id,
@@ -101,14 +101,15 @@ export function cleanAssignements(
 						content: expandBase64(v.aFaire.contenuDeSeance.contenu),
 						documents: v.aFaire.contenuDeSeance.documents,
 					},
-					tick: async function (newState: boolean) {
+					tick: async function (newState?: boolean) {
+						if (newState === undefined) newState = !this.done;
 						const res = await tickAssignement(
-							v.aFaire?.idDevoir as number,
-							token,
+							student._raw.id,
+							student.token,
 							v,
 							newState
 						);
-						token = res?.token || token;
+						student.token = res?.token || student.token;
 						this.done = newState;
 						return newState;
 					},
@@ -121,5 +122,5 @@ export function cleanAssignements(
 		},
 		_raw: v,
 	}));
-	return { cleaned, token };
+	return cleaned;
 }
