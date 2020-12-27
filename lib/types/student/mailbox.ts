@@ -101,22 +101,22 @@ export type message = {
 	date: Date;
 	to: Array<{
 		id: number;
-		name: string;
-		nom: string;
-		prenom: string;
-		particule: string;
-		civilite: string;
+		fullName: string;
+		lastName: string;
+		firstName: string;
+		particle: string;
+		civility: string;
 		role: role;
 		read: boolean;
 		to_cc_cci: "to" | "cc" | "cci";
 	}>;
 	from: {
 		id: number;
-		name: string;
-		nom: string;
-		prenom: string;
-		particule: string;
-		civilite: string;
+		fullName: string;
+		lastName: string;
+		firstName: string;
+		particle: string;
+		civility: string;
 		role: role;
 		read: boolean;
 	};
