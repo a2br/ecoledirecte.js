@@ -36,10 +36,19 @@ export class Student extends Account {
 		this.account = mainAccount;
 		this.token = session.token;
 	}
-
+	/**
+	 * Fetches the homework
+	 * @param dates (Array of) variable(s) which can be converted into Date object(s)
+	 * @param onlyWithWork If true, will ignore all assignements objects that do not contain any homework
+	 */
 	async getHomework(
-		dates?: Array<Date | string | number> | (Date | string | number)
+		params: {
+			dates?: Array<Date | string | number> | (Date | string | number);
+			onlyWithWork?: boolean;
+		} = {}
 	): Promise<assignement[]> {
+		let { dates } = params;
+		const { onlyWithWork } = params;
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
 				this.account.id,
@@ -63,11 +72,9 @@ export class Student extends Account {
 					this.token = textbook.token;
 
 					const homework = textbook.data;
-					const cleanedAndToken = cleanAssignements(homework, this.token);
-					const { cleaned } = cleanedAndToken;
-					this.token = cleanedAndToken.token;
-					const withWork = cleaned.filter(v => !!("aFaire" in v));
-					return withWork;
+					const cleaned = cleanAssignements(homework, this);
+					if (onlyWithWork) return cleaned.filter(v => !!("job" in v));
+					return cleaned;
 				})
 			)
 		)
@@ -75,7 +82,9 @@ export class Student extends Account {
 			.sort((a, b) => a.date.getTime() - b.date.getTime());
 		return resultsArray;
 	}
-
+	/**
+	 * @returns Every sent and received message, in ascending order by id
+	 */
 	async getMessages(): Promise<message[]> {
 		const received = await getMessages(this.account.id, this.token, "received");
 		const sent = await getMessages(this.account.id, this.token, "sent");
