@@ -38,7 +38,7 @@ export class Student extends Account {
 	}
 
 	async getHomework(
-		dates: Array<Date | string | number> | (Date | string | number)
+		dates?: Array<Date | string | number> | (Date | string | number)
 	): Promise<assignement[]> {
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
