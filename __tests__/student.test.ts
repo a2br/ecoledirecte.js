@@ -30,7 +30,7 @@ describe("Student class", () => {
 		expect(Array.isArray(messages)).toBe(true);
 
 		const message = messages[0];
-		expect(await await message.getContent()).toBeTruthy();
+		expect(await message.getContent()).toBeTruthy();
 
 		expect(message.to).toBeTruthy();
 	});
