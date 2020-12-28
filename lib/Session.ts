@@ -2,6 +2,7 @@ import { _loginRes, isFailure } from "./types";
 import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./account_types";
 import { EcoleDirecteAPIError } from "./errors";
+import logs from "./events";
 
 export class Session {
 	private _username: string;
@@ -11,7 +12,20 @@ export class Session {
 	 * @returns EcoleDirecte login response
 	 */
 	public loginRes?: _loginRes;
-	public token = "";
+	private _token = "";
+
+	get token(): string {
+		return this._token;
+	}
+
+	set token(value: string) {
+		logs.emit("newToken", {
+			oldToken: this._token,
+			newToken: value,
+			session: this,
+		});
+		this._token = value;
+	}
 
 	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);

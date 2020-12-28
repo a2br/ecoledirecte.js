@@ -1,8 +1,10 @@
 /// <reference types="node" />
 import { EventEmitter } from "events";
+import { Session } from "./Session";
 
 interface LogEvents {
 	request: [{ method: string; url: string; body: Record<string, unknown> }];
+	newToken: [{ oldToken: string; newToken: string; session: Session }];
 }
 
 declare class EventsManager extends EventEmitter {
