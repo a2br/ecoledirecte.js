@@ -1,6 +1,7 @@
 import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
 
+import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
 import { expandedBase64, isFailure } from "../types/";
 
@@ -35,8 +36,7 @@ export async function makeRequest(
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
-	// Uncomment to log each request sent to ED
-	// console.log(method, url);
+	logs.emit("request", { method, url, body });
 	const params: RequestInit = {
 		method: method,
 		headers: {
