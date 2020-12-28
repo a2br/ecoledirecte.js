@@ -1,6 +1,6 @@
 {
 	"name": "ecoledirecte.js",
-	"version": "0.9.0-2",
+	"version": "0.9.0",
 	"description": "Good-looking client for EcoleDirecte's private API.",
 	"repository": {
 		"type": "git",
