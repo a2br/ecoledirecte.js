@@ -13,12 +13,13 @@
 	],
 	"scripts": {
 		"prepublish": "npm run build",
-		"start": "tsc && node dist/index.js",
-		"build": "tsc",
+		"start": "npm run build && node dist/index.js",
+		"build": "tsc && npm run copy-dts",
 		"lint": "eslint",
 		"pretty": "prettier -w .",
 		"check": "npm run pretty && npm run lint",
-		"test": "jest"
+		"test": "jest",
+		"copy-dts": "copyfiles -u 1 \"lib/**/*.d.ts\" dist"
 	},
 	"author": "a2br",
 	"license": "MIT",
