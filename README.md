@@ -17,7 +17,7 @@ const session = new Session(username, password);
 
 // Bringing your session to life!
 const account = await session.login().catch(err => {
-	console.error("The login did not go well.");
+	console.error("This login did not go well.");
 });
 
 // We should check that the user exists (in case the login
