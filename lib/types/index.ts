@@ -19,20 +19,14 @@ export { teacherAccount, isTeacherAccount };
 
 //! TEXTBOOK
 
-import { _textbookRes, _textbookDateRes } from "./student/textbook";
-import {
+export { _textbookRes, _textbookDateRes } from "./student/textbook";
+export {
 	_textbookResSuccess,
 	_textbookDateResSuccess,
 } from "./student/textbook";
 
-import { _textbookDateAssignement, assignement } from "./student/textbook";
-
-export { _textbookRes, _textbookDateRes };
-export { _textbookResSuccess, _textbookDateResSuccess };
-
-export { _textbookDateAssignement, assignement };
+export { _textbookDateAssignement, assignement } from "./student/textbook";
 
 //! MAILBOX
 
-import { _mailboxRes, message, _mailboxResSuccess } from "./student/mailbox";
-export { _mailboxRes, message, _mailboxResSuccess };
+export { _mailboxRes, message, _mailboxResSuccess } from "./student/mailbox";
