@@ -6,13 +6,14 @@ on:
   pull_request:
     branches: [ main ]
 
-jobs:
-  compile:
-    name: compile
+jobs:   
+     
+  build:
+    name: build
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [12.x]
+        node-version: [14.x]
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
@@ -22,27 +23,44 @@ jobs:
         with:
           node-version: ${{ matrix.node-version }}
 
-      - name: Cache npm
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
+#       - name: Cache npm
+#         uses: actions/cache@v2
+#         with:
+#           path: ~/.npm
+#           key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+#           restore-keys: |
+#             ${{ runner.os }}-node-
 
       - name: Install dependencies
         run: npm install
 
-      - name: Compile TypeScipt
-        uses: iCrawl/action-tsc@v1
+#       - name: Compile TypeScipt
+#         uses: iCrawl/action-tsc@v1
+
+      - name: Build
+        run: npm build
         
-#   test:
-#     name: test
-#     runs-on: ubuntu-latest
-#     steps:
-#       - name: Check out repository
-#         uses: actions/checkout@v2
+  test:
+    name: test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [14.x]
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
         
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v2.1.2
+        with:
+          node-version: ${{ matrix.node-version }}
+          
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run tests
+        run: npm test
+
 #       - name: Run tests with Jest
 #         uses: stefanoeb/jest-action@1.0.4
     
