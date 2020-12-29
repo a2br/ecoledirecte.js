@@ -4,4 +4,4 @@ export type expandedBase64 = {
 	text: string;
 };
 
-export type role = "E" | "P" | "A" | "1";
+export { role } from "ecoledirecte-api-types";
