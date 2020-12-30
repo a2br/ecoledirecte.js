@@ -1,3 +1,5 @@
+import { root, Routes } from "ecoledirecte-api-types";
+
 import { makeRequest } from "../util";
 import { Student } from "../../account_types";
 
@@ -15,7 +17,7 @@ export async function getUpcomingAssignementDates(
 ): Promise<{ dates: string[]; token: string }> {
 	const body: _textbookResSuccess = await makeRequest({
 		method: "POST",
-		url: `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=get`,
+		url: new URL(Routes.studentHomework(id), root).href,
 		body: { token },
 		guard: true,
 	});
@@ -37,7 +39,7 @@ export async function getTextbookPage(
 ): Promise<_textbookDateResSuccess> {
 	const body: _textbookDateResSuccess = await makeRequest({
 		method: "POST",
-		url: `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte/${date}.awp?verbe=get`,
+		url: new URL(Routes.studentHomeworkDate(id, date), root).href,
 		body: { token },
 		guard: true,
 	});
@@ -66,7 +68,7 @@ export async function tickAssignement(
 
 	const body: { code: 200; token: string; host: string } = await makeRequest({
 		method: "POST",
-		url: `https://api.ecoledirecte.com/v3/Eleves/${id}/cahierdetexte.awp?verbe=put`,
+		url: new URL(Routes.studentHomework(id, { verbe: "put" }), root).href,
 		body: data,
 		guard: true,
 	});

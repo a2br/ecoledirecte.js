@@ -7,6 +7,8 @@ import {
 	isStudentAccount,
 	assignement,
 	message,
+	grade,
+	period,
 } from "../types";
 import {
 	cleanAssignements,
@@ -14,6 +16,9 @@ import {
 	getMessages,
 	getTextbookPage,
 	toISODate,
+	getGrades,
+	cleanGrades,
+	cleanPeriods,
 } from "../functions";
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
@@ -96,5 +101,17 @@ export class Student extends Account {
 		const cleaned = cleanMessages(messages, this);
 
 		return cleaned;
+	}
+
+	async getGrades(): Promise<grade[]> {
+		const _grades = await getGrades(this.account.id, this.token);
+		const grades = cleanGrades(_grades.data.notes);
+		return grades;
+	}
+
+	async getPeriods(): Promise<period[]> {
+		const _grades = await getGrades(this.account.id, this.token);
+		const periods = cleanPeriods(_grades.data.periodes);
+		return periods;
 	}
 }

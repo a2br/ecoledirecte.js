@@ -1,18 +1,16 @@
-import { login, getMainAccount } from "./login";
-import { toISODate, expandBase64 } from "./util";
-
-export { login, getMainAccount };
-export { toISODate, expandBase64 };
+export { login, getMainAccount } from "./login";
+export { toISODate, expandBase64 } from "./util";
 
 //! TEXTBOOK
 
-import { getTextbookPage } from "./student/textbook";
-import { cleanAssignements, tickAssignement } from "./student/textbook";
-
-export { getTextbookPage, cleanAssignements, tickAssignement };
+export { getTextbookPage } from "./student/textbook";
+export { cleanAssignements, tickAssignement } from "./student/textbook";
 
 //! MAILBOX
 
-import { getMessages } from "./student/mailbox";
+export { getMessages } from "./student/mailbox";
 
-export { getMessages };
+//! NOTES
+
+export { getGrades, cleanGrades } from "./student/notes";
+export { cleanPeriods } from "./student/notes";

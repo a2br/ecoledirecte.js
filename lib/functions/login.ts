@@ -1,3 +1,5 @@
+import { root, Routes } from "ecoledirecte-api-types";
+
 import { makeRequest } from "./util";
 import { _loginRes, account } from "../types";
 
@@ -10,7 +12,7 @@ export async function login(
 ): Promise<_loginRes> {
 	const body: _loginRes = await makeRequest({
 		method: "POST",
-		url: "https://api.ecoledirecte.com/v3/login.awp",
+		url: new URL(Routes.login(), root).href,
 		body: {
 			identifiant: username,
 			motdepasse: password,

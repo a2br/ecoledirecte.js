@@ -1,21 +1,14 @@
-import { expandedBase64 } from "./util";
-export { expandedBase64 };
+export { expandedBase64 } from "./util";
 
-import { isFailure } from "./failureRes";
-export { isFailure };
+export { isFailure } from "./failureRes";
 
 //! LOGIN REQ
-import { _loginRes, _loginResSuccess, account } from "./login";
-import { familyAccount, isFamilyAccount } from "./login";
-import { staffAccount, isStaffAccount } from "./login";
-import { studentAccount, isStudentAccount } from "./login";
-import { teacherAccount, isTeacherAccount } from "./login";
 
-export { _loginRes, _loginResSuccess, account };
-export { familyAccount, isFamilyAccount };
-export { staffAccount, isStaffAccount };
-export { studentAccount, isStudentAccount };
-export { teacherAccount, isTeacherAccount };
+export { _loginRes, _loginResSuccess, account } from "./login";
+export { familyAccount, isFamilyAccount } from "./login";
+export { staffAccount, isStaffAccount } from "./login";
+export { studentAccount, isStudentAccount } from "./login";
+export { teacherAccount, isTeacherAccount } from "./login";
 
 //! TEXTBOOK
 
@@ -29,4 +22,8 @@ export { _textbookDateAssignement, assignement } from "./student/textbook";
 
 //! MAILBOX
 
-export { _mailboxRes, message, _mailboxResSuccess } from "./student/mailbox";
+export * from "./student/mailbox";
+
+//! REPORT CARD
+
+export * from "./student/notes";
