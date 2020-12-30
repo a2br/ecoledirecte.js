@@ -105,12 +105,14 @@ export class Student extends Account {
 
 	async getGrades(): Promise<grade[]> {
 		const _grades = await getGrades(this.account.id, this.token);
+		this.token = _grades.token;
 		const grades = cleanGrades(_grades.data.notes);
 		return grades;
 	}
 
 	async getPeriods(): Promise<period[]> {
 		const _grades = await getGrades(this.account.id, this.token);
+		this.token = _grades.token;
 		const periods = cleanPeriods(_grades.data.periodes);
 		return periods;
 	}
