@@ -94,8 +94,9 @@ export class Student extends Account {
 	 */
 	async getMessages(): Promise<message[]> {
 		const received = await getMessages(this.account.id, this.token, "received");
+		this.token = received.token;
 		const sent = await getMessages(this.account.id, this.token, "sent");
-
+		this.token = sent.token;
 		const messages = received;
 		messages.data.messages.sent = sent.data.messages.sent;
 		const cleaned = cleanMessages(messages, this);
