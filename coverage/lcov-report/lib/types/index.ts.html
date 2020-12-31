@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>13/13</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>10/10</span>
+                <span class='fraction'>8/8</span>
             </div>
         
             
@@ -90,23 +90,11 @@
 <a name='L31'></a><a href='#L31'>31</a>
 <a name='L32'></a><a href='#L32'>32</a>
 <a name='L33'></a><a href='#L33'>33</a>
-<a name='L34'></a><a href='#L34'>34</a>
-<a name='L35'></a><a href='#L35'>35</a>
-<a name='L36'></a><a href='#L36'>36</a>
-<a name='L37'></a><a href='#L37'>37</a>
-<a name='L38'></a><a href='#L38'>38</a>
-<a name='L39'></a><a href='#L39'>39</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L34'></a><a href='#L34'>34</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">54x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">53x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
-<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">7x</span>
@@ -126,51 +114,48 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">6x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { expandedBase64 } from "./util";
-export { expandedBase64 };
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">export { expandedBase64 } from "./util";
 &nbsp;
-import { isFailure } from "./failureRes";
-export { isFailure };
+export { isFailure } from "./failureRes";
 &nbsp;
 //! LOGIN REQ
-import { _loginRes, _loginResSuccess, account } from "./login";
-import { familyAccount, isFamilyAccount } from "./login";
-import { staffAccount, isStaffAccount } from "./login";
-import { studentAccount, isStudentAccount } from "./login";
-import { teacherAccount, isTeacherAccount } from "./login";
 &nbsp;
-export { _loginRes, _loginResSuccess, account };
-export { familyAccount, isFamilyAccount };
-export { staffAccount, isStaffAccount };
-export { studentAccount, isStudentAccount };
-export { teacherAccount, isTeacherAccount };
+export { _loginRes, _loginResSuccess, account } from "./login";
+export { familyAccount, isFamilyAccount } from "./login";
+export { staffAccount, isStaffAccount } from "./login";
+export { studentAccount, isStudentAccount } from "./login";
+export { teacherAccount, isTeacherAccount } from "./login";
 &nbsp;
 //! TEXTBOOK
 &nbsp;
-import { _textbookRes, _textbookDateRes } from "./student/textbook";
-import {
+export { _textbookRes, _textbookDateRes } from "./student/textbook";
+export {
 	_textbookResSuccess,
 	_textbookDateResSuccess,
 } from "./student/textbook";
 &nbsp;
-import { _textbookDateAssignement, assignement } from "./student/textbook";
-&nbsp;
-export { _textbookRes, _textbookDateRes };
-export { _textbookResSuccess, _textbookDateResSuccess };
-&nbsp;
-export { _textbookDateAssignement, assignement };
+export { _textbookDateAssignement, assignement } from "./student/textbook";
 &nbsp;
 //! MAILBOX
 &nbsp;
-import { _mailboxRes, message, _mailboxResSuccess } from "./student/mailbox";
-export { _mailboxRes, message, _mailboxResSuccess };
+export * from "./student/mailbox";
+&nbsp;
+//! REPORT CARD
+&nbsp;
+export * from "./student/notes";
+&nbsp;
+//! TIMELINES
+&nbsp;
+export * from "./student/timelines";
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
@@ -178,7 +163,7 @@ export { _mailboxRes, message, _mailboxResSuccess };
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Sun Dec 27 2020 14:09:10 GMT+0100 (GMT+01:00)
+                at Thu Dec 31 2020 18:49:16 GMT+0100 (Central European Standard Time)
             </div>
         </div>
         <script src="../../prettify.js"></script>

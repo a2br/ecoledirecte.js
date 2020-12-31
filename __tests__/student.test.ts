@@ -41,4 +41,28 @@ describe("Student class", () => {
 
 		expect(message.to).toBeTruthy();
 	});
+
+	test("it fetches grades", async () => {
+		const acc = await account;
+		if (acc.type !== "student") return;
+
+		const grades = await acc.getGrades();
+		expect(Array.isArray(grades)).toBe(true);
+	});
+
+	test("it gets periods", async () => {
+		const acc = await account;
+		if (acc.type !== "student") return;
+
+		const periods = await acc.getPeriods();
+		expect(Array.isArray(periods)).toBe(true);
+	});
+
+	test("it fetches timeline", async () => {
+		const acc = await account;
+		if (acc.type !== "student") return;
+
+		const timeline = await acc.timeline();
+		expect(Array.isArray(timeline)).toBe(true);
+	});
 });
