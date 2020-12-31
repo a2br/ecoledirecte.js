@@ -14,3 +14,7 @@ export { getMessages } from "./student/mailbox";
 
 export { getGrades, cleanGrades } from "./student/notes";
 export { cleanPeriods } from "./student/notes";
+
+//! TIMELINES
+
+export { getTimeline, getCommonTimeline } from "./student/timelines";

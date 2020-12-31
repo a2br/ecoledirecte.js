@@ -27,3 +27,7 @@ export * from "./student/mailbox";
 //! REPORT CARD
 
 export * from "./student/notes";
+
+//! TIMELINES
+
+export * from "./student/timelines";

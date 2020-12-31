@@ -9,6 +9,7 @@ import {
 	message,
 	grade,
 	period,
+	studTlElem,
 } from "../types";
 import {
 	cleanAssignements,
@@ -19,9 +20,11 @@ import {
 	getGrades,
 	cleanGrades,
 	cleanPeriods,
+	getTimeline,
 } from "../functions";
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
+import { cleanStudTimeline } from "../functions/student/timelines";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -104,6 +107,9 @@ export class Student extends Account {
 		return cleaned;
 	}
 
+	/**
+	 * @returns Every grade
+	 */
 	async getGrades(): Promise<grade[]> {
 		const _grades = await getGrades(this.account.id, this.token);
 		this.token = _grades.token;
@@ -111,10 +117,21 @@ export class Student extends Account {
 		return grades;
 	}
 
+	/**
+	 * @returns Every periods with their subjects. Useful to get more infos about grades.
+	 * It is recommended to cache them.
+	 */
 	async getPeriods(): Promise<period[]> {
 		const _grades = await getGrades(this.account.id, this.token);
 		this.token = _grades.token;
 		const periods = cleanPeriods(_grades.data.periodes);
 		return periods;
+	}
+
+	async timeLine(): Promise<studTlElem[]> {
+		const _timeline = await getTimeline(this.account.id, this.token);
+		this.token = _timeline.token;
+		const tlElems = cleanStudTimeline(_timeline);
+		return tlElems;
 	}
 }
