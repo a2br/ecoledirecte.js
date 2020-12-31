@@ -12,7 +12,7 @@
 		"ecoledirecte"
 	],
 	"scripts": {
-		"prepublish": "npm run build",
+		"prepare": "npm run build",
 		"start": "npm run build && node dist/index.js",
 		"build": "tsc && npm run copy-dts",
 		"lint": "eslint",
