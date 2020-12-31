@@ -128,7 +128,7 @@ export class Student extends Account {
 		return periods;
 	}
 
-	async timeLine(): Promise<studTlElem[]> {
+	async timeline(): Promise<studTlElem[]> {
 		const _timeline = await getTimeline(this.account.id, this.token);
 		this.token = _timeline.token;
 		const tlElems = cleanStudTimeline(_timeline);
