@@ -1,6 +1,6 @@
 import { Session } from "./Session";
 import * as accounts from "./account_types";
-import logs from "./events";
+import events from "./events";
 
-export { Session, logs, accounts };
+export { Session, events, accounts };
 export default Session;

@@ -1,4 +1,4 @@
 import { EventEmitter } from "events";
 class EventManager extends EventEmitter {}
-const logs = new EventManager();
-export default logs;
+const events = new EventManager();
+export default events;
