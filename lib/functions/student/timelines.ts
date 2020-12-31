@@ -38,6 +38,7 @@ export async function getCommonTimeline(
 export function cleanStudTimeline(
 	timelineRes: _studentTlResSuccess
 ): studTlElem[] {
+	if (!("data" in timelineRes)) return [];
 	const timeline: studTlElem[] = timelineRes.data.map(e => ({
 		date: new Date(e.date),
 		type: e.typeElement,
