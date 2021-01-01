@@ -134,4 +134,8 @@ export class Student extends Account {
 		const tlElems = cleanStudTimeline(_timeline);
 		return tlElems;
 	}
+
+	get _raw(): studentAccount {
+		return this.account;
+	}
 }

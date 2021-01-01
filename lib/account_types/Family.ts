@@ -23,4 +23,8 @@ export class Family extends Account {
 		this.account = mainAccount;
 		this.token = session.token;
 	}
+
+	get _raw(): familyAccount {
+		return this.account;
+	}
 }

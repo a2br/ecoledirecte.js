@@ -23,4 +23,8 @@ export class Staff extends Account {
 		this.account = mainAccount;
 		this.token = session.token;
 	}
+
+	get _raw(): staffAccount {
+		return this.account;
+	}
 }

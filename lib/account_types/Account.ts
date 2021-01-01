@@ -26,8 +26,4 @@ export class Account {
 
 		this.__account = mainAccount;
 	}
-
-	get _raw(): account {
-		return this.__account;
-	}
 }

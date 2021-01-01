@@ -23,4 +23,8 @@ export class Teacher extends Account {
 		this.account = mainAccount;
 		this.token = session.token;
 	}
+
+	get _raw(): teacherAccount {
+		return this.account;
+	}
 }
