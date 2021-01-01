@@ -1,6 +1,4 @@
-import { Family } from "./Family";
-import { Staff } from "./Staff";
-import { Student } from "./Student";
-import { Teacher } from "./Teacher";
-
-export { Family, Staff, Student, Teacher };
+export { Family } from "./Family";
+export { Staff } from "./Staff";
+export { Student } from "./Student";
+export { Teacher } from "./Teacher";
