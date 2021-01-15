@@ -40,7 +40,7 @@ export type assignement = {
 		tick: (newState?: boolean) => Promise<boolean>;
 	};
 	/** @description The day's `contenuDeSeance`. May not be displayed in the EcoleDirecte UI if the date is in the future */
-	contenuDeSeance: {
+	contenuDeSeance?: {
 		homeworkId: number;
 		content: expandedBase64;
 		documents: unknown[];
