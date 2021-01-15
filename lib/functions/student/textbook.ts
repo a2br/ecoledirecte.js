@@ -84,50 +84,47 @@ export function cleanAssignements(
 	student: Student
 ): assignement[] {
 	const assignements = data.matieres;
-	const cleaned: assignement[] = assignements.map(v => {
-		return {
-			id: v.id,
-			date: new Date(data.date),
-			test: v.interrogation,
-			subject: {
-				name: v.matiere,
-				code: v.codeMatiere,
-			},
-			teacher: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
-			job: v.aFaire
-				? {
-						content: expandBase64(v.aFaire.contenu),
-						givenAt: new Date(v.aFaire.donneLe),
-						toReturnOnline: v.aFaire.rendreEnLigne,
-						done: v.aFaire.effectue,
-						lastContenuDeSeance: {
-							content: expandBase64(v.aFaire.contenuDeSeance.contenu),
-							documents: v.aFaire.contenuDeSeance.documents,
-						},
-						tick: async function (newState?: boolean) {
-							if (newState === undefined) newState = !this.done;
-							const res = await tickAssignement(
-								student._raw.id,
-								student.token,
-								v,
-								newState
-							);
-							student.token = res?.token || student.token;
-							this.done = newState;
-							return newState;
-						},
-				  }
-				: undefined,
-			contenuDeSeance:
-				"contenuDeSeance" in v
-					? {
-							homeworkId: v.contenuDeSeance.idDevoir,
-							content: expandBase64(v.contenuDeSeance.contenu),
-							documents: v.contenuDeSeance.documents,
-					  }
-					: undefined,
-			_raw: v,
-		};
-	});
+	const cleaned: assignement[] = assignements.map(v => ({
+		id: v.id,
+		date: new Date(data.date),
+		test: v.interrogation,
+		subject: {
+			name: v.matiere,
+			code: v.codeMatiere,
+		},
+		teacher: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
+		job: v.aFaire
+			? {
+					content: expandBase64(v.aFaire.contenu),
+					givenAt: new Date(v.aFaire.donneLe),
+					toReturnOnline: v.aFaire.rendreEnLigne,
+					done: v.aFaire.effectue,
+					lastContenuDeSeance: {
+						content: expandBase64(v.aFaire.contenuDeSeance.contenu),
+						documents: v.aFaire.contenuDeSeance.documents,
+					},
+					tick: async function (newState?: boolean) {
+						if (newState === undefined) newState = !this.done;
+						const res = await tickAssignement(
+							student._raw.id,
+							student.token,
+							v,
+							newState
+						);
+						student.token = res?.token || student.token;
+						this.done = newState;
+						return newState;
+					},
+			  }
+			: undefined,
+		contenuDeSeance: v.contenuDeSeance
+			? {
+					homeworkId: v.contenuDeSeance.idDevoir,
+					content: expandBase64(v.contenuDeSeance.contenu),
+					documents: v.contenuDeSeance.documents,
+			  }
+			: undefined,
+		_raw: v,
+	}));
 	return cleaned;
 }
