@@ -21,6 +21,7 @@ import {
 	cleanGrades,
 	cleanPeriods,
 	getTimeline,
+	fetchPhoto,
 } from "../functions";
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
@@ -133,6 +134,11 @@ export class Student extends Account {
 		this.token = _timeline.token;
 		const tlElems = cleanStudTimeline(_timeline);
 		return tlElems;
+	}
+
+	async getPhoto(): Promise<Buffer | undefined> {
+		const buf = await fetchPhoto(this._raw);
+		return buf;
 	}
 
 	get _raw(): studentAccount {

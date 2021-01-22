@@ -2,7 +2,7 @@ import { Account } from "./Account";
 import { Session } from "../Session";
 
 import { _loginResSuccess, teacherAccount, isTeacherAccount } from "../types";
-import { getMainAccount } from "../functions";
+import { getMainAccount, fetchPhoto } from "../functions";
 
 export class Teacher extends Account {
 	public type: "teacher" = "teacher";
@@ -22,6 +22,11 @@ export class Teacher extends Account {
 
 		this.account = mainAccount;
 		this.token = session.token;
+	}
+
+	async getPhoto(): Promise<Buffer | undefined> {
+		const buf = await fetchPhoto(this._raw);
+		return buf;
 	}
 
 	get _raw(): teacherAccount {

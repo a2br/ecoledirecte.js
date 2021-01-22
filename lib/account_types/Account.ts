@@ -23,7 +23,6 @@ export class Account {
 		const mainAccount = getMainAccount(session.loginRes.data.accounts);
 
 		if (!session.token) throw new Error("Account class MUST have token");
-
 		this.__account = mainAccount;
 	}
 }
