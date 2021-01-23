@@ -24,9 +24,26 @@ export class Staff extends Account {
 		this.token = session.token;
 	}
 
+	private _photo?: Buffer;
+	private _photoUri?: string;
+
 	async getPhoto(): Promise<Buffer | undefined> {
-		const buf = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this._raw);
+		if (!r) return;
+		const [buf, str] = r;
+		this._photo = buf;
+		this._photoUri = str;
 		return buf;
+	}
+
+	get photo(): {
+		buffer?: Buffer;
+		uri?: string;
+	} {
+		return {
+			buffer: this._photo,
+			uri: this._photoUri,
+		};
 	}
 
 	get _raw(): staffAccount {
