@@ -14,6 +14,10 @@ export class Account {
 		this.__session.token = value;
 	}
 
+	get credentials(): { username: string; password: string } {
+		return this.__session.credentials;
+	}
+
 	constructor(session: Session) {
 		this.__session = session;
 		// Necessary checks
