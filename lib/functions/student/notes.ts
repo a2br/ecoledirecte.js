@@ -30,17 +30,16 @@ export function cleanGrades(_grades: _grade[]): grade[] {
 	const grades: grade[] = _grades.map(v => ({
 		name: v.devoir,
 		value: betterValue(v),
-		class:
-			v.moyenneClasse && v.maxClasse && v.minClasse
-				? {
-						max: v.maxClasse,
-						avg: v.moyenneClasse,
-						min: v.minClasse,
-				  }
-				: undefined,
+		class: {
+			max: !isNaN(+v.maxClasse) ? +v.maxClasse : v.maxClasse || undefined,
+			avg: !isNaN(+v.moyenneClasse)
+				? +v.moyenneClasse
+				: v.moyenneClasse || undefined,
+			min: !isNaN(+v.minClasse) ? +v.minClasse : v.minClasse || undefined,
+		},
 		denominator: +v.noteSur.replace(/,/, "."),
 		weight: +v.coef,
-		uncounted: v.nonSignificatif,
+		unweighted: v.nonSignificatif,
 		isLetter: v.enLettre,
 		date: new Date(v.date),
 		dateTyped: new Date(v.dateSaisie),
@@ -48,7 +47,7 @@ export function cleanGrades(_grades: _grade[]): grade[] {
 		subject: {
 			code: v.codeMatiere,
 			name: v.libelleMatiere,
-			minor: v.codeSousMatiere,
+			subSubjectCode: v.codeSousMatiere || undefined,
 		},
 		elements: v.elementsProgramme.map(e => ({
 			id: e.idElemProg,

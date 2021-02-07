@@ -6,14 +6,14 @@ import { expandedBase64 } from "../";
 export type grade = {
 	name: string;
 	value: number | string;
-	class?: {
-		max: number | string;
-		avg: number | string;
-		min: number | string;
+	class: {
+		max?: number | string;
+		avg?: number | string;
+		min?: number | string;
 	};
 	denominator: number;
 	weight: number;
-	uncounted: boolean;
+	unweighted: boolean;
 	isLetter: boolean;
 	date: Date;
 	dateTyped: Date;
@@ -21,7 +21,7 @@ export type grade = {
 	subject: {
 		code: string;
 		name: string;
-		minor: string;
+		subSubjectCode?: string;
 	};
 	elements: Array<{
 		id: number;
