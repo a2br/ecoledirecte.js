@@ -1,6 +1,6 @@
 import { _loginRes, isFailure } from "./types";
 import { getMainAccount, login } from "./functions";
-import { Family, Staff, Student, Teacher } from "./account_types";
+import { Family, Staff, Student, Teacher } from "./accounts";
 import { EcoleDirecteAPIError } from "./errors";
 import logs from "./events";
 

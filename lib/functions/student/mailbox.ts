@@ -6,7 +6,7 @@ import {
 	_mailboxResSuccess,
 	_messageResSuccess,
 } from "../../types/student/mailbox";
-import { Student } from "../../account_types";
+import { Student } from "../../accounts";
 
 export async function getMessages(
 	id: number,

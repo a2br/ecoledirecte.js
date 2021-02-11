@@ -3,6 +3,6 @@ import events from "./events";
 import { EcoleDirecteAPIError } from "./errors";
 
 export { Session, events, EcoleDirecteAPIError };
-export * from "./account_types";
+export * from "./accounts";
 
 export default Session;

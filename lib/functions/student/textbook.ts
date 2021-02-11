@@ -1,7 +1,7 @@
 import { root, Routes } from "ecoledirecte-api-types";
 
 import { makeRequest } from "../util";
-import { Student } from "../../account_types";
+import { Student } from "../../accounts";
 
 import { _textbookResSuccess, _textbookDateResSuccess } from "../../types";
 import { _textbookDateAssignement, assignement } from "../../types";
