@@ -1,6 +1,6 @@
 export { expandedBase64 } from "./util";
 
-export { isFailure } from "./failureRes";
+export { isFailure } from "ecoledirecte-api-types";
 
 //! LOGIN REQ
 

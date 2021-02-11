@@ -12,8 +12,7 @@ export { getMessages } from "./student/mailbox";
 
 //! NOTES
 
-export { getGrades, cleanGrades } from "./student/notes";
-export { cleanPeriods } from "./student/notes";
+export { getGrades } from "./student/notes";
 
 //! TIMELINES
 

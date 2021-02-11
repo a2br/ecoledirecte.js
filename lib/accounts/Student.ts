@@ -6,9 +6,6 @@ import {
 	studentAccount,
 	isStudentAccount,
 	assignement,
-	message,
-	grade,
-	period,
 	studTlElem,
 } from "../types";
 import {
@@ -18,11 +15,13 @@ import {
 	getTextbookPage,
 	toISODate,
 	getGrades,
-	cleanGrades,
-	cleanPeriods,
 	getTimeline,
 	fetchPhoto,
 } from "../functions";
+import { Message } from "../classes/Mail";
+import { Grade } from "../classes/Grade";
+import { Period } from "../classes/Period";
+
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
 import { cleanStudTimeline } from "../functions/student/timelines";
@@ -96,7 +95,7 @@ export class Student extends Account {
 	/**
 	 * @returns Every sent and received message, in ascending order by id
 	 */
-	async getMessages(): Promise<message[]> {
+	async getMessages(): Promise<Message[]> {
 		const received = await getMessages(this.account.id, this.token, "received");
 		this.token = received.token;
 		const sent = await getMessages(this.account.id, this.token, "sent");
@@ -111,10 +110,10 @@ export class Student extends Account {
 	/**
 	 * @returns Every grade
 	 */
-	async getGrades(): Promise<grade[]> {
+	async getGrades(): Promise<Grade[]> {
 		const _grades = await getGrades(this.account.id, this.token);
 		this.token = _grades.token;
-		const grades = cleanGrades(_grades.data.notes);
+		const grades = _grades.data.notes.map(g => new Grade(g));
 		return grades;
 	}
 
@@ -122,10 +121,10 @@ export class Student extends Account {
 	 * @returns Every periods with their subjects. Useful to get more infos about grades.
 	 * It is recommended to cache them.
 	 */
-	async getPeriods(): Promise<period[]> {
+	async getPeriods(): Promise<Period[]> {
 		const _grades = await getGrades(this.account.id, this.token);
 		this.token = _grades.token;
-		const periods = cleanPeriods(_grades.data.periodes);
+		const periods = _grades.data.periodes.map(p => new Period(p));
 		return periods;
 	}
 
