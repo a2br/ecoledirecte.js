@@ -1,4 +1,4 @@
-import { _failureRes } from "./types/failureRes";
+import { failureRes as _failureRes } from "ecoledirecte-api-types";
 
 export class EcoleDirecteAPIError extends Error {
 	constructor(public response: _failureRes, message?: string) {
