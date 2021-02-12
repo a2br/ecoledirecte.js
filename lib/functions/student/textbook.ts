@@ -1,11 +1,9 @@
 import { root, Routes } from "ecoledirecte-api-types";
 
 import { makeRequest } from "../util";
-import { Student } from "../../accounts";
 
 import { _textbookResSuccess, _textbookDateResSuccess } from "../../types";
-import { _textbookDateAssignement, assignement } from "../../types";
-import { expandBase64 } from "../util";
+import { _textbookDateAssignement } from "../../types";
 
 /**
  * @param id Account id
@@ -74,57 +72,4 @@ export async function tickAssignement(
 	});
 
 	return body;
-}
-
-export function cleanAssignements(
-	data: {
-		date: string;
-		matieres: _textbookDateAssignement[];
-	},
-	student: Student
-): assignement[] {
-	const assignements = data.matieres;
-	const cleaned: assignement[] = assignements.map(v => ({
-		id: v.id,
-		date: new Date(data.date),
-		test: v.interrogation,
-		subject: {
-			name: v.matiere,
-			code: v.codeMatiere,
-		},
-		teacher: v.nomProf.startsWith(" par ") ? v.nomProf.substr(5) : v.nomProf,
-		job: v.aFaire
-			? {
-					content: expandBase64(v.aFaire.contenu),
-					givenAt: new Date(v.aFaire.donneLe),
-					toReturnOnline: v.aFaire.rendreEnLigne,
-					done: v.aFaire.effectue,
-					lastContenuDeSeance: {
-						content: expandBase64(v.aFaire.contenuDeSeance.contenu),
-						documents: v.aFaire.contenuDeSeance.documents,
-					},
-					tick: async function (newState?: boolean) {
-						if (newState === undefined) newState = !this.done;
-						const res = await tickAssignement(
-							student._raw.id,
-							student.token,
-							v,
-							newState
-						);
-						student.token = res?.token || student.token;
-						this.done = newState;
-						return newState;
-					},
-			  }
-			: undefined,
-		contenuDeSeance: v.contenuDeSeance
-			? {
-					homeworkId: v.contenuDeSeance.idDevoir,
-					content: expandBase64(v.contenuDeSeance.contenu),
-					documents: v.contenuDeSeance.documents,
-			  }
-			: undefined,
-		_raw: v,
-	}));
-	return cleaned;
 }

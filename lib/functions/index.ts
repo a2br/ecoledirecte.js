@@ -4,7 +4,7 @@ export { fetchPhoto } from "./photo";
 //! TEXTBOOK
 
 export { getTextbookPage } from "./student/textbook";
-export { cleanAssignements, tickAssignement } from "./student/textbook";
+export { tickAssignement } from "./student/textbook";
 
 //! MAILBOX
 

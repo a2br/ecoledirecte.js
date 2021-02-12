@@ -9,7 +9,6 @@ import {
 	studTlElem,
 } from "../types";
 import {
-	cleanAssignements,
 	getMainAccount,
 	getMessages,
 	getTextbookPage,
@@ -21,6 +20,7 @@ import {
 import { Message } from "../classes/Mail";
 import { Grade } from "../classes/Grade";
 import { Period } from "../classes/Period";
+import { Assignement } from "../classes/Assignement";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
@@ -81,7 +81,9 @@ export class Student extends Account {
 					this.token = textbook.token;
 
 					const homework = textbook.data;
-					const cleaned = cleanAssignements(homework, this);
+					const cleaned = homework.matieres.map(
+						s => new Assignement(s, homework.date, this)
+					);
 					if (onlyWithWork) return cleaned.filter(v => !!("job" in v));
 					return cleaned;
 				})
