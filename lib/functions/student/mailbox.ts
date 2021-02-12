@@ -1,7 +1,7 @@
 import { root, Routes } from "ecoledirecte-api-types";
 
 import { makeRequest } from "../util";
-import { Message } from "../../classes/Mail";
+import { Message } from "../../classes";
 import { _mailboxResSuccess } from "../../types/student/mailbox";
 import { Student } from "../../accounts";
 

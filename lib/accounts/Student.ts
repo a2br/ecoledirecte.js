@@ -17,10 +17,7 @@ import {
 	getTimeline,
 	fetchPhoto,
 } from "../functions";
-import { Message } from "../classes/Mail";
-import { Grade } from "../classes/Grade";
-import { Period } from "../classes/Period";
-import { Assignement } from "../classes/Assignement";
+import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
