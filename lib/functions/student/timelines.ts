@@ -11,12 +11,15 @@ export async function getTimeline(
 	id: number,
 	token: string
 ): Promise<studTlResSuccess> {
-	const body: studTlResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.studentTimeline(id), root).href,
-		body: { token },
-		guard: true,
-	});
+	const body: studTlResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.studentTimeline(id), root).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id }
+	);
 
 	return body;
 }

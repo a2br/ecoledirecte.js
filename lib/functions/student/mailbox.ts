@@ -9,15 +9,18 @@ export async function getMessages(
 	token: string,
 	direction: "received" | "sent" = "received"
 ): Promise<mailboxResSuccess> {
-	const body: mailboxResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(
-			Routes.studentMailbox(id, { typeRecuperation: direction }),
-			root
-		).href,
-		body: { token },
-		guard: true,
-	});
+	const body: mailboxResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(
+				Routes.studentMailbox(id, { typeRecuperation: direction }),
+				root
+			).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id, direction }
+	);
 
 	return body;
 }

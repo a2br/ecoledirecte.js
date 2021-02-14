@@ -16,12 +16,15 @@ export async function getUpcomingAssignementDates(
 	id: number,
 	token: string
 ): Promise<{ dates: string[]; token: string }> {
-	const body: textbookResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.studentHomework(id), root).href,
-		body: { token },
-		guard: true,
-	});
+	const body: textbookResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.studentHomework(id), root).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id }
+	);
 
 	const dates = Object.keys(body.data); // .map((date) => new Date(date));
 
