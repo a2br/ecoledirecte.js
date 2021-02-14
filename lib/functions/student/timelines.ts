@@ -9,7 +9,8 @@ import { studTlElem, studTlEvent } from "../../types";
 
 export async function getTimeline(
 	id: number,
-	token: string
+	token: string,
+	context: Record<string, unknown> = {}
 ): Promise<studTlResSuccess> {
 	const body: studTlResSuccess = await makeRequest(
 		{
@@ -18,7 +19,7 @@ export async function getTimeline(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id }
+		{ userId: id, ...context }
 	);
 
 	return body;

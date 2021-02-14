@@ -50,14 +50,16 @@ export class Student extends Account {
 		params: {
 			dates?: Array<Date | string | number> | (Date | string | number);
 			onlyWithWork?: boolean;
-		} = {}
+		} = {},
+		context: Record<string, unknown> = {}
 	): Promise<Assignement[]> {
 		let { dates } = params;
 		const { onlyWithWork } = params;
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
 				this.account.id,
-				this.token
+				this.token,
+				context
 			);
 			dates = upcomingAssignementDates.dates;
 			this.token = upcomingAssignementDates.token;
@@ -72,7 +74,8 @@ export class Student extends Account {
 					const textbook = await getTextbookPage(
 						this.account.id,
 						this.token,
-						d
+						d,
+						context
 					);
 					this.token = textbook.token;
 
@@ -93,10 +96,20 @@ export class Student extends Account {
 	/**
 	 * @returns Every sent and received message, in ascending order by id
 	 */
-	async getMessages(): Promise<Message[]> {
-		const received = await getMessages(this.account.id, this.token, "received");
+	async getMessages(context: Record<string, unknown> = {}): Promise<Message[]> {
+		const received = await getMessages(
+			this.account.id,
+			this.token,
+			"received",
+			context
+		);
 		this.token = received.token;
-		const sent = await getMessages(this.account.id, this.token, "sent");
+		const sent = await getMessages(
+			this.account.id,
+			this.token,
+			"sent",
+			context
+		);
 		this.token = sent.token;
 		const messages = received;
 		messages.data.messages.sent = sent.data.messages.sent;
@@ -108,8 +121,8 @@ export class Student extends Account {
 	/**
 	 * @returns Every grade
 	 */
-	async getGrades(): Promise<Grade[]> {
-		const _grades = await getGrades(this.account.id, this.token);
+	async getGrades(context: Record<string, unknown> = {}): Promise<Grade[]> {
+		const _grades = await getGrades(this.account.id, this.token, context);
 		this.token = _grades.token;
 		const grades = _grades.data.notes.map(g => new Grade(g));
 		return grades;
@@ -119,15 +132,15 @@ export class Student extends Account {
 	 * @returns Every periods with their subjects. Useful to get more infos about grades.
 	 * It is recommended to cache them.
 	 */
-	async getPeriods(): Promise<Period[]> {
-		const _grades = await getGrades(this.account.id, this.token);
+	async getPeriods(context: Record<string, unknown> = {}): Promise<Period[]> {
+		const _grades = await getGrades(this.account.id, this.token, context);
 		this.token = _grades.token;
 		const periods = _grades.data.periodes.map(p => new Period(p));
 		return periods;
 	}
 
-	async timeline(): Promise<studTlElem[]> {
-		const _timeline = await getTimeline(this.account.id, this.token);
+	async timeline(context: Record<string, unknown> = {}): Promise<studTlElem[]> {
+		const _timeline = await getTimeline(this.account.id, this.token, context);
 		this.token = _timeline.token;
 		const tlElems = cleanStudTimeline(_timeline);
 		return tlElems;

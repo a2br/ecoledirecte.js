@@ -14,7 +14,8 @@ import {
  */
 export async function getUpcomingAssignementDates(
 	id: number,
-	token: string
+	token: string,
+	context: Record<string, unknown> = {}
 ): Promise<{ dates: string[]; token: string }> {
 	const body: textbookResSuccess = await makeRequest(
 		{
@@ -23,7 +24,7 @@ export async function getUpcomingAssignementDates(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id }
+		{ userId: id, ...context }
 	);
 
 	const dates = Object.keys(body.data); // .map((date) => new Date(date));
@@ -39,14 +40,18 @@ export async function getUpcomingAssignementDates(
 export async function getTextbookPage(
 	id: number,
 	token: string,
-	date: string
+	date: string,
+	context: Record<string, unknown> = {}
 ): Promise<textbookDateResSuccess> {
-	const body: textbookDateResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.studentHomeworkDate(id, date), root).href,
-		body: { token },
-		guard: true,
-	});
+	const body: textbookDateResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.studentHomeworkDate(id, date), root).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id, ...context }
+	);
 
 	return body;
 }

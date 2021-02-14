@@ -3,7 +3,8 @@ import { makeRequest } from "../util";
 
 export async function getGrades(
 	id: number,
-	token: string
+	token: string,
+	context: Record<string, unknown> = {}
 ): Promise<gradesResSuccess> {
 	const body: gradesResSuccess = await makeRequest(
 		{
@@ -12,7 +13,7 @@ export async function getGrades(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id }
+		{ userId: id, ...context }
 	);
 
 	return body;

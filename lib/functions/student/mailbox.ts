@@ -7,7 +7,8 @@ import { Student } from "../../accounts";
 export async function getMessages(
 	id: number,
 	token: string,
-	direction: "received" | "sent" = "received"
+	direction: "received" | "sent" = "received",
+	context: Record<string, unknown> = {}
 ): Promise<mailboxResSuccess> {
 	const body: mailboxResSuccess = await makeRequest(
 		{
@@ -19,7 +20,7 @@ export async function getMessages(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, direction }
+		{ userId: id, direction, ...context }
 	);
 
 	return body;
