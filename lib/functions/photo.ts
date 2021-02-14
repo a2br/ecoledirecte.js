@@ -23,6 +23,9 @@ export async function fetchPhoto(
 	if (!res) return;
 	const buf = await res.buffer();
 	const str =
-		"data:" + res.headers.get("Content-Type") + ";base64," + buf.toString();
+		"data:" +
+		res.headers.get("Content-Type") +
+		";base64," +
+		buf.toString("base64");
 	return [buf, str];
 }
