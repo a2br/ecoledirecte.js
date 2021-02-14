@@ -5,7 +5,7 @@ import {
 	loginResSuccess,
 	studentAccount,
 	isStudentAccount,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 import {
 	getMainAccount,
 	getMessages,

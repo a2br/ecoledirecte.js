@@ -1,6 +1,6 @@
 import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
-import { isFailure } from "ecoledirecte-api-types";
+import { isFailure } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";

@@ -1,4 +1,4 @@
-import { root, Routes, gradesResSuccess } from "ecoledirecte-api-types";
+import { root, Routes, gradesResSuccess } from "ecoledirecte-api-types/v3";
 import { makeRequest } from "../util";
 
 export async function getGrades(

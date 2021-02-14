@@ -1,7 +1,7 @@
 import {
 	studTlElem as _studTlElem,
 	studCommonTlEvent as _studCommonTlEvent,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 import { expandedBase64 } from "../util";
 
 export type studTlElem = {

@@ -5,7 +5,7 @@ import {
 	loginResSuccess,
 	familyAccount,
 	isFamilyAccount,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 import { getMainAccount } from "../functions";
 
 export class Family extends Account {

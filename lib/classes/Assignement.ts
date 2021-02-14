@@ -1,8 +1,8 @@
-import { Routes, root } from "ecoledirecte-api-types";
+import { Routes, root } from "ecoledirecte-api-types/v3";
 import { expandBase64, makeRequest } from "../functions/util";
 import { expandedBase64 } from "../types/util";
 import { Student } from "../accounts";
-import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types";
+import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types/v3";
 
 export class Assignement {
 	/** @description Unique ID */

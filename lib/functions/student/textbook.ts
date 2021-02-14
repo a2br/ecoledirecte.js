@@ -1,4 +1,4 @@
-import { root, Routes } from "ecoledirecte-api-types";
+import { root, Routes } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "../util";
 
@@ -6,7 +6,7 @@ import {
 	textbookResSuccess,
 	textbookDateResSuccess,
 	textbookDateAssignement,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 
 /**
  * @param id Account id

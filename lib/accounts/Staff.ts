@@ -5,7 +5,7 @@ import {
 	loginResSuccess,
 	staffAccount,
 	isStaffAccount,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 import { getMainAccount, fetchPhoto } from "../functions";
 
 export class Staff extends Account {

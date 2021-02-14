@@ -1,4 +1,4 @@
-import { root, Routes, mailboxResSuccess } from "ecoledirecte-api-types";
+import { root, Routes, mailboxResSuccess } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "../util";
 import { Message } from "../../classes";

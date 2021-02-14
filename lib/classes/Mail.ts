@@ -4,7 +4,7 @@ import {
 	messageResSuccess,
 	Routes,
 	root,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 import { expandBase64, makeRequest } from "../functions/util";
 import { expandedBase64 } from "../types/util";
 import { Student } from "../accounts";

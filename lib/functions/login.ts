@@ -1,7 +1,7 @@
-import { root, Routes } from "ecoledirecte-api-types";
+import { root, Routes } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "./util";
-import { loginRes, account } from "ecoledirecte-api-types";
+import { loginRes, account } from "ecoledirecte-api-types/v3";
 
 /**
  * @returns EcoleDirecte `/v3/login.awp` response

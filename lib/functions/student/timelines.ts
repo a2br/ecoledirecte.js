@@ -1,8 +1,8 @@
-import { root, Routes } from "ecoledirecte-api-types";
+import { root, Routes } from "ecoledirecte-api-types/v3";
 import {
 	studCommonTlResSuccess,
 	studTlResSuccess,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 
 import { expandBase64, makeRequest } from "../util";
 import { studTlElem, studTlEvent } from "../../types";

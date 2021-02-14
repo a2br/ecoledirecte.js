@@ -3,7 +3,7 @@ import {
 	studentAccount,
 	teacherAccount,
 	staffAccount,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 // import { EdHeaders } from "./util";
 
 const EdHeadersPhoto = {

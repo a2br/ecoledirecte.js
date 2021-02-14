@@ -1,4 +1,4 @@
-import { periode as _period } from "ecoledirecte-api-types";
+import { periode as _period } from "ecoledirecte-api-types/v3";
 import { expandBase64 } from "../functions/util";
 import { expandedBase64 } from "../types/util";
 
