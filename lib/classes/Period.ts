@@ -3,7 +3,7 @@ import { expandBase64 } from "../functions/util";
 import { expandedBase64 } from "../types/util";
 
 export class Period {
-	readonly id: string;
+	readonly code: string;
 	readonly name: string;
 	readonly yearly: boolean;
 	readonly closed: boolean;
@@ -33,7 +33,7 @@ export class Period {
 	readonly _raw: _period;
 
 	constructor(o: _period) {
-		this.id = o.idPeriode;
+		this.code = o.idPeriode;
 		this.name = o.periode;
 		this.yearly = o.annuel;
 		this.closed = o.cloture;
