@@ -1,12 +1,11 @@
-import { root, Routes } from "ecoledirecte-api-types";
-import { _notesResSuccess } from "../../types";
+import { root, Routes, gradesResSuccess } from "ecoledirecte-api-types";
 import { makeRequest } from "../util";
 
 export async function getGrades(
 	id: number,
 	token: string
-): Promise<_notesResSuccess> {
-	const body: _notesResSuccess = await makeRequest({
+): Promise<gradesResSuccess> {
+	const body: gradesResSuccess = await makeRequest({
 		method: "POST",
 		url: new URL(Routes.studentGrades(id), root).href,
 		body: { token },

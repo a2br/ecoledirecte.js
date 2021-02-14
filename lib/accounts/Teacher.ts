@@ -1,7 +1,11 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, teacherAccount, isTeacherAccount } from "../types";
+import {
+	loginResSuccess,
+	teacherAccount,
+	isTeacherAccount,
+} from "ecoledirecte-api-types";
 import { getMainAccount, fetchPhoto } from "../functions";
 
 export class Teacher extends Account {
@@ -12,7 +16,7 @@ export class Teacher extends Account {
 		super(session);
 
 		const mainAccount = getMainAccount(
-			(session.loginRes as _loginResSuccess).data.accounts
+			(session.loginRes as loginResSuccess).data.accounts
 		);
 
 		if (!isTeacherAccount(mainAccount))

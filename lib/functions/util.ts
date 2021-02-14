@@ -1,9 +1,10 @@
 import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
+import { isFailure } from "ecoledirecte-api-types";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
-import { expandedBase64, isFailure } from "../types/";
+import { expandedBase64 } from "../types/";
 
 export function toISODate(date: Date | string | number): string {
 	const d = new Date(date);

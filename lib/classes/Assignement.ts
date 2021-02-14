@@ -2,7 +2,7 @@ import { Routes, root } from "ecoledirecte-api-types";
 import { expandBase64, makeRequest } from "../functions/util";
 import { expandedBase64 } from "../types/util";
 import { Student } from "../accounts";
-import { _textbookDateAssignement } from "../types";
+import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types";
 
 export class Assignement {
 	/** @description Unique ID */

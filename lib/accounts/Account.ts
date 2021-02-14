@@ -1,5 +1,5 @@
 import { Session } from "../Session";
-import { account, isFailure } from "../types";
+import { account, isFailure } from "ecoledirecte-api-types";
 import { getMainAccount } from "../functions";
 
 export class Account {

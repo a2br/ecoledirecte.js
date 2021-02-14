@@ -2,12 +2,10 @@ import { Account } from "./Account";
 import { Session } from "../Session";
 
 import {
-	_loginResSuccess,
+	loginResSuccess,
 	studentAccount,
 	isStudentAccount,
-	assignement,
-	studTlElem,
-} from "../types";
+} from "ecoledirecte-api-types";
 import {
 	getMainAccount,
 	getMessages,
@@ -17,6 +15,7 @@ import {
 	getTimeline,
 	fetchPhoto,
 } from "../functions";
+import { studTlElem } from "../types";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
@@ -30,7 +29,7 @@ export class Student extends Account {
 	constructor(private session: Session) {
 		super(session);
 		const mainAccount = getMainAccount(
-			(session.loginRes as _loginResSuccess).data.accounts
+			(session.loginRes as loginResSuccess).data.accounts
 		);
 
 		if (!isStudentAccount(mainAccount))
@@ -52,7 +51,7 @@ export class Student extends Account {
 			dates?: Array<Date | string | number> | (Date | string | number);
 			onlyWithWork?: boolean;
 		} = {}
-	): Promise<assignement[]> {
+	): Promise<Assignement[]> {
 		let { dates } = params;
 		const { onlyWithWork } = params;
 		if (!dates) {

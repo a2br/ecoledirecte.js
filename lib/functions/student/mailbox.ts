@@ -1,16 +1,15 @@
-import { root, Routes } from "ecoledirecte-api-types";
+import { root, Routes, mailboxResSuccess } from "ecoledirecte-api-types";
 
 import { makeRequest } from "../util";
 import { Message } from "../../classes";
-import { _mailboxResSuccess } from "../../types/student/mailbox";
 import { Student } from "../../accounts";
 
 export async function getMessages(
 	id: number,
 	token: string,
 	direction: "received" | "sent" = "received"
-): Promise<_mailboxResSuccess> {
-	const body: _mailboxResSuccess = await makeRequest({
+): Promise<mailboxResSuccess> {
+	const body: mailboxResSuccess = await makeRequest({
 		method: "POST",
 		url: new URL(
 			Routes.studentMailbox(id, { typeRecuperation: direction }),
@@ -24,7 +23,7 @@ export async function getMessages(
 }
 
 export function cleanMessages(
-	mailboxRes: _mailboxResSuccess,
+	mailboxRes: mailboxResSuccess,
 	student: Student
 ): Message[] {
 	const { received, sent } = mailboxRes.data.messages;

@@ -1,9 +1,3 @@
-export {
-	studTlResSuccess as _studentTlResSuccess,
-	studCommonTlResSuccess as _studentCommonTlResSuccess,
-	studCommonTlEvent as _studCommonTlEvent,
-	studTlElem as _studTlElem,
-} from "ecoledirecte-api-types";
 import {
 	studTlElem as _studTlElem,
 	studCommonTlEvent as _studCommonTlEvent,

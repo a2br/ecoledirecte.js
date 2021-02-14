@@ -1,4 +1,4 @@
-import { _loginRes, isFailure } from "./types";
+import { loginRes, isFailure } from "ecoledirecte-api-types";
 import { getMainAccount, login } from "./functions";
 import { Family, Staff, Student, Teacher } from "./accounts";
 import { EcoleDirecteAPIError } from "./errors";
@@ -11,7 +11,7 @@ export class Session {
 	 * @async
 	 * @returns EcoleDirecte login response
 	 */
-	public loginRes?: _loginRes;
+	public loginRes?: loginRes;
 	private _token = "";
 
 	get token(): string {

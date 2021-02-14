@@ -2,8 +2,11 @@ import { root, Routes } from "ecoledirecte-api-types";
 
 import { makeRequest } from "../util";
 
-import { _textbookResSuccess, _textbookDateResSuccess } from "../../types";
-import { _textbookDateAssignement } from "../../types";
+import {
+	textbookResSuccess,
+	textbookDateResSuccess,
+	textbookDateAssignement,
+} from "ecoledirecte-api-types";
 
 /**
  * @param id Account id
@@ -13,7 +16,7 @@ export async function getUpcomingAssignementDates(
 	id: number,
 	token: string
 ): Promise<{ dates: string[]; token: string }> {
-	const body: _textbookResSuccess = await makeRequest({
+	const body: textbookResSuccess = await makeRequest({
 		method: "POST",
 		url: new URL(Routes.studentHomework(id), root).href,
 		body: { token },
@@ -34,8 +37,8 @@ export async function getTextbookPage(
 	id: number,
 	token: string,
 	date: string
-): Promise<_textbookDateResSuccess> {
-	const body: _textbookDateResSuccess = await makeRequest({
+): Promise<textbookDateResSuccess> {
+	const body: textbookDateResSuccess = await makeRequest({
 		method: "POST",
 		url: new URL(Routes.studentHomeworkDate(id, date), root).href,
 		body: { token },
@@ -48,7 +51,7 @@ export async function getTextbookPage(
 export async function tickAssignement(
 	id: number,
 	token: string,
-	assignement: _textbookDateAssignement,
+	assignement: textbookDateAssignement,
 	state?: boolean
 ): Promise<{ code: 200; token: string; host: string }> {
 	if (!("aFaire" in assignement)) throw Error("No work in this assignement.");

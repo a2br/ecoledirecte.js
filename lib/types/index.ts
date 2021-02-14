@@ -1,32 +1,4 @@
-export { expandedBase64 } from "./util";
-
-export { isFailure } from "ecoledirecte-api-types";
-
-//! LOGIN REQ
-
-export { _loginRes, _loginResSuccess, account } from "./login";
-export { familyAccount, isFamilyAccount } from "./login";
-export { staffAccount, isStaffAccount } from "./login";
-export { studentAccount, isStudentAccount } from "./login";
-export { teacherAccount, isTeacherAccount } from "./login";
-
-//! TEXTBOOK
-
-export { _textbookRes, _textbookDateRes } from "./student/textbook";
-export {
-	_textbookResSuccess,
-	_textbookDateResSuccess,
-} from "./student/textbook";
-
-export { _textbookDateAssignement, assignement } from "./student/textbook";
-
-//! MAILBOX
-
-export * from "./student/mailbox";
-
-//! REPORT CARD
-
-export * from "./student/notes";
+export * from "./util";
 
 //! TIMELINES
 
