@@ -35,7 +35,7 @@ export async function makeRequest(
 		body?: Record<string, unknown>;
 		guard?: boolean;
 	} = { method: "GET", url: "", guard: false },
-	context?: Record<string, unknown>
+	context: Record<string, unknown> = {}
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
