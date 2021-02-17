@@ -37,11 +37,15 @@ export class Grade {
 		this.name = o.devoir;
 		this.value = betterValue(o);
 		this.class = {
-			max: !isNaN(+o.maxClasse) ? +o.maxClasse : o.maxClasse || undefined,
-			avg: !isNaN(+o.moyenneClasse)
+			max: !(isNaN(+o.maxClasse) || !o.maxClasse)
+				? +o.maxClasse
+				: o.maxClasse || undefined,
+			avg: !(isNaN(+o.moyenneClasse) || !o.moyenneClasse)
 				? +o.moyenneClasse
 				: o.moyenneClasse || undefined,
-			min: !isNaN(+o.minClasse) ? +o.minClasse : o.minClasse || undefined,
+			min: !(isNaN(+o.minClasse) || !o.minClasse)
+				? +o.minClasse
+				: o.minClasse || undefined,
 		};
 		this.outOf = +o.noteSur.replace(/,/, ".");
 		this.weight = +o.coef;
