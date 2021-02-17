@@ -43,7 +43,7 @@ export class Student extends Account {
 
 	/**
 	 * Fetches the homework
-	 * @param dates (Array of) variable(s) which can be converted into Date object(s)
+	 * @param dates (Array of) variable(s) which can be converted into Date object(s). Preffered type: "YYYY-MM-DD"
 	 * @param onlyWithWork If true, will ignore all assignements objects that do not contain any homework
 	 */
 	async getHomework(
