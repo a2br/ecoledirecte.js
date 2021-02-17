@@ -9,7 +9,7 @@ interface LogEvents {
 			method: string;
 			url: string;
 			body: unknown;
-			context?: Record<string, unknown>;
+			context: Record<string, unknown>;
 			onRes: (callback: (res: Response) => void) => void;
 			offRes: (callback: (res: Response) => void) => void;
 		}
