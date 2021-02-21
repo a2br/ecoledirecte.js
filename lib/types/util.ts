@@ -3,5 +3,3 @@ export type expandedBase64 = {
 	html: string;
 	text: string;
 };
-
-export { role } from "ecoledirecte-api-types";

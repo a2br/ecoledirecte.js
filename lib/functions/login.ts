@@ -1,7 +1,7 @@
-import { root, Routes } from "ecoledirecte-api-types";
+import { root, Routes } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "./util";
-import { _loginRes, account } from "../types";
+import { loginRes, account } from "ecoledirecte-api-types/v3";
 
 /**
  * @returns EcoleDirecte `/v3/login.awp` response
@@ -9,8 +9,8 @@ import { _loginRes, account } from "../types";
 export async function login(
 	username: string,
 	password: string
-): Promise<_loginRes> {
-	const body: _loginRes = await makeRequest({
+): Promise<loginRes> {
+	const body: loginRes = await makeRequest({
 		method: "POST",
 		url: new URL(Routes.login(), root).href,
 		body: {

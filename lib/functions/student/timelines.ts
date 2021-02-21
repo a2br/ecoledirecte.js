@@ -1,22 +1,26 @@
-import { root, Routes } from "ecoledirecte-api-types";
-import { expandBase64, makeRequest } from "../util";
+import { root, Routes } from "ecoledirecte-api-types/v3";
 import {
-	_studentCommonTlResSuccess,
-	_studentTlResSuccess,
-	studTlElem,
-	studTlEvent,
-} from "../../types";
+	studCommonTlResSuccess,
+	studTlResSuccess,
+} from "ecoledirecte-api-types/v3";
+
+import { expandBase64, makeRequest } from "../util";
+import { studTlElem, studTlEvent } from "../../types";
 
 export async function getTimeline(
 	id: number,
-	token: string
-): Promise<_studentTlResSuccess> {
-	const body: _studentTlResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.studentTimeline(id), root).href,
-		body: { token },
-		guard: true,
-	});
+	token: string,
+	context: Record<string, unknown> = {}
+): Promise<studTlResSuccess> {
+	const body: studTlResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.studentTimeline(id), root).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id, ...context }
+	);
 
 	return body;
 }
@@ -24,8 +28,8 @@ export async function getTimeline(
 export async function getCommonTimeline(
 	id: number,
 	token: string
-): Promise<_studentCommonTlResSuccess> {
-	const body: _studentCommonTlResSuccess = await makeRequest({
+): Promise<studCommonTlResSuccess> {
+	const body: studCommonTlResSuccess = await makeRequest({
 		method: "POST",
 		url: new URL(Routes.commonTimeline("E", id), root).href,
 		body: { token },
@@ -35,9 +39,7 @@ export async function getCommonTimeline(
 	return body;
 }
 
-export function cleanStudTimeline(
-	timelineRes: _studentTlResSuccess
-): studTlElem[] {
+export function cleanStudTimeline(timelineRes: studTlResSuccess): studTlElem[] {
 	const timeline: studTlElem[] = timelineRes.data
 		? timelineRes.data.map(e => ({
 				date: new Date(e.date),
@@ -54,7 +56,7 @@ export function cleanStudTimeline(
 }
 
 export function cleanStudTlEvents(
-	commonTimelineRes: _studentCommonTlResSuccess
+	commonTimelineRes: studCommonTlResSuccess
 ): studTlEvent[] {
 	const events: studTlEvent[] = commonTimelineRes.data.evenements.map(e => ({
 		id: e.id,

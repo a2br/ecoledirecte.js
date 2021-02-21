@@ -1,5 +1,5 @@
 import { Session } from "../Session";
-import { account, isFailure } from "../types";
+import { account, isFailure } from "ecoledirecte-api-types/v3";
 import { getMainAccount } from "../functions";
 
 export class Account {
@@ -12,6 +12,10 @@ export class Account {
 
 	set token(value: string) {
 		this.__session.token = value;
+	}
+
+	get credentials(): { username: string; password: string } {
+		return this.__session.credentials;
 	}
 
 	constructor(session: Session) {

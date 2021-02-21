@@ -3,8 +3,17 @@ import { EventEmitter } from "events";
 import { Session } from "./session";
 
 interface LogEvents {
-	request: [{ method: string; url: string; body: Record<string, unknown> }];
 	newToken: [{ oldToken: string; newToken: string; session: Session }];
+	request: [
+		{
+			method: string;
+			url: string;
+			body: unknown;
+			context: Record<string, unknown>;
+			onRes: (callback: (res: Response) => void) => void;
+			offRes: (callback: (res: Response) => void) => void;
+		}
+	];
 }
 
 declare class EventsManager extends EventEmitter {

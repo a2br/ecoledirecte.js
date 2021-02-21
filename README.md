@@ -14,7 +14,7 @@ Browse EcoleDirecte's private API with the module of your dreams. But first, [re
 import { Session } from "ecoledirecte.js";
 
 // Create a new Session.
-const session = new Session("EDELEVE", "0)";
+const session = new Session("identifiant", "motdepasse");
 
 // Bring your session to life!
 const account = await session.login().catch(err => {

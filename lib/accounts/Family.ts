@@ -1,7 +1,11 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, familyAccount, isFamilyAccount } from "../types";
+import {
+	loginResSuccess,
+	familyAccount,
+	isFamilyAccount,
+} from "ecoledirecte-api-types/v3";
 import { getMainAccount } from "../functions";
 
 export class Family extends Account {
@@ -12,7 +16,7 @@ export class Family extends Account {
 		super(session);
 
 		const mainAccount = getMainAccount(
-			(session.loginRes as _loginResSuccess).data.accounts
+			(session.loginRes as loginResSuccess).data.accounts
 		);
 
 		if (!isFamilyAccount(mainAccount))

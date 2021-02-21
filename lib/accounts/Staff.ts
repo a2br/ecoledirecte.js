@@ -1,7 +1,11 @@
 import { Account } from "./Account";
 import { Session } from "../Session";
 
-import { _loginResSuccess, staffAccount, isStaffAccount } from "../types";
+import {
+	loginResSuccess,
+	staffAccount,
+	isStaffAccount,
+} from "ecoledirecte-api-types/v3";
 import { getMainAccount, fetchPhoto } from "../functions";
 
 export class Staff extends Account {
@@ -12,7 +16,7 @@ export class Staff extends Account {
 		super(session);
 
 		const mainAccount = getMainAccount(
-			(session.loginRes as _loginResSuccess).data.accounts
+			(session.loginRes as loginResSuccess).data.accounts
 		);
 
 		if (!isStaffAccount(mainAccount))
@@ -24,9 +28,26 @@ export class Staff extends Account {
 		this.token = session.token;
 	}
 
+	private _photo?: Buffer;
+	private _photoUri?: string;
+
 	async getPhoto(): Promise<Buffer | undefined> {
-		const buf = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this._raw);
+		if (!r) return;
+		const [buf, str] = r;
+		this._photo = buf;
+		this._photoUri = str;
 		return buf;
+	}
+
+	get photo(): {
+		buffer?: Buffer;
+		uri?: string;
+	} {
+		return {
+			buffer: this._photo,
+			uri: this._photoUri,
+		};
 	}
 
 	get _raw(): staffAccount {

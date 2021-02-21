@@ -1,9 +1,11 @@
 import fetch, { RequestInit } from "node-fetch";
 import { htmlToText } from "html-to-text";
+import { isFailure } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
-import { expandedBase64, isFailure } from "../types/";
+import { expandedBase64 } from "../types/";
+import EventEmitter from "events";
 
 export function toISODate(date: Date | string | number): string {
 	const d = new Date(date);
@@ -32,11 +34,19 @@ export async function makeRequest(
 		url: string;
 		body?: Record<string, unknown>;
 		guard?: boolean;
-	} = { method: "GET", url: "", guard: false }
+	} = { method: "GET", url: "", guard: false },
+	context: Record<string, unknown> = {}
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
-	logs.emit("request", { method, url, body });
+	const resListener = new EventEmitter();
+	function onRes(callback: (res: Response) => void) {
+		resListener.on("response", callback);
+	}
+	function offRes(callback: (res: Response) => void) {
+		resListener.off("response", callback);
+	}
+	logs.emit("request", { method, url, body, context, onRes, offRes });
 	const params: RequestInit = {
 		method: method,
 		headers: EdHeaders,
@@ -50,6 +60,7 @@ export async function makeRequest(
 
 	const response = await fetch(url, params);
 	const resBody = await response.json();
+	resListener.emit("response", response);
 
 	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
 

@@ -2,27 +2,22 @@ import { Account } from "./Account";
 import { Session } from "../Session";
 
 import {
-	_loginResSuccess,
+	loginResSuccess,
 	studentAccount,
 	isStudentAccount,
-	assignement,
-	message,
-	grade,
-	period,
-	studTlElem,
-} from "../types";
+} from "ecoledirecte-api-types/v3";
 import {
-	cleanAssignements,
 	getMainAccount,
 	getMessages,
 	getTextbookPage,
 	toISODate,
 	getGrades,
-	cleanGrades,
-	cleanPeriods,
 	getTimeline,
 	fetchPhoto,
 } from "../functions";
+import { studTlElem } from "../types";
+import { Message, Grade, Period, Assignement } from "../classes";
+
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
 import { cleanStudTimeline } from "../functions/student/timelines";
@@ -34,7 +29,7 @@ export class Student extends Account {
 	constructor(private session: Session) {
 		super(session);
 		const mainAccount = getMainAccount(
-			(session.loginRes as _loginResSuccess).data.accounts
+			(session.loginRes as loginResSuccess).data.accounts
 		);
 
 		if (!isStudentAccount(mainAccount))
@@ -48,21 +43,23 @@ export class Student extends Account {
 
 	/**
 	 * Fetches the homework
-	 * @param dates (Array of) variable(s) which can be converted into Date object(s)
+	 * @param dates (Array of) variable(s) which can be converted into Date object(s). Preffered type: "YYYY-MM-DD"
 	 * @param onlyWithWork If true, will ignore all assignements objects that do not contain any homework
 	 */
 	async getHomework(
 		params: {
 			dates?: Array<Date | string | number> | (Date | string | number);
 			onlyWithWork?: boolean;
-		} = {}
-	): Promise<assignement[]> {
+		} = {},
+		context: Record<string, unknown> = {}
+	): Promise<Assignement[]> {
 		let { dates } = params;
 		const { onlyWithWork } = params;
 		if (!dates) {
 			const upcomingAssignementDates = await getUpcomingAssignementDates(
 				this.account.id,
-				this.token
+				this.token,
+				context
 			);
 			dates = upcomingAssignementDates.dates;
 			this.token = upcomingAssignementDates.token;
@@ -77,12 +74,15 @@ export class Student extends Account {
 					const textbook = await getTextbookPage(
 						this.account.id,
 						this.token,
-						d
+						d,
+						context
 					);
 					this.token = textbook.token;
 
 					const homework = textbook.data;
-					const cleaned = cleanAssignements(homework, this);
+					const cleaned = homework.matieres.map(
+						s => new Assignement(s, homework.date, this)
+					);
 					if (onlyWithWork) return cleaned.filter(v => !!("job" in v));
 					return cleaned;
 				})
@@ -96,10 +96,20 @@ export class Student extends Account {
 	/**
 	 * @returns Every sent and received message, in ascending order by id
 	 */
-	async getMessages(): Promise<message[]> {
-		const received = await getMessages(this.account.id, this.token, "received");
+	async getMessages(context: Record<string, unknown> = {}): Promise<Message[]> {
+		const received = await getMessages(
+			this.account.id,
+			this.token,
+			"received",
+			context
+		);
 		this.token = received.token;
-		const sent = await getMessages(this.account.id, this.token, "sent");
+		const sent = await getMessages(
+			this.account.id,
+			this.token,
+			"sent",
+			context
+		);
 		this.token = sent.token;
 		const messages = received;
 		messages.data.messages.sent = sent.data.messages.sent;
@@ -111,10 +121,10 @@ export class Student extends Account {
 	/**
 	 * @returns Every grade
 	 */
-	async getGrades(): Promise<grade[]> {
-		const _grades = await getGrades(this.account.id, this.token);
+	async getGrades(context: Record<string, unknown> = {}): Promise<Grade[]> {
+		const _grades = await getGrades(this.account.id, this.token, context);
 		this.token = _grades.token;
-		const grades = cleanGrades(_grades.data.notes);
+		const grades = _grades.data.notes.map(g => new Grade(g));
 		return grades;
 	}
 
@@ -122,23 +132,40 @@ export class Student extends Account {
 	 * @returns Every periods with their subjects. Useful to get more infos about grades.
 	 * It is recommended to cache them.
 	 */
-	async getPeriods(): Promise<period[]> {
-		const _grades = await getGrades(this.account.id, this.token);
+	async getPeriods(context: Record<string, unknown> = {}): Promise<Period[]> {
+		const _grades = await getGrades(this.account.id, this.token, context);
 		this.token = _grades.token;
-		const periods = cleanPeriods(_grades.data.periodes);
+		const periods = _grades.data.periodes.map(p => new Period(p));
 		return periods;
 	}
 
-	async timeline(): Promise<studTlElem[]> {
-		const _timeline = await getTimeline(this.account.id, this.token);
+	async timeline(context: Record<string, unknown> = {}): Promise<studTlElem[]> {
+		const _timeline = await getTimeline(this.account.id, this.token, context);
 		this.token = _timeline.token;
 		const tlElems = cleanStudTimeline(_timeline);
 		return tlElems;
 	}
 
+	private _photo?: Buffer;
+	private _photoUri?: string;
+
 	async getPhoto(): Promise<Buffer | undefined> {
-		const buf = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this._raw);
+		if (!r) return;
+		const [buf, str] = r;
+		this._photo = buf;
+		this._photoUri = str;
 		return buf;
+	}
+
+	get photo(): {
+		buffer?: Buffer;
+		uri?: string;
+	} {
+		return {
+			buffer: this._photo,
+			uri: this._photoUri,
+		};
 	}
 
 	get _raw(): studentAccount {

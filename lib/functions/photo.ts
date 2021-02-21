@@ -3,7 +3,7 @@ import {
 	studentAccount,
 	teacherAccount,
 	staffAccount,
-} from "ecoledirecte-api-types";
+} from "ecoledirecte-api-types/v3";
 // import { EdHeaders } from "./util";
 
 const EdHeadersPhoto = {
@@ -13,16 +13,19 @@ const EdHeadersPhoto = {
 };
 export async function fetchPhoto(
 	account: studentAccount | teacherAccount | staffAccount
-): Promise<Buffer | undefined> {
+): Promise<[Buffer, string] | undefined> {
 	if (!account.profile.photo) return;
 	const res = await fetch("https:" + account.profile.photo, {
 		method: "GET",
 		headers: EdHeadersPhoto,
 		redirect: "follow",
 	}).catch(() => undefined);
-	if (!res) return undefined;
+	if (!res) return;
 	const buf = await res.buffer();
-	// const strPrefix = "data:" + res.headers.get("Content-Type") + ";base64,";
-	// const str = strPrefix + buf.toString();
-	return buf;
+	const str =
+		"data:" +
+		res.headers.get("Content-Type") +
+		";base64," +
+		buf.toString("base64");
+	return [buf, str];
 }
