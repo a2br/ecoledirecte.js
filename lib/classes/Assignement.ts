@@ -1,45 +1,45 @@
 import { Routes, root } from "ecoledirecte-api-types/v3";
-import { expandBase64, makeRequest } from "../functions/util";
-import { expandedBase64 } from "../types/util";
+import { makeRequest } from "../functions/util";
+import { ExpandedBase64 } from "../classes";
 import { Student } from "../accounts";
 import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types/v3";
 
 export class Assignement {
 	/** @description Unique ID */
-	readonly id: number;
+	id: number;
 	/** @description Date for which the assignement is due */
-	readonly date: Date;
+	date: Date;
 	/** @description Whether it represents a test or not */
-	readonly test: boolean;
+	test: boolean;
 	/** @description Concerned subject */
-	readonly subject: {
+	subject: {
 		name: string;
 		code: string;
 	};
 	/** @description Teacher who created the assignement */
-	readonly teacher: string;
+	teacher: string;
 	/** @description The homework itself */
-	readonly job?: {
-		content: expandedBase64;
+	job?: {
+		content: ExpandedBase64;
 		givenAt: Date;
 		/** @description Whether the homework should be returned through EcoleDirecte */
 		toReturnOnline: boolean;
 		done: boolean;
 		/** @description `contenuDeSeance` of the last course */
 		lastContenuDeSeance: {
-			content: expandedBase64;
+			content: ExpandedBase64;
 			documents: unknown[];
 		};
 		tick: (newState?: boolean) => Promise<boolean>;
 	};
 	/** @description The day's `contenuDeSeance`. May not be displayed in the EcoleDirecte UI if the date is in the future */
-	readonly contenuDeSeance?: {
+	contenuDeSeance?: {
 		homeworkId: number;
-		content: expandedBase64;
+		content: ExpandedBase64;
 		documents: unknown[];
 	};
 	/** @description Raw document straight from EcoleDirecte */
-	readonly _raw: _textbookDateAssignement;
+	_raw: _textbookDateAssignement;
 
 	constructor(o: _textbookDateAssignement, date: string, student: Student) {
 		this.id = o.id;
@@ -54,12 +54,12 @@ export class Assignement {
 			: o.nomProf;
 		this.job = o.aFaire
 			? {
-					content: expandBase64(o.aFaire.contenu),
+					content: new ExpandedBase64(o.aFaire.contenu),
 					givenAt: new Date(o.aFaire.donneLe),
 					toReturnOnline: o.aFaire.rendreEnLigne,
 					done: o.aFaire.effectue,
 					lastContenuDeSeance: {
-						content: expandBase64(o.aFaire.contenuDeSeance.contenu),
+						content: new ExpandedBase64(o.aFaire.contenuDeSeance.contenu),
 						documents: o.aFaire.contenuDeSeance.documents,
 					},
 					tick: async (newState?: boolean) => {
@@ -80,7 +80,7 @@ export class Assignement {
 		this.contenuDeSeance = o.contenuDeSeance
 			? {
 					homeworkId: o.contenuDeSeance.idDevoir,
-					content: expandBase64(o.contenuDeSeance.contenu),
+					content: new ExpandedBase64(o.contenuDeSeance.contenu),
 					documents: o.contenuDeSeance.documents,
 			  }
 			: undefined;

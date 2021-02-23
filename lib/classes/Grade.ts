@@ -33,6 +33,7 @@ export class Grade {
 		startsAt: Date;
 	};
 	_raw: _grade;
+
 	constructor(o: _grade) {
 		this.name = o.devoir;
 		this.value = betterValue(o);
@@ -75,6 +76,15 @@ export class Grade {
 			: undefined;
 		this._raw = o;
 	}
+
+	//TODO Think of a final solution
+	// toJSON(): gradeObject {
+	// 	const toReturn: Record<string, unknown> = {};
+	// 	for (const [key, value] of Object.entries(this) as [string, unknown][]) {
+	// 		toReturn[key] = value;
+	// 	}
+	// 	return (toReturn as unknown) as gradeObject;
+	// }
 }
 
 function betterValue(note: _grade): number | string {

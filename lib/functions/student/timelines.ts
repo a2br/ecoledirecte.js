@@ -4,8 +4,7 @@ import {
 	studTlResSuccess,
 } from "ecoledirecte-api-types/v3";
 
-import { expandBase64, makeRequest } from "../util";
-import { studTlElem, studTlEvent } from "../../types";
+import { makeRequest } from "../util";
 
 export async function getTimeline(
 	id: number,
@@ -37,36 +36,4 @@ export async function getCommonTimeline(
 	});
 
 	return body;
-}
-
-export function cleanStudTimeline(timelineRes: studTlResSuccess): studTlElem[] {
-	const timeline: studTlElem[] = timelineRes.data
-		? timelineRes.data.map(e => ({
-				date: new Date(e.date),
-				type: e.typeElement,
-				id: e.idElement,
-				title: e.titre,
-				subtitle: e.soustitre,
-				content: e.contenu,
-				_raw: e,
-		  }))
-		: [];
-
-	return timeline;
-}
-
-export function cleanStudTlEvents(
-	commonTimelineRes: studCommonTlResSuccess
-): studTlEvent[] {
-	const events: studTlEvent[] = commonTimelineRes.data.evenements.map(e => ({
-		id: e.id,
-		title: e.libelle,
-		description: expandBase64(e.description),
-		start: new Date(e.dateDebut + " " + (e.heureDebut || "")),
-		end: new Date(e.dateFin + " " + (e.heureFin || "")),
-		cibles: e.cibles,
-		_raw: e,
-	}));
-
-	return events;
 }

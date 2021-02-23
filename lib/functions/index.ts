@@ -1,5 +1,5 @@
 export { login, getMainAccount } from "./login";
-export { toISODate, expandBase64 } from "./util";
+export { toISODate } from "./util";
 export { fetchPhoto } from "./photo";
 //! TEXTBOOK
 

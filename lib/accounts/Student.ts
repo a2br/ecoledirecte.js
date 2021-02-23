@@ -15,12 +15,11 @@ import {
 	getTimeline,
 	fetchPhoto,
 } from "../functions";
-import { studTlElem } from "../types";
+import { TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
 import { cleanMessages } from "../functions/student/mailbox";
-import { cleanStudTimeline } from "../functions/student/timelines";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -139,10 +138,14 @@ export class Student extends Account {
 		return periods;
 	}
 
-	async timeline(context: Record<string, unknown> = {}): Promise<studTlElem[]> {
+	async timeline(
+		context: Record<string, unknown> = {}
+	): Promise<TimelineElem[]> {
 		const _timeline = await getTimeline(this.account.id, this.token, context);
 		this.token = _timeline.token;
-		const tlElems = cleanStudTimeline(_timeline);
+		const tlElems: TimelineElem[] = _timeline.data
+			? _timeline.data.map(e => new TimelineElem(e))
+			: [];
 		return tlElems;
 	}
 

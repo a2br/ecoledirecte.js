@@ -1,36 +1,35 @@
-import { periode as _period } from "ecoledirecte-api-types/v3";
-import { expandBase64 } from "../functions/util";
-import { expandedBase64 } from "../types/util";
+import { discipline, periode as _period } from "ecoledirecte-api-types/v3";
+import { ExpandedBase64 } from "../classes";
 
 export class Period {
-	readonly code: string;
-	readonly name: string;
-	readonly yearly: boolean;
-	readonly closed: boolean;
-	readonly start: Date;
-	readonly end: Date;
-	readonly mockExam: boolean;
-	readonly headcount?: number;
-	readonly rank?: number;
-	readonly headTeacher?: string;
-	readonly appraisals: {
+	code: string;
+	name: string;
+	yearly: boolean;
+	closed: boolean;
+	start: Date;
+	end: Date;
+	mockExam: boolean;
+	headcount?: number;
+	rank?: number;
+	headTeacher?: string;
+	appraisals: {
 		CE?: string;
 		PP?: string;
 		VS?: string;
 	};
-	readonly class: {
+	class: {
 		appraisal?: string;
 		averageGrade?: number;
 	};
-	readonly council: {
+	council: {
 		start?: Date;
 		end?: Date;
 		room?: string;
 		verdict?: string;
 	};
-	readonly calcDate?: Date;
-	readonly subjects: Array<subject>;
-	readonly _raw: _period;
+	calcDate?: Date;
+	subjects: Array<Subject>;
+	_raw: _period;
 
 	constructor(o: _period) {
 		this.code = o.idPeriode;
@@ -70,40 +69,12 @@ export class Period {
 		this.calcDate = o.ensembleMatieres.dateCalcul
 			? new Date(o.ensembleMatieres.dateCalcul)
 			: undefined;
-		this.subjects = o.ensembleMatieres.disciplines.map(d => ({
-			id: d.id,
-			code: d.codeMatiere,
-			name: d.discipline,
-			weight: d.coef,
-			headcount: d.effectif,
-			rank: d.rang,
-			minor: d.sousMatiere,
-			minorCode: d.codeSousMatiere || undefined,
-			group: d.groupeMatiere,
-			groupId: d.idGroupeMatiere,
-			appraisals: d.appreciations
-				? d.appreciations.filter(a => !!a).map(a => expandBase64(a))
-				: [],
-			option: d.option,
-			teachers: d.professeurs.map(p => ({
-				id: p.id,
-				name: p.nom,
-			})),
-			class: {
-				appraisal: d.appreciationClasse
-					? expandBase64(d.appreciationClasse)
-					: undefined,
-				max: d.moyenneMax ? +d.moyenneMax.replace(/,/, ".") : undefined,
-				avg: d.moyenneClasse ? +d.moyenneClasse.replace(/,/, ".") : undefined,
-				min: d.moyenneMin ? +d.moyenneMin.replace(/,/, ".") : undefined,
-			},
-			_raw: o,
-		}));
+		this.subjects = o.ensembleMatieres.disciplines.map(d => new Subject(d));
 		this._raw = o;
 	}
 }
 
-type subject = {
+class Subject {
 	id: number;
 	code: string;
 	name: string;
@@ -114,16 +85,46 @@ type subject = {
 	minorCode?: string;
 	group: boolean;
 	groupId: number;
-	appraisals: Array<expandedBase64>;
+	appraisals: Array<ExpandedBase64>;
 	option: number;
 	teachers: Array<{
 		id: number;
 		name: string;
 	}>;
 	class: {
-		appraisal?: expandedBase64;
+		appraisal?: ExpandedBase64;
 		max?: number;
 		avg?: number;
 		min?: number;
 	};
-};
+	_raw: discipline;
+
+	constructor(o: discipline) {
+		this.id = o.id;
+		this.code = o.codeMatiere;
+		this.name = o.discipline;
+		(this.weight = o.coef), (this.headcount = o.effectif);
+		this.rank = o.rang;
+		this.minor = o.sousMatiere;
+		this.minorCode = o.codeSousMatiere || undefined;
+		this.group = o.groupeMatiere;
+		this.groupId = o.idGroupeMatiere;
+		this.appraisals = o.appreciations
+			? o.appreciations.filter(a => !!a).map(a => new ExpandedBase64(a))
+			: [];
+		this.option = o.option;
+		this.teachers = o.professeurs.map(p => ({
+			id: p.id,
+			name: p.nom,
+		}));
+		this.class = {
+			appraisal: o.appreciationClasse
+				? new ExpandedBase64(o.appreciationClasse)
+				: undefined,
+			max: o.moyenneMax ? +o.moyenneMax.replace(/,/, ".") : undefined,
+			avg: o.moyenneClasse ? +o.moyenneClasse.replace(/,/, ".") : undefined,
+			min: o.moyenneMin ? +o.moyenneMin.replace(/,/, ".") : undefined,
+		};
+		this._raw = o;
+	}
+}

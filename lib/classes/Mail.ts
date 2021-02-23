@@ -5,22 +5,22 @@ import {
 	Routes,
 	root,
 } from "ecoledirecte-api-types/v3";
-import { expandBase64, makeRequest } from "../functions/util";
-import { expandedBase64 } from "../types/util";
+import { makeRequest } from "../functions/util";
+import { ExpandedBase64 } from "../classes";
 import { Student } from "../accounts";
 
 export class Message {
 	private _user?: Student;
 	/** @description Unique ID */
-	readonly id: number;
+	id: number;
 	/** @description Direction of the message */
-	readonly type: "received" | "sent";
+	type: "received" | "sent";
 	/** @description Whether it is marked as read */
-	readonly read: boolean;
+	read: boolean;
 	/** @description Has it been transferred? */
-	readonly transferred: boolean;
+	transferred: boolean;
 	/** @description Has it been answered? */
-	readonly answered: boolean;
+	answered: boolean;
 	/**
 	 * @description Degree of implication
 	 * @enum `to`: the message is directed to the user
@@ -28,13 +28,13 @@ export class Message {
 	 * @enum `cci`: the message is not written for the user and is privately sent
 	 * @enum ` `: the message isn't received
 	 */
-	readonly to_cc_cci: "to" | "cc" | "cci" | "";
+	to_cc_cci: "to" | "cc" | "cci" | "";
 	/** @description Subject, headline of the mail */
-	readonly subject: string;
+	subject: string;
 	/** @description When has this message been sent? */
-	readonly date: Date;
+	date: Date;
 	/** @description List of the addressees */
-	readonly to: Array<{
+	to: Array<{
 		id: number;
 		fullName: string;
 		lastName: string;
@@ -46,7 +46,7 @@ export class Message {
 		to_cc_cci: "to" | "cc" | "cci";
 	}>;
 	/** @description Sender */
-	readonly from: {
+	from: {
 		id: number;
 		fullName: string;
 		lastName: string;
@@ -57,7 +57,7 @@ export class Message {
 		read: boolean;
 	};
 	/** @description Raw document straight from EcoleDirecte */
-	readonly _raw: mailboxResMessage;
+	_raw: mailboxResMessage;
 
 	constructor(o: mailboxResMessage, user?: Student) {
 		this._user = user;
@@ -98,7 +98,7 @@ export class Message {
 	 * @description Fetches the content of the mail
 	 * NEEDS USER
 	 */
-	async getContent(): Promise<expandedBase64> {
+	async getContent(): Promise<ExpandedBase64> {
 		if (!this._user) throw new Error("User needs to be provided");
 		const details: messageResSuccess = await makeRequest({
 			method: "POST",
@@ -111,6 +111,6 @@ export class Message {
 			body: { token: this._user.token },
 			guard: true,
 		});
-		return expandBase64(details.data.content);
+		return new ExpandedBase64(details.data.content);
 	}
 }

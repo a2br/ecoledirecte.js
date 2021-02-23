@@ -1,10 +1,8 @@
 import fetch, { RequestInit } from "node-fetch";
-import { htmlToText } from "html-to-text";
 import { isFailure } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
-import { expandedBase64 } from "../types/";
 import EventEmitter from "events";
 
 export function toISODate(date: Date | string | number): string {
@@ -16,16 +14,6 @@ export function toISODate(date: Date | string | number): string {
 		(d.getMonth() + 1).toString().padStart(2, "0"),
 		d.getDate().toString().padStart(2, "0"),
 	].join("-");
-}
-
-export function expandBase64(htmlBase64: string): expandedBase64 {
-	return {
-		original: htmlBase64,
-		html: Buffer.from(htmlBase64, "base64").toString(),
-		text: htmlToText(Buffer.from(htmlBase64, "base64").toString(), {
-			wordwrap: false,
-		}),
-	};
 }
 
 export async function makeRequest(
