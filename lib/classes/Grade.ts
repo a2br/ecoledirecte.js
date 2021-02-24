@@ -78,12 +78,12 @@ export class Grade {
 	}
 
 	//TODO Think of a final solution
-	// toJSON(): gradeObject {
+	// toJSON() {
 	// 	const toReturn: Record<string, unknown> = {};
 	// 	for (const [key, value] of Object.entries(this) as [string, unknown][]) {
 	// 		toReturn[key] = value;
 	// 	}
-	// 	return (toReturn as unknown) as gradeObject;
+	// 	return toReturn;
 	// }
 }
 
