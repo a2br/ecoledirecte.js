@@ -74,7 +74,7 @@ export class Period {
 	}
 }
 
-class Subject {
+export class Subject {
 	id: number;
 	code: string;
 	name: string;
