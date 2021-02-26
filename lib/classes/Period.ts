@@ -81,8 +81,8 @@ export class Subject {
 	weight: number;
 	headcount: number;
 	rank: number;
-	minor: boolean;
-	minorCode?: string;
+	minorSubject: boolean;
+	minorSubjectCode?: string;
 	group: boolean;
 	groupId: number;
 	appraisals: Array<ExpandedBase64>;
@@ -103,10 +103,11 @@ export class Subject {
 		this.id = o.id;
 		this.code = o.codeMatiere;
 		this.name = o.discipline;
-		(this.weight = o.coef), (this.headcount = o.effectif);
+		this.weight = o.coef;
+		this.headcount = o.effectif;
 		this.rank = o.rang;
-		this.minor = o.sousMatiere;
-		this.minorCode = o.codeSousMatiere || undefined;
+		this.minorSubject = o.sousMatiere;
+		this.minorSubjectCode = o.codeSousMatiere || undefined;
 		this.group = o.groupeMatiere;
 		this.groupId = o.idGroupeMatiere;
 		this.appraisals = o.appreciations
@@ -126,5 +127,32 @@ export class Subject {
 			min: o.moyenneMin ? +o.moyenneMin.replace(/,/, ".") : undefined,
 		};
 		this._raw = o;
+	}
+
+	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+	toJSON() {
+		const toReturn = {
+			id: this.id,
+			code: this.code,
+			name: this.name,
+			weight: this.weight,
+			headcount: this.headcount,
+			rank: this.rank,
+			minorSubject: this.minorSubject,
+			minorSubjectCode: this.minorSubjectCode,
+			group: this.group,
+			groupId: this.groupId,
+			appraisals: this.appraisals.map(a => a.original),
+			option: this.option,
+			teachers: this.teachers,
+			class: {
+				appraisal: this.class.appraisal?.original,
+				max: this.class.max,
+				avg: this.class.avg,
+				min: this.class.min,
+			},
+			_raw: this._raw,
+		};
+		return toReturn;
 	}
 }
