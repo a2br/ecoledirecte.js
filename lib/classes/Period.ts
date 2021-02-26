@@ -1,4 +1,4 @@
-import { discipline, periode as _period } from "ecoledirecte-api-types/v3";
+import { subject, period as _period } from "ecoledirecte-api-types/v3";
 import { ExpandedBase64 } from "../classes";
 
 export class Period {
@@ -97,9 +97,9 @@ export class Subject {
 		avg?: number;
 		min?: number;
 	};
-	_raw: discipline;
+	_raw: subject;
 
-	constructor(o: discipline) {
+	constructor(o: subject) {
 		this.id = o.id;
 		this.code = o.codeMatiere;
 		this.name = o.discipline;

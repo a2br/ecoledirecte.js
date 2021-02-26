@@ -1,4 +1,4 @@
-import { note as _grade } from "ecoledirecte-api-types/v3";
+import { grade as _grade } from "ecoledirecte-api-types/v3";
 
 export class Grade {
 	name: string;
