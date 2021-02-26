@@ -142,11 +142,11 @@ export class Subject {
 			minorSubjectCode: this.minorSubjectCode,
 			group: this.group,
 			groupId: this.groupId,
-			appraisals: this.appraisals.map(a => a.original),
+			appraisals: this.appraisals.map(a => a.toJSON()),
 			option: this.option,
 			teachers: this.teachers,
 			class: {
-				appraisal: this.class.appraisal?.original,
+				appraisal: this.class.appraisal?.toJSON(),
 				max: this.class.max,
 				avg: this.class.avg,
 				min: this.class.min,
