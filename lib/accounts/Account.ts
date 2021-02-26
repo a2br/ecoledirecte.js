@@ -29,4 +29,11 @@ export class Account {
 		if (!session.token) throw new Error("Account class MUST have token");
 		this.__account = mainAccount;
 	}
+
+	/**
+	 * @description EcoleDirecte unique Id
+	 */
+	get edId(): number {
+		return this.__account.id;
+	}
 }
