@@ -1,5 +1,8 @@
-import { subject, period as _period } from "ecoledirecte-api-types/v3";
-import { ExpandedBase64 } from "../classes";
+import {
+	subject as _subject,
+	period as _period,
+} from "ecoledirecte-api-types/v3";
+import { ExpandedBase64, expandedBase64Json } from "../classes";
 
 export class Period {
 	code: string;
@@ -97,9 +100,9 @@ export class Subject {
 		avg?: number;
 		min?: number;
 	};
-	_raw: subject;
+	_raw: _subject;
 
-	constructor(o: subject) {
+	constructor(o: _subject) {
 		this.id = o.id;
 		this.code = o.codeMatiere;
 		this.name = o.discipline;
@@ -129,8 +132,7 @@ export class Subject {
 		this._raw = o;
 	}
 
-	// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
-	toJSON() {
+	toJSON(): subjectJson {
 		const toReturn = {
 			id: this.id,
 			code: this.code,
@@ -155,4 +157,27 @@ export class Subject {
 		};
 		return toReturn;
 	}
+}
+
+export interface subjectJson {
+	id: number;
+	code: string;
+	name: string;
+	weight: number;
+	headcount: number;
+	rank: number;
+	minorSubject: boolean;
+	minorSubjectCode?: string;
+	group: boolean;
+	groupId: number;
+	appraisals: expandedBase64Json[];
+	option: number;
+	teachers: { id: number; name: string }[];
+	class: {
+		appraisal?: expandedBase64Json;
+		max?: number;
+		avg?: number;
+		min?: number;
+	};
+	_raw: _subject;
 }

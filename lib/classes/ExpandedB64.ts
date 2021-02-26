@@ -11,11 +11,17 @@ export class ExpandedBase64 {
 			wordwrap: false,
 		});
 	}
-	toJSON(): { original: string; html: string; text: string } {
+	toJSON(): expandedBase64Json {
 		return {
 			original: this.original,
 			html: this.html,
 			text: this.text,
 		};
 	}
+}
+
+export interface expandedBase64Json {
+	original: string;
+	html: string;
+	text: string;
 }
