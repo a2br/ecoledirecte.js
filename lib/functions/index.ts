@@ -12,7 +12,7 @@ export { getMessages } from "./student/mailbox";
 
 //! NOTES
 
-export { getGrades } from "./student/notes";
+export { getGrades } from "./student/grades";
 
 //! TIMELINES
 
