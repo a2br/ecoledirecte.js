@@ -138,6 +138,19 @@ export class Student extends Account {
 		return periods;
 	}
 
+	/**
+	 * @returns The equivalent of `getGrades` and `getPeriods`, with only 1 request
+	 */
+	async getGradesAndPeriods(
+		context: Record<string, unknown> = {}
+	): Promise<{ grades: Grade[]; periods: Period[] }> {
+		const _all = await getGrades(this.account.id, this.token, context);
+		this.token = _all.token;
+		const grades = _all.data.notes.map(g => new Grade(g));
+		const periods = _all.data.periodes.map(p => new Period(p));
+		return { grades, periods };
+	}
+
 	async timeline(
 		context: Record<string, unknown> = {}
 	): Promise<TimelineElem[]> {
