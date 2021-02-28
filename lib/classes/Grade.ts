@@ -77,7 +77,7 @@ export class Grade {
 		this._raw = o;
 	}
 
-	//TODO Think of a final solution
+	//TODO Start type-valid alternative
 	// toJSON() {
 	// 	const toReturn: Record<string, unknown> = {};
 	// 	for (const [key, value] of Object.entries(this) as [string, unknown][]) {
