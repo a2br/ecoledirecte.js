@@ -9,7 +9,45 @@ interface LogEvents {
 			method: string;
 			url: string;
 			body: unknown;
-			context: Record<string, unknown>;
+			context:
+				| {
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getUpcomingAssignementDates";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getTextbookPage";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "tickAssignement";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getMessages";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getGrades";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getTimeline";
+						[key: string]: unknown;
+				  }
+				| {
+						userId: number;
+						action: "getCommonTimeline";
+						[key: string]: unknown;
+				  };
 			onRes: (callback: (res: Response) => void) => void;
 			offRes: (callback: (res: Response) => void) => void;
 		}

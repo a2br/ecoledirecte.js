@@ -13,7 +13,7 @@ export async function getGrades(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, ...context }
+		{ userId: id, action: "getGrades", ...context }
 	);
 
 	return body;
