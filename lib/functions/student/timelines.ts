@@ -18,7 +18,7 @@ export async function getTimeline(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, ...context }
+		{ userId: id, action: "getTimeline", ...context }
 	);
 
 	return body;
@@ -26,14 +26,18 @@ export async function getTimeline(
 
 export async function getCommonTimeline(
 	id: number,
-	token: string
+	token: string,
+	context: Record<string, unknown> = {}
 ): Promise<studCommonTlResSuccess> {
-	const body: studCommonTlResSuccess = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.commonTimeline("E", id), root).href,
-		body: { token },
-		guard: true,
-	});
+	const body: studCommonTlResSuccess = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.commonTimeline("E", id), root).href,
+			body: { token },
+			guard: true,
+		},
+		{ userId: id, action: "getCommonTimeline", ...context }
+	);
 
 	return body;
 }

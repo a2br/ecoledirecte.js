@@ -20,7 +20,7 @@ export async function getMessages(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, direction, ...context }
+		{ userId: id, action: "getMessages", ...context }
 	);
 
 	return body;

@@ -24,7 +24,7 @@ export async function getUpcomingAssignementDates(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, ...context }
+		{ userId: id, action: "getUpcomingAssignementDates", ...context }
 	);
 
 	const dates = Object.keys(body.data); // .map((date) => new Date(date));
@@ -50,7 +50,7 @@ export async function getTextbookPage(
 			body: { token },
 			guard: true,
 		},
-		{ userId: id, ...context }
+		{ userId: id, action: "getTextbookPage", ...context }
 	);
 
 	return body;
@@ -60,7 +60,8 @@ export async function tickAssignement(
 	id: number,
 	token: string,
 	assignement: textbookDateAssignement,
-	state?: boolean
+	state?: boolean,
+	context: Record<string, unknown> = {}
 ): Promise<{ code: 200; token: string; host: string }> {
 	if (!("aFaire" in assignement)) throw Error("No work in this assignement.");
 	if (state === undefined) state = !assignement.aFaire?.effectue;
@@ -75,12 +76,20 @@ export async function tickAssignement(
 	if (state) data.idDevoirsEffectues = [assignement.id];
 	if (!state) data.idDevoirsNonEffectues = [assignement.id];
 
-	const body: { code: 200; token: string; host: string } = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.studentHomework(id, { verbe: "put" }), root).href,
-		body: data,
-		guard: true,
-	});
+	const body: { code: 200; token: string; host: string } = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.studentHomework(id, { verbe: "put" }), root).href,
+			body: data,
+			guard: true,
+		},
+		{
+			userId: id,
+			assignementId: assignement.id,
+			action: "tickAssignement",
+			...context,
+		}
+	);
 
 	return body;
 }
