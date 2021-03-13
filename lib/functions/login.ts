@@ -8,17 +8,21 @@ import { loginRes, account } from "ecoledirecte-api-types/v3";
  */
 export async function login(
 	username: string,
-	password: string
+	password: string,
+	context: Record<string, unknown> = {}
 ): Promise<loginRes> {
-	const body: loginRes = await makeRequest({
-		method: "POST",
-		url: new URL(Routes.login(), root).href,
-		body: {
-			identifiant: username,
-			motdepasse: password,
-			acceptationCharte: true,
+	const body: loginRes = await makeRequest(
+		{
+			method: "POST",
+			url: new URL(Routes.login(), root).href,
+			body: {
+				identifiant: username,
+				motdepasse: password,
+				acceptationCharte: true,
+			},
 		},
-	});
+		{ action: "login", username, password, ...context }
+	);
 
 	return body;
 }

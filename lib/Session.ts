@@ -31,9 +31,11 @@ export class Session {
 		(this._username = username), (this._password = password);
 	}
 
-	async login(): Promise<Family | Staff | Student | Teacher> {
+	async login(
+		context: Record<string, unknown> = {}
+	): Promise<Family | Staff | Student | Teacher> {
 		const { _username: username, _password: password } = this;
-		const loginRes = await login(username, password);
+		const loginRes = await login(username, password, context);
 
 		this.loginRes = loginRes;
 		this.token = loginRes.token;
@@ -72,28 +74,28 @@ export class Session {
 /**
  * @description To be used when you don't know any credential
  */
-export class TokenSession {
-	private _token: string;
+// export class TokenSession {
+// 	private _token: string;
 
-	get token(): string {
-		return this._token;
-	}
+// 	get token(): string {
+// 		return this._token;
+// 	}
 
-	set token(value: string) {
-		logs.emit("newToken", {
-			oldToken: this._token,
-			newToken: value,
-			session: this,
-		});
-		this._token = value;
-	}
+// 	set token(value: string) {
+// 		logs.emit("newToken", {
+// 			oldToken: this._token,
+// 			newToken: value,
+// 			session: this,
+// 		});
+// 		this._token = value;
+// 	}
 
-	constructor(token: string) {
-		this._token = token;
-	}
+// 	constructor(token: string) {
+// 		this._token = token;
+// 	}
 
-	// Needs to return an account
-	async login(): Promise<unknown> {
-		return null;
-	}
-}
+// 	// Needs to return an account
+// 	async login(): Promise<unknown> {
+// 		return null;
+// 	}
+// }
