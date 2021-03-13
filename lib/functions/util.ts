@@ -47,8 +47,9 @@ export async function makeRequest(
 	}
 
 	const response = await fetch(url, params);
+	const clone = response.clone();
 	const resBody = await response.json();
-	resListener.emit("response", response);
+	resListener.emit("response", clone);
 
 	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
 
