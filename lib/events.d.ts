@@ -14,6 +14,12 @@ interface LogEvents {
 						[key: string]: unknown;
 				  }
 				| {
+						action: "login";
+						username: string;
+						password: string;
+						[key: string]: unknown;
+				  }
+				| {
 						userId: number;
 						action: "getUpcomingAssignementDates";
 						[key: string]: unknown;
