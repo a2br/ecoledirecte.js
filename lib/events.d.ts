@@ -54,8 +54,13 @@ interface LogEvents {
 						action: "getCommonTimeline";
 						[key: string]: unknown;
 				  };
-			onRes: (callback: (res: Response) => void) => void;
-			offRes: (callback: (res: Response) => void) => void;
+			onRes: (
+				callback: (res: {
+					response: Response;
+					body: Record<string, unknown>;
+				}) => void
+			) => void;
+			offRes: (callback: () => void) => void;
 		}
 	];
 }

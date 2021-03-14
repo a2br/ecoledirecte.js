@@ -15,7 +15,6 @@ export function toISODate(date: Date | string | number): string {
 		d.getDate().toString().padStart(2, "0"),
 	].join("-");
 }
-
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
@@ -47,9 +46,10 @@ export async function makeRequest(
 	}
 
 	const response = await fetch(url, params);
-	const clone = response.clone();
+
 	const resBody = await response.json();
-	resListener.emit("response", clone);
+
+	resListener.emit("response", { response, body: resBody });
 
 	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
 
