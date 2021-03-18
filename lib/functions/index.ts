@@ -17,3 +17,7 @@ export { getGrades } from "./student/grades";
 //! TIMELINES
 
 export { getTimeline, getCommonTimeline } from "./student/timelines";
+
+//! CLOUD
+
+export * from "./global/cloud";
