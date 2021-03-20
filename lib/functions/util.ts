@@ -45,7 +45,7 @@ export async function makeRequest(
 		url: string;
 		body?: Record<string, unknown>;
 		guard?: boolean;
-	} = { method: "GET", url: "", guard: false },
+	},
 	context: Record<string, unknown> = {},
 	account?: Account
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
