@@ -16,7 +16,7 @@ import {
 	fetchPhoto,
 	getCloudFolder,
 } from "../functions";
-import { TimelineElem } from "../classes";
+import { Cloud, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
@@ -185,12 +185,13 @@ export class Student extends Account {
 		};
 	}
 
-	async getCloud() {
-		const cloud = await getCloudFolder(
+	async getCloud(): Promise<Cloud> {
+		const _cloud = await getCloudFolder(
 			this.account.typeCompte,
 			this.account.id,
 			this.token
 		);
+		const cloud = new Cloud(_cloud.data[0], this);
 		return cloud;
 	}
 
