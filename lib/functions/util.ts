@@ -4,6 +4,7 @@ import { isFailure } from "ecoledirecte-api-types/v3";
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
 import EventEmitter from "events";
+import { Account } from "../accounts";
 
 export function toISODate(date: Date | string | number): string {
 	const d = new Date(date);
@@ -45,7 +46,8 @@ export async function makeRequest(
 		body?: Record<string, unknown>;
 		guard?: boolean;
 	} = { method: "GET", url: "", guard: false },
-	context: Record<string, unknown> = {}
+	context: Record<string, unknown> = {},
+	account?: Account
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
@@ -74,7 +76,11 @@ export async function makeRequest(
 
 	resListener.emit("response", { response, body: resBody });
 
-	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
+	const failure = isFailure(resBody);
+	if (guard && failure) throw new EcoleDirecteAPIError(resBody);
+
+	const someToken = resBody.token || response.headers.get("x-token");
+	if (!failure && account && someToken) account.token = someToken;
 
 	return resBody;
 }

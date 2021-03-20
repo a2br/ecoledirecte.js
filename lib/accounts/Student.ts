@@ -167,7 +167,7 @@ export class Student extends Account {
 	private _photoUri?: string;
 
 	async getPhoto(): Promise<Buffer | undefined> {
-		const r = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this);
 		if (!r) return;
 		const [buf, str] = r;
 		this._photo = buf;
@@ -186,11 +186,7 @@ export class Student extends Account {
 	}
 
 	async getCloud(): Promise<Cloud> {
-		const _cloud = await getCloudFolder(
-			this.account.typeCompte,
-			this.account.id,
-			this.token
-		);
+		const _cloud = await getCloudFolder(this);
 		const cloud = new Cloud(_cloud.data[0], this);
 		return cloud;
 	}

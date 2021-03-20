@@ -1,15 +1,13 @@
 import { cloudResFolder, cloudResFile, role } from "ecoledirecte-api-types/v3";
 import { Account } from "../accounts";
-import { getCloudFolder } from "../functions";
+import { fetchFile, getCloudFolder } from "../functions";
 
 export class Cloud {
 	public _root: cloudResFolder;
 	public _owner: Account;
-	private _pathPrefix: string;
 	constructor(root: cloudResFolder, owner: Account) {
 		this._root = root;
 		this._owner = owner;
-		this._pathPrefix = root.id;
 		if (root.quota === undefined)
 			throw new Error("This doesn't seem to be the cloud's root.");
 	}
@@ -18,16 +16,21 @@ export class Cloud {
 		return this._root.quota as number;
 	}
 
+	get size(): number {
+		return this._root.taille;
+	}
+
 	async root(): Promise<Folder> {
 		return new Folder(this._root, this);
 	}
 
-	async get(path: string): Promise<Folder | File> {
-		throw new Error("Unavailable");
-	}
+	// async get(path: string): Promise<Folder | File> {
+	// 	throw new Error("Unavailable");
+	// }
 }
 
 export class Folder {
+	type: "folder" = "folder";
 	name: string;
 	path: string;
 	size: number;
@@ -51,6 +54,9 @@ export class Folder {
 
 	// getFullPath() {}
 
+	/**
+	 * @description Non-destructive
+	 */
 	// refresh() {}
 
 	async loadFullTree(): Promise<Folder> {
@@ -70,6 +76,7 @@ export class Folder {
 }
 
 export class File {
+	type: "file" = "file";
 	name: string;
 	path: string;
 	extension: string;
@@ -82,8 +89,10 @@ export class File {
 		particle?: string;
 	};
 	_raw: cloudResFile;
+	private _cloud: Cloud;
 	constructor(o: cloudResFile, cloud: Cloud) {
 		const pathPrefix = cloud._root.id;
+		this._cloud = cloud;
 		this._raw = o;
 		this.name = o.libelle;
 		this.path = cleanPath(o.id, pathPrefix);
@@ -100,8 +109,24 @@ export class File {
 		this.extension = getExtension(o.libelle);
 	}
 
-	async download(): Promise<Buffer> {
-		throw new Error("Unavailable");
+	private _downloaded?: Buffer;
+	private _downloadedUri?: string;
+
+	async download(token?: string): Promise<Buffer> {
+		const [buf, str] = await fetchFile(
+			this._raw.id,
+			token || this._cloud._owner.token
+		);
+		this._downloaded = buf;
+		this._downloadedUri = str;
+		return buf;
+	}
+
+	get downloaded(): { buffer?: Buffer; uri?: string } {
+		return {
+			buffer: this._downloaded,
+			uri: this._downloadedUri,
+		};
 	}
 
 	// toJSON() {}
@@ -133,11 +158,10 @@ export async function getFullTree(
 	// Load folder
 	if (!folder.isLoaded) {
 		const folderRes = await getCloudFolder(
-			cloud._owner.__raw.typeCompte,
-			cloud._owner.__raw.id,
-			cloud._owner.token,
+			cloud._owner,
 			encodeURI(cleanPath(folder.id, cloud._root.id).replace(/\//g, "\\"))
 		);
+		cloud._owner.token = folderRes.token;
 		newFolder = folderRes.data[0];
 	}
 	// Recursively call function

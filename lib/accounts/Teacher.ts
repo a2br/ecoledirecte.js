@@ -32,7 +32,7 @@ export class Teacher extends Account {
 	private _photoUri?: string;
 
 	async getPhoto(): Promise<Buffer | undefined> {
-		const r = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this);
 		if (!r) return;
 		const [buf, str] = r;
 		this._photo = buf;
