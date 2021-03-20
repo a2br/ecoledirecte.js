@@ -11,7 +11,7 @@ export * from "./student/mailbox";
 
 //! NOTES
 
-export { getGrades } from "./student/grades";
+export * from "./student/grades";
 
 //! TIMELINES
 
