@@ -36,4 +36,11 @@ export class Account {
 	get edId(): number {
 		return this.__account.id;
 	}
+
+	/**
+	 * @description Equivalent of _raw, but the type changes
+	 */
+	get __raw(): account {
+		return this.__account;
+	}
 }
