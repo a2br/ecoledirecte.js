@@ -15,6 +15,29 @@ export function toISODate(date: Date | string | number): string {
 		d.getDate().toString().padStart(2, "0"),
 	].join("-");
 }
+
+/**
+ *
+ * @description Makes bytes human-readable
+ */
+export function formatBytes(bytes: number): string {
+	let formatted: string;
+	if (bytes >= 1073741824) {
+		formatted = (bytes / 1073741824).toFixed(2) + " GB";
+	} else if (bytes >= 1048576) {
+		formatted = (bytes / 1048576).toFixed(2) + " MB";
+	} else if (bytes >= 1024) {
+		formatted = (bytes / 1024).toFixed(2) + " KB";
+	} else if (bytes > 1) {
+		formatted = bytes + " bytes";
+	} else if (bytes === 1) {
+		formatted = bytes + " byte";
+	} else {
+		formatted = "0 bytes";
+	}
+	return formatted;
+}
+
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
