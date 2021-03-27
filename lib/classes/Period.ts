@@ -75,6 +75,11 @@ export class Period {
 		this.subjects = o.ensembleMatieres.disciplines.map(d => new Subject(d));
 		this._raw = o;
 	}
+
+	//TODO Finish it
+	// toJSON() {
+
+	// }
 }
 
 export class Subject {
@@ -158,6 +163,10 @@ export class Subject {
 		return toReturn;
 	}
 }
+
+// export interface periodJson {
+
+// }
 
 export interface subjectJson {
 	id: number;
