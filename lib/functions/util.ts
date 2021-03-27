@@ -4,6 +4,7 @@ import { isFailure } from "ecoledirecte-api-types/v3";
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
 import EventEmitter from "events";
+import { Account } from "../accounts";
 
 export function toISODate(date: Date | string | number): string {
 	const d = new Date(date);
@@ -15,14 +16,38 @@ export function toISODate(date: Date | string | number): string {
 		d.getDate().toString().padStart(2, "0"),
 	].join("-");
 }
+
+/**
+ *
+ * @description Makes bytes human-readable
+ */
+export function formatBytes(bytes: number): string {
+	let formatted: string;
+	if (bytes >= 1073741824) {
+		formatted = (bytes / 1073741824).toFixed(2) + " GB";
+	} else if (bytes >= 1048576) {
+		formatted = (bytes / 1048576).toFixed(2) + " MB";
+	} else if (bytes >= 1024) {
+		formatted = (bytes / 1024).toFixed(2) + " KB";
+	} else if (bytes > 1) {
+		formatted = bytes + " bytes";
+	} else if (bytes === 1) {
+		formatted = bytes + " byte";
+	} else {
+		formatted = "0 bytes";
+	}
+	return formatted;
+}
+
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
 		url: string;
 		body?: Record<string, unknown>;
 		guard?: boolean;
-	} = { method: "GET", url: "", guard: false },
-	context: Record<string, unknown> = {}
+	},
+	context: Record<string, unknown> = {},
+	account?: Account
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, url, body, guard } = options;
@@ -51,7 +76,11 @@ export async function makeRequest(
 
 	resListener.emit("response", { response, body: resBody });
 
-	if (guard && isFailure(resBody)) throw new EcoleDirecteAPIError(resBody);
+	const failure = isFailure(resBody);
+	if (guard && failure) throw new EcoleDirecteAPIError(resBody);
+
+	const someToken = resBody.token || response.headers.get("x-token");
+	if (!failure && account && someToken) account.token = someToken;
 
 	return resBody;
 }

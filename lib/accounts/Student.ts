@@ -14,8 +14,9 @@ import {
 	getGrades,
 	getTimeline,
 	fetchPhoto,
+	getCloudFolder,
 } from "../functions";
-import { TimelineElem } from "../classes";
+import { Cloud, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
@@ -166,7 +167,7 @@ export class Student extends Account {
 	private _photoUri?: string;
 
 	async getPhoto(): Promise<Buffer | undefined> {
-		const r = await fetchPhoto(this._raw);
+		const r = await fetchPhoto(this);
 		if (!r) return;
 		const [buf, str] = r;
 		this._photo = buf;
@@ -182,6 +183,12 @@ export class Student extends Account {
 			buffer: this._photo,
 			uri: this._photoUri,
 		};
+	}
+
+	async getCloud(): Promise<Cloud> {
+		const _cloud = await getCloudFolder(this);
+		const cloud = new Cloud(_cloud.data[0], this);
+		return cloud;
 	}
 
 	get _raw(): studentAccount {
