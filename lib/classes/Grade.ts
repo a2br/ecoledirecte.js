@@ -77,14 +77,59 @@ export class Grade {
 		this._raw = o;
 	}
 
-	//TODO Start type-valid alternative
-	// toJSON() {
-	// 	const toReturn: Record<string, unknown> = {};
-	// 	for (const [key, value] of Object.entries(this) as [string, unknown][]) {
-	// 		toReturn[key] = value;
-	// 	}
-	// 	return toReturn;
-	// }
+	toJSON(): gradeJson {
+		return {
+			name: this.name,
+			value: this.value,
+			class: this.class,
+			outOf: this.outOf,
+			weight: this.weight,
+			unweighted: this.unweighted,
+			isLetter: this.isLetter,
+			date: this.date,
+			dateTyped: this.dateTyped,
+			periodCode: this.periodCode,
+			subject: this.subject,
+			elements: this.elements,
+			qcm: this.qcm,
+			_raw: this._raw,
+		};
+	}
+}
+
+export interface gradeJson {
+	name: string;
+	value: number | string;
+	class: {
+		max?: number | string;
+		avg?: number | string;
+		min?: number | string;
+	};
+	outOf: number;
+	weight: number;
+	unweighted: boolean;
+	isLetter: boolean;
+	date: Date;
+	dateTyped: Date;
+	periodCode: string;
+	subject: {
+		code: string;
+		name: string;
+		subSubjectCode?: string;
+	};
+	elements: Array<{
+		id: number;
+		competenceId: number;
+		name: string;
+		description: string;
+		value: string;
+	}>;
+	qcm?: {
+		id: number;
+		name: string;
+		startsAt: Date;
+	};
+	_raw: _grade;
 }
 
 function betterValue(note: _grade): number | string {
