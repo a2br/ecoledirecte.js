@@ -5,6 +5,7 @@ import {
 	loginResSuccess,
 	studentAccount,
 	isStudentAccount,
+	gradesResSuccess,
 } from "ecoledirecte-api-types/v3";
 import {
 	getMainAccount,
@@ -14,9 +15,9 @@ import {
 	getGrades,
 	getTimeline,
 	fetchPhoto,
-	getCloudFolder,
+	/** getCloudFolder, */
 } from "../functions";
-import { Cloud, TimelineElem } from "../classes";
+import { /** Cloud, */ TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
@@ -144,12 +145,12 @@ export class Student extends Account {
 	 */
 	async getGradesAndPeriods(
 		context: Record<string, unknown> = {}
-	): Promise<{ grades: Grade[]; periods: Period[] }> {
+	): Promise<{ grades: Grade[]; periods: Period[]; _raw: gradesResSuccess }> {
 		const _all = await getGrades(this.account.id, this.token, context);
 		this.token = _all.token;
 		const grades = _all.data.notes.map(g => new Grade(g));
 		const periods = _all.data.periodes.map(p => new Period(p));
-		return { grades, periods };
+		return { grades, periods, _raw: _all };
 	}
 
 	async timeline(
