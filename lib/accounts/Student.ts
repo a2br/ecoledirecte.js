@@ -185,11 +185,11 @@ export class Student extends Account {
 		};
 	}
 
-	async getCloud(): Promise<Cloud> {
-		const _cloud = await getCloudFolder(this);
-		const cloud = new Cloud(_cloud.data[0], this);
-		return cloud;
-	}
+	// async getCloud(): Promise<Cloud> {
+	// 	const _cloud = await getCloudFolder(this);
+	// 	const cloud = new Cloud(_cloud.data[0], this);
+	// 	return cloud;
+	// }
 
 	get _raw(): studentAccount {
 		return this.account;
