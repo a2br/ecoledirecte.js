@@ -76,10 +76,57 @@ export class Period {
 		this._raw = o;
 	}
 
-	//TODO Finish it
-	// toJSON() {
+	toJSON(): periodJson {
+		return {
+			code: this.code,
+			name: this.name,
+			yearly: this.yearly,
+			closed: this.closed,
+			start: this.start,
+			end: this.end,
+			mockExam: this.mockExam,
+			headcount: this.headcount,
+			rank: this.rank,
+			headTeacher: this.headTeacher,
+			appraisals: this.appraisals,
+			class: this.class,
+			council: this.council,
+			calcDate: this.calcDate,
+			subjects: this.subjects.map(s => s.toJSON()),
+			_raw: this._raw,
+		};
+	}
+}
 
-	// }
+export interface periodJson {
+	code: string;
+	name: string;
+	yearly: boolean;
+	closed: boolean;
+	start: Date;
+	end: Date;
+	mockExam: boolean;
+	headcount?: number;
+	rank?: number;
+	headTeacher?: string;
+	appraisals: {
+		CE?: string;
+		PP?: string;
+		VS?: string;
+	};
+	class: {
+		appraisal?: string;
+		averageGrade?: number;
+	};
+	council: {
+		start?: Date;
+		end?: Date;
+		room?: string;
+		verdict?: string;
+	};
+	calcDate?: Date;
+	subjects: Array<subjectJson>;
+	_raw: _period;
 }
 
 export class Subject {
