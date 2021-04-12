@@ -2,7 +2,7 @@
 
 > ⚠ **The module is still under semver 1.0.0**: This means that big changes in the methods / import architecture can happen at any time. Make sure your code is compatible with the new version after updating.
 
-Browse EcoleDirecte's private API with the module of your dreams. But first, [read the docs](https://edjs.gitbook.io/).
+Browse EcoleDirecte's private API with the module of your dreams.
 
 `ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added. This is the most complete EcoleDirecte client you'll find at that time. After the website itself, of course.
 
