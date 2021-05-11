@@ -35,7 +35,7 @@ console.log(homework[2].contenuDeSeance.content.text);
 ### Introduction to events
 
 Events can be used to do something when something else happens, in real-time. (very specific, as you can tell)
-As an example, the following will log the method and the url each time `ed.js` sends a request to the EcoleDirecte servers.
+For instance, the following will log the method and the url each time `ed.js` sends a request to the EcoleDirecte servers.
 
 ```javascript
 import { events } from "ecoledirecte.js";
