@@ -4,13 +4,13 @@
 
 Browse EcoleDirecte's private API with the module of your dreams.
 
-`ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added. This is the most complete EcoleDirecte client you'll find at that time. After the website itself, of course.
+`ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added. 
 
 ## Examples
 
 ### Get the homework of a day
 
-```javascript
+```typescript
 import { Session } from "ecoledirecte.js";
 
 // Create a new Session.
@@ -37,7 +37,7 @@ console.log(homework[2].contenuDeSeance.content.text);
 Events can be used to do something when something else happens, in real-time. (very specific, as you can tell)
 For instance, the following will log the method and the url each time `ed.js` sends a request to the EcoleDirecte servers.
 
-```javascript
+```typescript
 import { events } from "ecoledirecte.js";
 
 events.on("request", ({ method, url }) => console.log(method, url));
