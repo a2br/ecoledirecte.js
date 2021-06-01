@@ -62,7 +62,6 @@ export async function fetchFile(
 		}),
 		root
 	).href;
-	console.log({ url });
 	const res = await fetch(url, {
 		method: "POST",
 		headers: EdHeadersFile,
