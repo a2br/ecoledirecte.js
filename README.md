@@ -21,7 +21,7 @@ const account = await session.login().catch(err => {
 	console.error("This login did not go well.");
 });
 
-// Is is a student account?
+// Is it a student account?
 if (!account || account.type !== "student") throw new Error("Not a student!");
 
 // Get the homework due for a specific date as a simplified array
