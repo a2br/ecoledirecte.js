@@ -29,7 +29,7 @@ export async function getCloudFolder(
 	return body;
 }
 
-export const EdHeadersFile = {
+const EdHeadersFile = {
 	authority: "api.ecoledirecte.com",
 	accept: "application/json, text/plain, */*",
 	"user-agent":
