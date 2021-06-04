@@ -15,9 +15,9 @@ import {
 	getGrades,
 	getTimeline,
 	fetchPhoto,
-	/** getCloudFolder, */
+	getCloudFolder,
 } from "../functions";
-import { /** Cloud, */ TimelineElem } from "../classes";
+import { Cloud, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
 import { getUpcomingAssignementDates } from "../functions/student/textbook";
@@ -186,11 +186,11 @@ export class Student extends Account {
 		};
 	}
 
-	// async getCloud(): Promise<Cloud> {
-	// 	const _cloud = await getCloudFolder(this);
-	// 	const cloud = new Cloud(_cloud.data[0], this);
-	// 	return cloud;
-	// }
+	async getCloud(): Promise<Cloud> {
+		const _cloud = await getCloudFolder(this);
+		const cloud = new Cloud(_cloud.data[0], this);
+		return cloud;
+	}
 
 	get _raw(): studentAccount {
 		return this.account;

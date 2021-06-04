@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
 import { root, Routes, cloudResSuccess } from "ecoledirecte-api-types/v3";
-import { makeRequest } from "../util";
+import { makeRequest, USER_AGENT } from "../util";
 import { Account } from "../../accounts";
 
 export async function getCloudFolder(
@@ -31,9 +31,13 @@ export async function getCloudFolder(
 
 const EdHeadersFile = {
 	authority: "api.ecoledirecte.com",
+  // This header, that references a specific version, might cause issues in the future
+	"sec-ch-ua":
+		// eslint-disable-next-line quotes
+		'" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
 	accept: "application/json, text/plain, */*",
-	"user-agent":
-		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+	"sec-ch-ua-mobile": "?0",
+	"user-agent": USER_AGENT,
 	"content-type": "application/x-www-form-urlencoded",
 	origin: "https://www.ecoledirecte.com",
 	"sec-fetch-site": "same-site",
