@@ -85,11 +85,13 @@ export async function makeRequest(
 	return resBody;
 }
 
+export const USER_AGENT =
+	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36";
+
 export const EdHeaders = {
 	authority: "api.ecoledirecte.com",
 	accept: "application/json, text/plain, */*",
-	"user-agent":
-		"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/87.0.4280.88 Safari/537.36",
+	"user-agent": USER_AGENT,
 	"content-type": "application/x-www-form-urlencoded",
 	origin: "https://www.ecoledirecte.com",
 	"sec-fetch-site": "same-site",
