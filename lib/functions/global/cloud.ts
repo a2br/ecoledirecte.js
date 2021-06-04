@@ -31,6 +31,7 @@ export async function getCloudFolder(
 
 const EdHeadersFile = {
 	authority: "api.ecoledirecte.com",
+  // This header, that references a specific version, might cause issues in the future
 	"sec-ch-ua":
 		// eslint-disable-next-line quotes
 		'" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
