@@ -2,6 +2,6 @@ image:
   file: .gitpod.dockerfile
 
 tasks:
-  - before: npm install -g nodemon typescript eslint prettier npm
+  - before: npm install -g nodemon typescript eslint prettier np npm
     init: npm install
     command: npm run build
