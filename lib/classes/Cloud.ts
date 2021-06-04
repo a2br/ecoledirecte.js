@@ -20,13 +20,29 @@ export class Cloud {
 		return this._root.taille;
 	}
 
-	async root(): Promise<Folder> {
+	root(): Folder {
 		return new Folder(this._root, this);
 	}
 
-	// async get(path: string): Promise<Folder | File> {
-	// 	throw new Error("Unavailable");
-	// }
+	/**
+	 * @description Will fetch the desired path
+	 */
+	async get(path: string): Promise<Folder | File | null> {
+		const steps = parsePath(path);
+		let lastStep: Folder | File | undefined = await this.root().load();
+		for (const step of steps) {
+			if (lastStep && lastStep.type === "folder") {
+				const child: Folder | File | undefined = lastStep.children.find(
+					c => c.name === step
+				);
+				lastStep =
+					child && child.type === "folder" ? await child.load() : child;
+			} else {
+				return null;
+			}
+		}
+		return lastStep ?? null;
+	}
 }
 
 export class Folder {
@@ -52,24 +68,54 @@ export class Folder {
 		});
 	}
 
-	// getFullPath() {}
+	async load(force = false): Promise<Folder> {
+		if (!this._raw.isLoaded || force) {
+			const res = await getCloudFolder(
+				this._cloud._owner,
+				encodeURI(
+					cleanPath(this._raw.id, this._cloud._root.id).replace(/\//g, "\\")
+				)
+			);
+			this._cloud._owner.token = res.token;
+			const folder = new Folder(res.data[0], this._cloud);
+			return folder;
+		} else {
+			return this;
+		}
+	}
 
 	/**
-	 * @description Non-destructive
+	 * @description Loads every children recursively. Non-destructive.
+	 * @returns New Folder instance with every children. The files aren't downloaded.
 	 */
-	// refresh() {}
-
 	async loadFullTree(): Promise<Folder> {
 		const fullTree = await getFullTree(this._raw, this._cloud);
-		// function cleanBranch(folder: cloudResFolder) {
-		// 	const tree: any = {};
-		// 	folder.children.forEach(
-		// 		c => (tree[c.libelle] = c.type === "folder" ? cleanBranch(c) : c.type)
-		// 	);
-		// 	return tree;
-		// }
-		// return cleanBranch(fullTree);
 		return new Folder(fullTree, this._cloud);
+	}
+
+	/**
+	 * @description Returns the requested path from its children (doesn't fetch anything)
+	 */
+	get(path: string): Folder | File | null {
+		/**
+		 *  @description To assign `this` to a value
+		 */
+		function that<T>(that: T): T {
+			return that;
+		}
+		const steps = parsePath(path);
+		let lastStep: Folder | File | undefined = that(this);
+		for (const step of steps) {
+			if (lastStep && lastStep.type === "folder") {
+				const child: Folder | File | undefined = lastStep.children.find(
+					c => c.name === step
+				);
+				lastStep = child;
+			} else {
+				return null;
+			}
+		}
+		return lastStep ?? null;
 	}
 
 	// toJSON() {}
@@ -148,6 +194,25 @@ export function cleanPath(dirty: string, prefix: string): string {
 			.substr(dirty.indexOf(prefix) + (prefix + "\\").length)
 			.replace(/\\/g, "/");
 	return clean;
+}
+
+function parsePath(path: string): string[] {
+	const steps = [];
+	const slashes = [];
+	if (path && !path.startsWith("/")) path = "/" + path;
+
+	for (let i = 0; i < path.length; i++) {
+		const isSlash = path[i] === "/" && path[i - 1] !== "\\";
+		if (isSlash) slashes.push(i);
+	}
+
+	for (let i = 0; i < slashes.length; i++) {
+		const start = slashes[i] + 1;
+		const end = slashes[i + 1] || path.length;
+		if (start < end) steps.push(path.substring(start, end));
+	}
+
+	return steps;
 }
 
 export async function getFullTree(
