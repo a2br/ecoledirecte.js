@@ -70,32 +70,3 @@ export class Session {
 		return credentials;
 	}
 }
-
-/**
- * @description To be used when you don't know any credential
- */
-// export class TokenSession {
-// 	private _token: string;
-
-// 	get token(): string {
-// 		return this._token;
-// 	}
-
-// 	set token(value: string) {
-// 		logs.emit("newToken", {
-// 			oldToken: this._token,
-// 			newToken: value,
-// 			session: this,
-// 		});
-// 		this._token = value;
-// 	}
-
-// 	constructor(token: string) {
-// 		this._token = token;
-// 	}
-
-// 	// Needs to return an account
-// 	async login(): Promise<unknown> {
-// 		return null;
-// 	}
-// }
