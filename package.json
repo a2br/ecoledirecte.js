@@ -42,7 +42,7 @@
 	},
 	"dependencies": {
 		"ecoledirecte-api-types": "^0.10.0",
-		"html-to-text": "^7.0.0",
+		"html-to-text": "^8.0.0",
 		"node-fetch": "^2.6.1"
 	}
 }
