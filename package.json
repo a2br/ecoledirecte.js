@@ -25,7 +25,7 @@
 	"license": "MIT",
 	"devDependencies": {
 		"@types/eslint": "^7.2.6",
-		"@types/html-to-text": "^6.0.0",
+		"@types/html-to-text": "^8.0.0",
 		"@types/jest": "^26.0.19",
 		"@types/node": "^15.0.0",
 		"@types/node-fetch": "^2.5.7",
