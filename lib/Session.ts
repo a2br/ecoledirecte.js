@@ -5,6 +5,7 @@ import { EcoleDirecteAPIError } from "./errors";
 import logs from "./events";
 
 //TODO Make settings
+// Needs to be global object
 export interface SessionSettings {
 	/**
 	 * @example "https://api.ecoledirecte.com"
