@@ -1,4 +1,4 @@
-import { root, Routes, mailboxResSuccess } from "ecoledirecte-api-types/v3";
+import { Routes, mailboxResSuccess } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "../util";
 import { Message } from "../../classes";
@@ -13,10 +13,7 @@ export async function getMessages(
 	const body: mailboxResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(
-				Routes.studentMailbox(id, { typeRecuperation: direction }),
-				root
-			).href,
+			path: Routes.studentMailbox(id, { typeRecuperation: direction }),
 			body: { token },
 			guard: true,
 		},

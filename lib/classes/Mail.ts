@@ -3,9 +3,8 @@ import {
 	mailboxResMessage,
 	messageResSuccess,
 	Routes,
-	root,
 } from "ecoledirecte-api-types/v3";
-import { makeRequest } from "../util/util";
+import { makeRequest } from "../util";
 import { ExpandedBase64 } from "../classes";
 import { Student } from "../accounts";
 
@@ -102,12 +101,9 @@ export class Message {
 		if (!this._user) throw new Error("User needs to be provided");
 		const details: messageResSuccess = await makeRequest({
 			method: "POST",
-			url: new URL(
-				Routes.studentMessage(this._user._raw.id, this.id, {
-					mode: this.type === "received" ? "destinataire" : "expediteur",
-				}),
-				root
-			).href,
+			path: Routes.studentMessage(this._user._raw.id, this.id, {
+				mode: this.type === "received" ? "destinataire" : "expediteur",
+			}),
 			body: { token: this._user.token },
 			guard: true,
 		});

@@ -1,5 +1,5 @@
-import { Routes, root } from "ecoledirecte-api-types/v3";
-import { makeRequest } from "../util/util";
+import { Routes } from "ecoledirecte-api-types/v3";
+import { makeRequest } from "../util";
 import { ExpandedBase64 } from "../classes";
 import { Student } from "../accounts";
 import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types/v3";
@@ -109,7 +109,7 @@ export async function tickAssignement(
 
 	const body: { code: 200; token: string; host: string } = await makeRequest({
 		method: "POST",
-		url: new URL(Routes.studentHomework(id, { verbe: "put" }), root).href,
+		path: Routes.studentHomework(id, { verbe: "put" }),
 		body: data,
 		guard: true,
 	});

@@ -1,4 +1,4 @@
-import { root, Routes } from "ecoledirecte-api-types/v3";
+import { Routes } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "./util";
 import { loginRes, account } from "ecoledirecte-api-types/v3";
@@ -14,7 +14,7 @@ export async function login(
 	const body: loginRes = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.login(), root).href,
+			path: Routes.login(),
 			body: {
 				identifiant: username,
 				motdepasse: password,

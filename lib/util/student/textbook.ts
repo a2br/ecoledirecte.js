@@ -1,4 +1,4 @@
-import { root, Routes } from "ecoledirecte-api-types/v3";
+import { Routes } from "ecoledirecte-api-types/v3";
 
 import { makeRequest } from "../util";
 
@@ -20,7 +20,7 @@ export async function getUpcomingAssignementDates(
 	const body: textbookResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.studentHomework(id), root).href,
+			path: Routes.studentHomework(id),
 			body: { token },
 			guard: true,
 		},
@@ -46,7 +46,7 @@ export async function getTextbookPage(
 	const body: textbookDateResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.studentHomeworkDate(id, date), root).href,
+			path: Routes.studentHomeworkDate(id, date),
 			body: { token },
 			guard: true,
 		},
@@ -79,7 +79,7 @@ export async function tickAssignement(
 	const body: { code: 200; token: string; host: string } = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.studentHomework(id, { verbe: "put" }), root).href,
+			path: Routes.studentHomework(id, { verbe: "put" }),
 			body: data,
 			guard: true,
 		},

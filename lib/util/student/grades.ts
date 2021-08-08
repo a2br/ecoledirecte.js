@@ -1,4 +1,4 @@
-import { root, Routes, gradesResSuccess } from "ecoledirecte-api-types/v3";
+import { Routes, gradesResSuccess } from "ecoledirecte-api-types/v3";
 import { makeRequest } from "../util";
 
 export async function getGrades(
@@ -9,7 +9,7 @@ export async function getGrades(
 	const body: gradesResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.studentGrades(id), root).href,
+			path: Routes.studentGrades(id),
 			body: { token },
 			guard: true,
 		},

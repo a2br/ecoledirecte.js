@@ -1,5 +1,5 @@
 import fetch, { RequestInit } from "node-fetch";
-import { isFailure } from "ecoledirecte-api-types/v3";
+import { isFailure, root } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
@@ -42,7 +42,7 @@ export function formatBytes(bytes: number): string {
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
-		url: string;
+		path: string;
 		body?: Record<string, unknown>;
 		guard?: boolean;
 	},
@@ -50,7 +50,8 @@ export async function makeRequest(
 	account?: Account
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
-	const { method, url, body, guard } = options;
+	const { method, path, body, guard } = options;
+	const url = Config.get("root") + path;
 	const resListener = new EventEmitter();
 	function onRes(callback: (res: Response) => void) {
 		resListener.on("response", callback);
@@ -100,3 +101,28 @@ export const EdHeaders = {
 	referer: "https://www.ecoledirecte.com/",
 	"accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
 };
+
+export type FullConfig = {
+	root: string;
+	addedHeaders: Record<string, string>;
+};
+
+export type PartialConfig = Partial<FullConfig>;
+
+export const DefaultConfig: FullConfig = {
+	root: root,
+	addedHeaders: {},
+};
+
+export class ConfigConstructor {
+	static instance = new ConfigConstructor();
+
+	constructor(public source: PartialConfig = {}) {}
+	get<K extends keyof FullConfig>(key: K): FullConfig[K] {
+		const fromSource = this.source[key] as FullConfig[K] | undefined;
+		const fromDefault = DefaultConfig[key];
+		return fromSource ?? fromDefault;
+	}
+}
+
+export const Config = ConfigConstructor.instance;

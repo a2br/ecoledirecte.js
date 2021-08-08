@@ -1,7 +1,7 @@
 import fetch from "node-fetch";
 
-import { root, Routes, cloudResSuccess } from "ecoledirecte-api-types/v3";
-import { makeRequest, USER_AGENT } from "../util";
+import { Routes, cloudResSuccess } from "ecoledirecte-api-types/v3";
+import { makeRequest, USER_AGENT, Config } from "../util";
 import { Account } from "../../accounts";
 
 export async function getCloudFolder(
@@ -12,13 +12,10 @@ export async function getCloudFolder(
 	const body: cloudResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(
-				Routes.cloudFolder(account.__raw.typeCompte, account.edId, {
-					verbe: "get",
-					idFolder: folderPath || undefined,
-				}),
-				root
-			).href,
+			path: Routes.cloudFolder(account.__raw.typeCompte, account.edId, {
+				verbe: "get",
+				idFolder: folderPath || undefined,
+			}),
 			body: { token: account.token },
 			guard: true,
 		},
@@ -31,7 +28,7 @@ export async function getCloudFolder(
 
 const EdHeadersFile = {
 	authority: "api.ecoledirecte.com",
-  // This header, that references a specific version, might cause issues in the future
+	// This header, that references a specific version, might cause issues in the future
 	"sec-ch-ua":
 		// eslint-disable-next-line quotes
 		'" Not A;Brand";v="99", "Chromium";v="90", "Google Chrome";v="90"',
@@ -60,7 +57,7 @@ export async function fetchFile(
 			fichierId: encodeURI(fileId),
 			leTypeDeFichier: "CLOUD",
 		}),
-		root
+		Config.get("root")
 	).href;
 	const res = await fetch(url, {
 		method: "POST",

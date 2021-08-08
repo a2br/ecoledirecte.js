@@ -1,4 +1,4 @@
-import { root, Routes } from "ecoledirecte-api-types/v3";
+import { Routes } from "ecoledirecte-api-types/v3";
 import {
 	studCommonTlResSuccess,
 	studTlResSuccess,
@@ -14,7 +14,7 @@ export async function getTimeline(
 	const body: studTlResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.studentTimeline(id), root).href,
+			path: Routes.studentTimeline(id),
 			body: { token },
 			guard: true,
 		},
@@ -32,7 +32,7 @@ export async function getCommonTimeline(
 	const body: studCommonTlResSuccess = await makeRequest(
 		{
 			method: "POST",
-			url: new URL(Routes.commonTimeline("E", id), root).href,
+			path: Routes.commonTimeline("E", id),
 			body: { token },
 			guard: true,
 		},

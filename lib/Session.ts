@@ -4,15 +4,6 @@ import { Family, Staff, Student, Teacher } from "./accounts";
 import { EcoleDirecteAPIError } from "./errors";
 import logs from "./events";
 
-//TODO Make settings
-// Needs to be global object
-export interface SessionSettings {
-	/**
-	 * @example "https://api.ecoledirecte.com"
-	 */
-	root?: string;
-}
-
 export class Session {
 	private _username: string;
 	private _password: string;
@@ -36,11 +27,7 @@ export class Session {
 		this._token = value;
 	}
 
-	constructor(
-		username: string,
-		password: string,
-		public _settings?: SessionSettings
-	) {
+	constructor(username: string, password: string) {
 		(this._username = username), (this._password = password);
 	}
 
