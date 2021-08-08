@@ -61,7 +61,7 @@ export async function fetchFile(
 	).href;
 	const res = await fetch(url, {
 		method: "POST",
-		headers: EdHeadersFile,
+		headers: { ...EdHeadersFile, ...Config.get("addedHeaders") },
 		body: urlencoded,
 	});
 	const buf = await res.buffer();

@@ -1,5 +1,6 @@
 import fetch from "node-fetch";
 import { Account } from "../accounts";
+import { Config } from "./util";
 
 const EdHeadersPhoto = {
 	Referer: "https://www.ecoledirecte.com/",
@@ -14,7 +15,7 @@ export async function fetchPhoto(
 		"https:" + (account.__raw.profile as Record<string, unknown>).photo,
 		{
 			method: "GET",
-			headers: EdHeadersPhoto,
+			headers: { ...EdHeadersPhoto, ...Config.get("addedHeaders") },
 			redirect: "follow",
 		}
 	).catch(() => undefined);

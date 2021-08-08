@@ -62,7 +62,7 @@ export async function makeRequest(
 	logs.emit("request", { method, url, body, context, onRes, offRes });
 	const params: RequestInit = {
 		method: method,
-		headers: EdHeaders,
+		headers: { ...EdHeaders, ...Config.get("addedHeaders") },
 	};
 
 	if (method === "POST") {
