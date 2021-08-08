@@ -6,7 +6,7 @@ import {
 	teacherAccount,
 	isTeacherAccount,
 } from "ecoledirecte-api-types/v3";
-import { getMainAccount, fetchPhoto } from "../functions";
+import { getMainAccount, fetchPhoto } from "../util";
 
 export class Teacher extends Account {
 	public type: "teacher" = "teacher";

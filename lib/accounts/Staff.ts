@@ -6,7 +6,7 @@ import {
 	staffAccount,
 	isStaffAccount,
 } from "ecoledirecte-api-types/v3";
-import { getMainAccount, fetchPhoto } from "../functions";
+import { getMainAccount, fetchPhoto } from "../util";
 
 export class Staff extends Account {
 	public type: "staff" = "staff";

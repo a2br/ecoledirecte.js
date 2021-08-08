@@ -1,6 +1,6 @@
 import { Session } from "../Session";
 import { account, isFailure } from "ecoledirecte-api-types/v3";
-import { getMainAccount } from "../functions";
+import { getMainAccount } from "../util";
 
 export class Account {
 	private __session: Session;

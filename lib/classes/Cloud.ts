@@ -1,6 +1,6 @@
 import { cloudResFolder, cloudResFile, role } from "ecoledirecte-api-types/v3";
 import { Account } from "../accounts";
-import { fetchFile, getCloudFolder } from "../functions";
+import { fetchFile, getCloudFolder } from "../util";
 
 export class Cloud {
 	public _root: cloudResFolder;

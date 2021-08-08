@@ -1,5 +1,5 @@
 import { loginRes, isFailure } from "ecoledirecte-api-types/v3";
-import { getMainAccount, login } from "./functions";
+import { getMainAccount, login } from "./util";
 import { Family, Staff, Student, Teacher } from "./accounts";
 import { EcoleDirecteAPIError } from "./errors";
 import logs from "./events";

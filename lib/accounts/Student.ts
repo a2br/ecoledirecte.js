@@ -16,12 +16,12 @@ import {
 	getTimeline,
 	fetchPhoto,
 	getCloudFolder,
-} from "../functions";
+} from "../util";
 import { Cloud, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement } from "../classes";
 
-import { getUpcomingAssignementDates } from "../functions/student/textbook";
-import { cleanMessages } from "../functions/student/mailbox";
+import { getUpcomingAssignementDates } from "../util/student/textbook";
+import { cleanMessages } from "../util/student/mailbox";
 
 export class Student extends Account {
 	public type: "student" = "student";

@@ -1,5 +1,5 @@
 import { Routes, root } from "ecoledirecte-api-types/v3";
-import { makeRequest } from "../functions/util";
+import { makeRequest } from "../util/util";
 import { ExpandedBase64 } from "../classes";
 import { Student } from "../accounts";
 import { textbookDateAssignement as _textbookDateAssignement } from "ecoledirecte-api-types/v3";

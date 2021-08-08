@@ -6,7 +6,7 @@ import {
 	familyAccount,
 	isFamilyAccount,
 } from "ecoledirecte-api-types/v3";
-import { getMainAccount } from "../functions";
+import { getMainAccount } from "../util";
 
 export class Family extends Account {
 	public type: "family" = "family";
