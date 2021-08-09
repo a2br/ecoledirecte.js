@@ -7,6 +7,7 @@ Browse EcoleDirecte's private API with the module of your dreams.
 `ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added. 
 
 ## Examples
+> Warning: these examples might not work on your machine (depending on whether you're using `commonjs` or ES6 `module`)
 
 ### Get the homework of a day
 
