@@ -28,7 +28,7 @@ if (!account || account.type !== "student") throw new Error("Not a student!");
 // Get the homework due for a specific date as a simplified array
 const homework = await account.getHomework({ dates: "2021-01-14" });
 
-// Every piece of data from the API is reformated  (eg: base64 string are
+// Every piece of data from the API is reformatted  (eg: base64 string are
 // converted to text/HTML). The raw data remains always available as _raw
 console.log(homework[2].contenuDeSeance.content.text);
 ```
