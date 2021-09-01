@@ -1,5 +1,5 @@
 import fetch, { RequestInit } from "node-fetch";
-import { isFailure, root } from "ecoledirecte-api-types/v3";
+import { failureRes, isFailure, root } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
@@ -73,14 +73,15 @@ export async function makeRequest(
 
 	const response = await fetch(url, params);
 
-	const resBody = await response.json();
+	const resBody = (await response.json()) as Record<string, unknown>;
 
 	resListener.emit("response", { response, body: resBody });
 
 	const failure = isFailure(resBody);
-	if (guard && failure) throw new EcoleDirecteAPIError(resBody);
+	if (guard && failure) throw new EcoleDirecteAPIError(resBody as failureRes);
 
-	const someToken = resBody.token || response.headers.get("x-token");
+	const someToken =
+		(resBody.token as string | undefined) || response.headers.get("x-token");
 	if (!failure && account && someToken) account.token = someToken;
 
 	return resBody;
