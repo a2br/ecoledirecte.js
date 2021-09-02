@@ -6,6 +6,7 @@ import {
 	studentAccount,
 	isStudentAccount,
 	gradesResSuccess,
+	studentAccountModule,
 } from "ecoledirecte-api-types/v3";
 import {
 	getMainAccount,
@@ -190,6 +191,10 @@ export class Student extends Account {
 		const _cloud = await getCloudFolder(this);
 		const cloud = new Cloud(_cloud.data[0], this);
 		return cloud;
+	}
+
+	hasModule(module: studentAccountModule["code"]): boolean {
+		return this._raw.modules.some(m => m.code === module && m.enable);
 	}
 
 	get _raw(): studentAccount {
