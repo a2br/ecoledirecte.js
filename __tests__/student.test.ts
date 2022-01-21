@@ -1,7 +1,10 @@
 import { Session } from "../lib";
 
+import { getTestAccount } from "./util";
+
 describe("Student class", () => {
-	const session = new Session("EDELEVE", "0");
+	const { username, password } = getTestAccount("student");
+	const session = new Session(username, password);
 	const account = session.login();
 
 	test("it successfully connects", async () => {
@@ -64,5 +67,13 @@ describe("Student class", () => {
 
 		const timeline = await acc.timeline();
 		expect(Array.isArray(timeline)).toBe(true);
+	});
+
+	test("it fetches timetable", async () => {
+		const acc = await account;
+		if (acc.type !== "student") return;
+
+		const timetable = await acc.getTimetable();
+		expect(Array.isArray(timetable)).toBe(true);
 	});
 });
