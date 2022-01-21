@@ -7,6 +7,7 @@ import {
 	isStudentAccount,
 	gradesResSuccess,
 	studentAccountModule,
+	course as _course,
 } from "ecoledirecte-api-types/v3";
 import {
 	getMainAccount,
@@ -17,9 +18,10 @@ import {
 	getTimeline,
 	fetchPhoto,
 	getCloudFolder,
+	getTimetable,
 } from "../util";
 import { Cloud, TimelineElem } from "../classes";
-import { Message, Grade, Period, Assignement } from "../classes";
+import { Message, Grade, Period, Assignement, Course } from "../classes";
 
 import { getUpcomingAssignementDates } from "../util/student/textbook";
 import { cleanMessages } from "../util/student/mailbox";
@@ -191,6 +193,23 @@ export class Student extends Account {
 		const _cloud = await getCloudFolder(this);
 		const cloud = new Cloud(_cloud.data[0], this);
 		return cloud;
+	}
+
+	/**
+	 * @param dates (Array of) variable(s) which can be converted into Date object(s). Preffered type: "YYYY-MM-DD"
+	 * @returns The timetable as an array of courses
+	 */
+	async getTimetable(
+		dates?: Array<Date | string | number> | (Date | string | number)
+	): Promise<Course[]> {
+		const _timetable = await getTimetable(this, dates);
+		this.token = _timetable.token;
+		const timetable = await Promise.all(
+			_timetable.data.map(async (c: _course) => {
+				return new Course(c);
+			})
+		);
+		return timetable;
 	}
 
 	hasModule(module: studentAccountModule["code"]): boolean {
