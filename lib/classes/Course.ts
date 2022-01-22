@@ -30,7 +30,7 @@ export class Course {
 	isExempted: number;
 
 	hasSessionContent: boolean;
-	hasHomeworkToDo: boolean;
+	hasHomework: boolean;
 
 	_raw: _course;
 
@@ -64,7 +64,7 @@ export class Course {
 		this.isExempted = o.dispense;
 
 		this.hasSessionContent = o.contenuDeSeance;
-		this.hasHomeworkToDo = o.devoirAFaire;
+		this.hasHomework = o.devoirAFaire;
 
 		this._raw = o;
 	}
@@ -100,7 +100,7 @@ export class Course {
 			isExempted: this.isExempted,
 
 			hasSessionContent: this.hasSessionContent,
-			hasHomeworkToDo: this.hasHomeworkToDo,
+			hasHomework: this.hasHomework,
 
 			_raw: this._raw,
 		};
@@ -129,6 +129,6 @@ export interface courseJson {
 	isExemptable: boolean;
 	isExempted: number;
 	hasSessionContent: boolean;
-	hasHomeworkToDo: boolean;
+	hasHomework: boolean;
 	_raw: _course;
 }
