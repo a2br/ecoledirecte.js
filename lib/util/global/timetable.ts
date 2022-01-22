@@ -12,25 +12,16 @@ export async function getTimetable(
 	}
 
 	if (!Array.isArray(dates)) dates = [dates];
+	if (!dates[1]) dates[1] = dates[0];
 
-	for (let i = 0; i < dates.length; i++) {
-		if (!(dates[i] instanceof Date)) {
-			try {
-				dates[i] = new Date(dates[i]);
-			} catch (e) {
-				throw new Error(
-					`Invalid date: ${dates[i]} (expected Date, string or number)`
-				);
-			}
-		}
+	const startDate = new Date(dates[0]);
+	const endDate = new Date(dates[1]);
+
+	if (isNaN(startDate.getTime()) || isNaN(endDate.getTime())) {
+		throw new Error("Invalid dates");
 	}
 
-	if (!dates[1]) {
-		dates[1] = dates[0];
-	}
-
-	const startDate = toISODate(dates[0]);
-	const endDate = toISODate(dates[1]);
+	if (startDate > endDate) throw new Error("Start date is after end date");
 
 	const body: timetableResSuccess = await makeRequest(
 		{
@@ -38,8 +29,8 @@ export async function getTimetable(
 			path: Routes.timetable(account.__raw.typeCompte, account.edId),
 			body: {
 				token: account.token,
-				dateDebut: startDate,
-				dateFin: endDate,
+				dateDebut: toISODate(startDate),
+				dateFin: toISODate(endDate),
 			},
 			guard: true,
 		},
