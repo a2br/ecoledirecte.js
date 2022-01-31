@@ -1,14 +1,17 @@
 import { Session } from "../lib";
 
+import { getTestAccount } from "./util";
+
 describe("Session class", () => {
-	const session = new Session("EDELEVE", "0");
+	const { username, password } = getTestAccount("student");
+	const session = new Session(username, password);
 	const account = session.login();
 
 	test("it returns correct credentials", () => {
 		expect(JSON.stringify(session.credentials)).toBe(
 			JSON.stringify({
-				username: "EDELEVE",
-				password: "0",
+				username: username,
+				password: password,
 			})
 		);
 	});

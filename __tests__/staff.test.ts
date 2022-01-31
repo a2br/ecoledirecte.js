@@ -1,7 +1,10 @@
 import { Session } from "../lib";
 
+import { getTestAccount } from "./util";
+
 describe("Staff class", () => {
-	const session = new Session("EDPERSONNEL", "0");
+	const { username, password } = getTestAccount("staff");
+	const session = new Session(username, password);
 	const account = session.login();
 
 	test("it successfully connects", async () => {

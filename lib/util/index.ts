@@ -20,3 +20,7 @@ export * from "./student/timelines";
 //! CLOUD
 
 export * from "./global/cloud";
+
+//! TIMETABLE
+
+export * from "./global/timetable";
