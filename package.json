@@ -32,7 +32,7 @@
 		"@typescript-eslint/eslint-plugin": "*",
 		"@typescript-eslint/parser": "*",
 		"copyfiles": "^2.4.1",
-		"dotenv": "^11.0.0",
+		"dotenv": "^16.0.0",
 		"eslint": "*",
 		"eslint-config-prettier": "*",
 		"eslint-plugin-prettier": "*",
