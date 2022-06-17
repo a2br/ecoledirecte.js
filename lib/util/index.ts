@@ -17,6 +17,10 @@ export * from "./student/grades";
 
 export * from "./student/timelines";
 
+//! WALLETS
+
+export * from "./student/wallets";
+
 //! CLOUD
 
 export * from "./global/cloud";

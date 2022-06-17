@@ -19,12 +19,14 @@ import {
 	fetchPhoto,
 	getCloudFolder,
 	getTimetable,
+	getWallets,
 } from "../util";
 import { Cloud, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement, Course } from "../classes";
 
 import { getUpcomingAssignementDates } from "../util/student/textbook";
 import { cleanMessages } from "../util/student/mailbox";
+import { Wallet } from "../classes/Wallet";
 
 export class Student extends Account {
 	public type: "student" = "student";
@@ -154,6 +156,16 @@ export class Student extends Account {
 		const grades = _all.data.notes.map(g => new Grade(g));
 		const periods = _all.data.periodes.map(p => new Period(p));
 		return { grades, periods, _raw: _all };
+	}
+
+	/**
+	 * @returns Every wallet available
+	 */
+	async getWallets(context: Record<string, unknown> = {}): Promise<Wallet[]> {
+		const _wallets = await getWallets(this.token, context);
+		this.token = _wallets.token;
+		const wallets = _wallets.data.comptes.map(c => new Wallet(c));
+		return wallets;
 	}
 
 	async timeline(

@@ -47,7 +47,8 @@ export async function makeRequest(
 		guard?: boolean;
 	},
 	context: Record<string, unknown> = {},
-	account?: Account
+	account?: Account,
+	token?: string
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
 	const { method, path, body, guard } = options;
@@ -59,11 +60,23 @@ export async function makeRequest(
 	function offRes(callback: (res: Response) => void) {
 		resListener.off("response", callback);
 	}
-	logs.emit("request", { method, url, body, context, onRes, offRes });
 	const params: RequestInit = {
 		method: method,
-		headers: { ...EdHeaders, ...Config.get("addedHeaders") },
+		headers: {
+			...EdHeaders,
+			"x-token": (token || account?.token) ?? "",
+			...Config.get("addedHeaders"),
+		},
 	};
+	logs.emit("request", {
+		method,
+		url,
+		body,
+		headers: params.headers,
+		context,
+		onRes,
+		offRes,
+	});
 
 	if (method === "POST") {
 		const urlencoded = new URLSearchParams();
