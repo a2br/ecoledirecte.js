@@ -8,10 +8,13 @@ import {
 	schoolsResSuccess,
 	studentsResSuccess,
 } from "ecoledirecte-api-types/v3";
-import { getMainAccount, fetchPhoto } from "../util";
-import { getTeachersSchools } from "../util/teacher/schools";
-import { TeachersSchool, TeachersStudent } from "../classes/School";
-import { getTeachersStudents } from "../util/teacher/students";
+import {
+	getMainAccount,
+	fetchPhoto,
+	getTeachersSchools,
+	getTeachersStudents,
+} from "../util";
+import { TeachersSchool, TeachersStudent } from "../classes";
 
 export class Teacher extends Account {
 	public type: "teacher" = "teacher";

@@ -28,3 +28,8 @@ export * from "./global/cloud";
 //! TIMETABLE
 
 export * from "./global/timetable";
+
+//! TEACHER: SCHOOLS AND STUDENTS
+
+export * from "./teacher/schools";
+export * from "./teacher/students";
