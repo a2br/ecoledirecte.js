@@ -5,8 +5,13 @@ import {
 	loginResSuccess,
 	teacherAccount,
 	isTeacherAccount,
+	schoolsResSuccess,
+	studentsResSuccess,
 } from "ecoledirecte-api-types/v3";
 import { getMainAccount, fetchPhoto } from "../util";
+import { getTeachersSchools } from "../util/teacher/schools";
+import { TeachersSchool, TeachersStudent } from "../classes/School";
+import { getTeachersStudents } from "../util/teacher/students";
 
 export class Teacher extends Account {
 	public type: "teacher" = "teacher";
@@ -26,6 +31,26 @@ export class Teacher extends Account {
 
 		this.account = mainAccount;
 		this.token = session.token;
+	}
+	// Get schools
+	async getSchools(): Promise<
+		[schools: TeachersSchool[], _raw: schoolsResSuccess]
+	> {
+		// Get schools
+		const res = await getTeachersSchools(this.token);
+		this.token = res.token;
+		const schools = res.data.etablissements.map(e => new TeachersSchool(e));
+		return [schools, res];
+	}
+
+	// Get students (from class id)
+	async getStudents(
+		classId: number
+	): Promise<[students: TeachersStudent[], _raw: studentsResSuccess]> {
+		const res = await getTeachersStudents(this.token, classId);
+		this.token = res.token;
+		const students = res.data.eleves.map(e => new TeachersStudent(e));
+		return [students, res];
 	}
 
 	private _photo?: Buffer;

@@ -1,5 +1,5 @@
 import fetch, { RequestInit } from "node-fetch";
-import { failureRes, isFailure, root } from "ecoledirecte-api-types/v3";
+import { failureRes, isFailure, root, rootp } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
 import { EcoleDirecteAPIError } from "../errors";
@@ -45,14 +45,15 @@ export async function makeRequest(
 		path: string;
 		body?: Record<string, unknown>;
 		guard?: boolean;
+		teachRoot?: boolean;
 	},
 	context: Record<string, unknown> = {},
 	account?: Account,
 	token?: string
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
-	const { method, path, body, guard } = options;
-	const url = Config.get("root") + path;
+	const { method, path, body, guard, teachRoot } = options;
+	const url = Config.get(teachRoot ? "rootp" : "root") + path;
 	const resListener = new EventEmitter();
 	function onRes(callback: (res: Response) => void) {
 		resListener.on("response", callback);
@@ -118,6 +119,7 @@ export const EdHeaders = {
 
 export type FullConfig = {
 	root: string;
+	rootp: string;
 	addedHeaders: Record<string, string>;
 };
 
@@ -125,6 +127,7 @@ export type PartialConfig = Partial<FullConfig>;
 
 export const DefaultConfig: FullConfig = {
 	root: root,
+	rootp: rootp,
 	addedHeaders: {},
 };
 
