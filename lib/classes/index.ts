@@ -6,5 +6,6 @@ export * from "./Timeline";
 export * from "./Cloud";
 export * from "./Course";
 export * from "./School";
+export * from "./Document";
 
 export * from "./ExpandedB64";

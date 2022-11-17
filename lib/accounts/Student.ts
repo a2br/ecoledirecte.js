@@ -8,6 +8,7 @@ import {
 	gradesResSuccess,
 	studentAccountModule,
 	course as _course,
+	studentDocsResSuccess,
 } from "ecoledirecte-api-types/v3";
 import {
 	getMainAccount,
@@ -20,8 +21,9 @@ import {
 	getCloudFolder,
 	getTimetable,
 	getWallets,
+	getDocuments,
 } from "../util";
-import { Cloud, TimelineElem } from "../classes";
+import { Cloud, Document, TimelineElem } from "../classes";
 import { Message, Grade, Period, Assignement, Course } from "../classes";
 
 import { getUpcomingAssignementDates } from "../util/student/textbook";
@@ -216,12 +218,36 @@ export class Student extends Account {
 	): Promise<Course[]> {
 		const _timetable = await getTimetable(this, dates);
 		this.token = _timetable.token;
-		const timetable = await Promise.all(
-			_timetable.data.map(async (c: _course) => {
-				return new Course(c);
-			})
-		);
+		const timetable = _timetable.data.map((c: _course) => new Course(c));
+
 		return timetable;
+	}
+
+	async getDocuments(archiveYear?: string): Promise<{
+		admin: Document[];
+		bills: Document[];
+		grades: Document[];
+		schoolLife: Document[];
+		_raw: studentDocsResSuccess["data"];
+	}> {
+		const _documents = await getDocuments(this.token, archiveYear);
+		this.token = _documents.token;
+		const documents = {
+			admin: _documents.data.administratifs.map(
+				d => new Document(d, this, archiveYear)
+			),
+			bills: _documents.data.factures.map(
+				d => new Document(d, this, archiveYear)
+			),
+			grades: _documents.data.notes.map(
+				d => new Document(d, this, archiveYear)
+			),
+			schoolLife: _documents.data.viescolaire.map(
+				d => new Document(d, this, archiveYear)
+			),
+			_raw: _documents.data,
+		};
+		return documents;
 	}
 
 	hasModule(module: studentAccountModule["code"]): boolean {

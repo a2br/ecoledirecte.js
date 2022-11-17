@@ -21,6 +21,10 @@ export * from "./student/timelines";
 
 export * from "./student/wallets";
 
+//! DOCUMENTS
+
+export * from "./student/documents";
+
 //! CLOUD
 
 export * from "./global/cloud";

@@ -1,4 +1,5 @@
 import fetch, { RequestInit } from "node-fetch";
+import mime from "mime-types";
 import { failureRes, isFailure, root, rootp } from "ecoledirecte-api-types/v3";
 
 import logs from "../events";
@@ -39,6 +40,29 @@ export function formatBytes(bytes: number): string {
 	return formatted;
 }
 
+function getFileName(contentDisposition: string): string {
+	const utf8FilenameRegex = /filename\*=UTF-8''([\w%\-\.]+)(?:; ?|$)/i;
+	const asciiFilenameRegex = /^filename=(["']?)(.*?[^\\])\1(?:; ?|$)/i;
+
+	let fileName = "";
+	if (utf8FilenameRegex.test(contentDisposition)) {
+		const execArray = utf8FilenameRegex.exec(contentDisposition);
+		fileName = decodeURIComponent(execArray ? execArray[1] : "");
+	} else {
+		// prevent ReDos attacks by anchoring the ascii regex to string start and
+		//  slicing off everything before 'filename='
+		const filenameStart = contentDisposition.toLowerCase().indexOf("filename=");
+		if (filenameStart >= 0) {
+			const partialDisposition = contentDisposition.slice(filenameStart);
+			const matches = asciiFilenameRegex.exec(partialDisposition);
+			if (matches != null && matches[2]) {
+				fileName = matches[2];
+			}
+		}
+	}
+	return fileName;
+}
+
 export async function makeRequest(
 	options: {
 		method: "GET" | "POST";
@@ -46,13 +70,14 @@ export async function makeRequest(
 		body?: Record<string, unknown>;
 		guard?: boolean;
 		teachRoot?: boolean;
+		expectBuffer?: boolean;
 	},
 	context: Record<string, unknown> = {},
 	account?: Account,
 	token?: string
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 ): Promise<any> {
-	const { method, path, body, guard, teachRoot } = options;
+	const { method, path, body, guard, teachRoot, expectBuffer } = options;
 	const url = Config.get(teachRoot ? "rootp" : "root") + path;
 	const resListener = new EventEmitter();
 	function onRes(callback: (res: Response) => void) {
@@ -87,16 +112,35 @@ export async function makeRequest(
 
 	const response = await fetch(url, params);
 
-	const resBody = (await response.json()) as Record<string, unknown>;
+	const resBody = expectBuffer
+		? await response.buffer()
+		: ((await response.json()) as Record<string, unknown>);
 
 	resListener.emit("response", { response, body: resBody });
 
-	const failure = isFailure(resBody);
+	const failure =
+		!expectBuffer && isFailure(resBody as Record<string, unknown>);
 	if (guard && failure) throw new EcoleDirecteAPIError(resBody as failureRes);
 
 	const someToken =
-		(resBody.token as string | undefined) || response.headers.get("x-token");
+		(!expectBuffer &&
+			((resBody as Record<string, unknown>).token as string | undefined)) ||
+		response.headers.get("x-token");
+
 	if (!failure && account && someToken) account.token = someToken;
+
+	if (expectBuffer) {
+		const buff = resBody as Buffer;
+		const contentDisposition = response.headers.get("content-disposition");
+		if (!contentDisposition) throw new Error("No content-disposition");
+		// Get file name
+		const fileName = getFileName(contentDisposition);
+		// Get MIME type
+		const mimeType = mime.lookup(fileName);
+		// Create Blob
+		const blob = new Blob([buff], { type: mimeType || undefined });
+		return blob;
+	}
 
 	return resBody;
 }
