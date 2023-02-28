@@ -146,19 +146,19 @@ export async function makeRequest(
 }
 
 export const USER_AGENT =
-	"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/90.0.4430.212 Safari/537.36";
+	"Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/108.0.0.0 Safari/537.36";
 
 export const EdHeaders = {
 	authority: "api.ecoledirecte.com",
 	accept: "application/json, text/plain, */*",
-	"user-agent": USER_AGENT,
+	"accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
 	"content-type": "application/x-www-form-urlencoded",
 	origin: "https://www.ecoledirecte.com",
-	"sec-fetch-site": "same-site",
-	"sec-fetch-mode": "cors",
 	"sec-fetch-dest": "empty",
+	"sec-fetch-mode": "cors",
+	"sec-fetch-site": "same-site",
 	referer: "https://www.ecoledirecte.com/",
-	"accept-language": "fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7",
+	"user-agent": USER_AGENT,
 };
 
 export type FullConfig = {
