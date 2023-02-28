@@ -18,7 +18,6 @@ export async function login(
 			body: {
 				identifiant: username,
 				motdepasse: password,
-				acceptationCharte: true,
 			},
 		},
 		{ action: "login", username, password, ...context }
