@@ -23,6 +23,9 @@
 	},
 	"author": "a2br",
 	"license": "MIT",
+	"engines": {
+		"node": ">=14.0.0"
+	},
 	"devDependencies": {
 		"@types/eslint": "*",
 		"@types/html-to-text": "^8.0.0",
