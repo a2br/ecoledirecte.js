@@ -49,6 +49,6 @@
 		"ecoledirecte-api-types": "^0.14.0",
 		"html-to-text": "^8.0.0",
 		"mime-types": "^2.1.35",
-		"node-fetch": "^2.6.7"
+		"node-fetch": "^3.3.2"
 	}
 }
