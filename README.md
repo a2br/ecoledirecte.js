@@ -1,12 +1,13 @@
 # ecoledirecte.js &middot; ![GitHub](https://img.shields.io/github/license/a2br/ecoledirecte.js) ![npm](https://img.shields.io/npm/v/ecoledirecte.js) ![npm](https://img.shields.io/npm/dw/ecoledirecte.js)
 
-> ⚠ **The module is still under semver 1.0.0**: This means that big changes in the methods / import architecture can happen at any time. Make sure your code is compatible with the new version after updating.
+> ⚠ **As of August 8, 2023, this module is no longer maintained**: This means that although the module is perfectly functioning, I will not update it to comply to future EcoleDirecte API changes. The module may fail to fetch or send data. I would greatly appreciate PRs for feature requests / bug patches, as I no longer have the time to work on this project. Thank you.
 
-Browse EcoleDirecte's private API with the module of your dreams.
+Browse EcoleDirecte's private API with ED.js, an unofficial API client.
 
-`ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded, solid features. It keeps evolving and new features are being added. 
+`ed.js` is a Promise-based module, built on TypeScript for a better IntelliSense and type-guarded features.
 
 ## Examples
+
 > Warning: these examples might not work on your machine (depending on whether you're using `commonjs` or ES6 `module`)
 
 ### Get the homework of a day
